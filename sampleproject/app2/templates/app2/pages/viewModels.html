@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>VIEW MODELS APP 2</h1>
+
+    
+    <br><br>
+    <strong>Total no. of model 1: </strong> {{model1|length}}
+    <br><br>
+
+    {% for model in model1 %}
+        <h3>{{model.name}}</h3>
+        <br>
+    {% endfor %}
+
+    <br><br>
+    <strong>Total no. of model 2: </strong> {{model2|length}}
+    <br><br>
+
+    {% for model in model2 %}
+    <h3>{{model.name}}</h3>
+    <br>
+    {% endfor %}
+
+    
+</body>
+</html>
