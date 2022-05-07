@@ -27,5 +27,14 @@
     <br>
     {% endfor %}
 
+    <br><br>
+    <strong>Total no. of model 3: </strong> {{model3|length}}
+    <br><br>
+    {% for model in model3 %}
+    <h3>{{model.name}}</h3>
+    <h3>Foreign Key: {{model.model1}}</h3>
+    <br>
+    {% endfor %}
+
 </body>
 </html>

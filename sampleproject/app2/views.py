@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from app1.models import *
-
+from app2.models import *
 # Create your views here.
 
 def landing(request):
@@ -12,8 +12,10 @@ def home(request):
 def viewModels(request):
     model1 = Model1.objects.all()
     model2 = Model2.objects.all()
+    model3 = Model3.objects.all()
     data = {
         "model1": model1,
         "model2": model2,
+        "model3": model3,
     }
     return render(request, 'app2/pages/viewModels.html', data)
