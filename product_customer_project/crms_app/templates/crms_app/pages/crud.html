@@ -1,0 +1,77 @@
+{% extends 'crms_app/main.html' %}
+{% block content %}
+    <br><br>
+     <div class="container">
+         <h1>
+            CRUD TEST
+         </h1>
+     </div>
+
+     <div class="container">
+         <h1>Customer Database</h1>
+        <a href="{% url 'create' %}" class = "btn btn-outline-success">
+            <i class="fas fa-plus"></i>
+            Create Customer
+        </a>
+         <br><br>
+         <strong>Total no. of customers: </strong> {{customers|length}}
+         <br><br>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">isSubscribed</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for customer in customers %}
+                <tr>
+                    <td>{{customer.username}}</td>
+                    <td>{{customer.picture}}<</td>
+                    <td>{{customer.isSubscribed}}</td>
+                    <td>
+                        <a href="{% url 'update' customer.id %}" class = "btn btn-outline-primary">
+                            <i class="fas fa-edit"></i>
+                            Update
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete_customer_{{customer.id}}">
+                            <i class="fas fa-trash"></i>
+                            Delete
+                        </button>
+
+                        <!-- Delete customer Modal -->
+                        <div class="modal fade" id="delete_customer_{{customer.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete customer Confirmation</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete {{customer.username}}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{% url 'delete' customer.id %}" class="btn btn-outline-success">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                                            <i class="fas fa-ban"></i> Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+     </div>
+
+{% endblock content %}

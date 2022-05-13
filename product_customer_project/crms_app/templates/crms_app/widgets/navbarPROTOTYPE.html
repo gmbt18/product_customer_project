@@ -1,0 +1,141 @@
+<!-- Navbar -->
+<div class="navbar-container container-fluid bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light container">
+      <div class="container-fluid">
+        <a class="navbar-brand mb-0 h1 text-light {% if request.resolver_match.view_name == 'home' %}active{% endif %}" href="{% url 'home' %}">SellPoint</a>
+        <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarScroll">
+
+          <!-- GENERAL ITEMS -->
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'home' %}active{% endif %} text-light" aria-current="page" href="{% url 'home' %}">Home</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Catalogs
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'catalogCustomer' %}active{% endif %}" href="{% url 'catalogCustomer' %}">Catalog Customer</a>
+                </li>
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'catalogMonthly' %}active{% endif %}" href="{% url 'catalogMonthly' %}">Catalog Monthly</a>
+                </li>
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'catalogProduct' %}active{% endif %}" href="{% url 'catalogProduct' %}">Catalog Product</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Account
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a>
+                </li>
+    
+                <li class="dropdown-item"> <!--This is customerInfo-->
+                  <a class="nav-link {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' %}">View Profile</a>
+                </li>
+    
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'passwordChange' %}active{% endif %}" href="{% url 'passwordChange' %}">Password Change</a>
+                </li>
+    
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'passwordForgot' %}active{% endif %}" href="{% url 'passwordForgot' %}">Password Forgot</a>
+                </li>
+    
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'register' %}active{% endif %}" href="{% url 'register' %}">Register</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'about' %}active{% endif %} text-light" href="{% url 'about' %}">About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'crud' %}active{% endif %} text-light" href="{% url 'crud' %}">CRUD</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
+            </li>
+
+
+            <!-- FOR UNLOGGED IN USER -->
+
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'testRegister' %}active{% endif %} text-light" href="{% url 'testRegister' %}">testRegister</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'testLogin' %}active{% endif %} text-light" href="{% url 'testLogin' %}">testLogin</a>
+            </li>
+
+
+
+
+            <!-- FOR LOGGED IN USER -->
+            {% else %}
+
+            <!-- Display user -->
+            <li class="nav-link">
+              <a href="">
+                <i class="fas fa-user">{{request.user.first_name}} {{request.user.last_name}}</i>
+              </a>
+            </li>
+
+
+            <!-- Customer Information -->
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Customer Information
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'customerInformation' %}active{% endif %}" href="{% url 'customerInformation' request.user.id %}">customerInformation</a>
+                </li>
+              </ul>
+            </li>
+
+
+
+
+
+            <!-- Logout -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %} text-light" href="{% url 'testLogout' %}">testLogout</a>
+            </li>
+
+
+
+            {% endif %}
+            <!-- <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'detailedProduct' %}active{% endif %}" href="{% url 'detailedProduct' %}">Detailed Product</a>
+            </li> -->
+          </ul>
+
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+
+        </div>
+
+
+      </div>
+    </nav>
+</div>

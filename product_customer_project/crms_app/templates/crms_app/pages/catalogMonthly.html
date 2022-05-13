@@ -1,0 +1,385 @@
+{% extends 'crms_app/main.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href={% static 'css/catalogMonthly.css' %}>
+<div class="app container-fluid">
+  <div class="app-contents container d-flex flex-column justify-content-center">
+    <div class="monthly-catalog-view container-fluid py-2">
+      <div id="monthlyCatalogCarousel" class="carousel slide container-fluid m-0 p-0" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#monthlyCatalogCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#monthlyCatalogCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="100000">
+            <div class="monthly-catalog-view-contents default-border container-fluid d-flex p-3">
+              <div class="left-div col-lg-2 d-flex flex-column justify-content-center">
+                <div class="company-brand d-flex flex-column justify-content-between align-items-center px-3">
+                  <img 
+                    src="https://wallpaperaccess.com/full/1285952.jpg"
+                    class="company-logo"
+                    alt="Company Logo"
+                  />
+                  <div class="company-name-div mt-3 container-fluid">
+                    <p class="fs-4 fw-bold text-center mt-3">SellPoint</p>
+                  </div>
+                </div>
+                <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center mt-3">
+                  <div class="flag-details position-absolute d-flex flex-column align-items-center mt-1">
+                    <p class="fs-3 fw-bold mb-0 text-center">Monthly Catalog</p>
+                    <p class="fs-4 mb-0">April of</p>
+                    <p class="fs-4">2022</p>
+                  </div>
+                  <img 
+                    src="{% static 'media/image-flag-red.svg' %}" 
+                    class="left-flag"
+                  />
+                </div>
+              </div>
+              <div class="right-div col-lg-10 position-relative d-flex justify-content-end">
+                <div class="vertical-lines-div position-absolute d-flex">
+                  <div class="py-2">
+                    <div class="vertical-line-lg me-2"></div>
+                  </div>
+                  <div class="py-4">
+                    <div class="vertical-line-sm"></div>
+                  </div>
+                </div>
+                <div class="right-div-contents col-lg-11 d-flex justify-content-end">
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Most Popular</p>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Most Sales</p>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">laptop(Students Learn Computer Online)Quad-Core Intel N3350</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">laptop(Students Learn Computer Online)Quad-Core Intel N3350</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Top Rated</p>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">1 Kg Certified High Quality Vermicast - Worm Manure (100% Organic)</h6>
+                        <p class="card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">1 Kg Certified High Quality Vermicast - Worm Manure (100% Organic)</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Of Note</p>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">Portable folding table for study, laptop desk, mini laptop support tray for sofa bed</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">Portable folding table for study, laptop desk, mini laptop support tray for sofa bed</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="1000000">
+            <div class="monthly-catalog-view-contents default-border container-fluid d-flex p-3">
+              <div class="left-div col-lg-2 d-flex flex-column justify-content-center">
+                <div class="company-brand d-flex flex-column justify-content-between align-items-center px-3">
+                  <img 
+                    src="https://wallpaperaccess.com/full/1285952.jpg"
+                    class="company-logo"
+                    alt="Company Logo"
+                  />
+                  <div class="company-name-div mt-3 container-fluid">
+                    <p class="fs-4 fw-bold text-center mt-3">SellPoint</p>
+                  </div>
+                </div>
+                <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center mt-3">
+                  <div class="flag-details position-absolute d-flex flex-column align-items-center mt-1">
+                    <p class="fs-3 fw-bold mb-0 text-center">Monthly Catalog</p>
+                    <p class="fs-4 mb-0">March of</p>
+                    <p class="fs-4">2022</p>
+                  </div>
+                  <img 
+                    src="{% static 'media/image-flag-green.svg' %}" 
+                    class="left-flag"
+                  />
+                </div>
+              </div>
+              <div class="right-div col-lg-10 position-relative d-flex justify-content-end">
+                <div class="vertical-lines-div position-absolute d-flex">
+                  <div class="py-2">
+                    <div class="vertical-line-lg me-2"></div>
+                  </div>
+                  <div class="py-4">
+                    <div class="vertical-line-sm"></div>
+                  </div>
+                </div>
+                <div class="right-div-contents col-lg-11 d-flex justify-content-end">
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Most Popular</p>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Most Sales</p>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">laptop(Students Learn Computer Online)Quad-Core Intel N3350</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">laptop(Students Learn Computer Online)Quad-Core Intel N3350</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Top Rated</p>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">1 Kg Certified High Quality Vermicast - Worm Manure (100% Organic)</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">1 Kg Certified High Quality Vermicast - Worm Manure (100% Organic)</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Of Note</p>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">Portable folding table for study, laptop desk, mini laptop support tray for sofa bed</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                    <div class="product-card card mt-3" style="width: 100%;">
+                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h6 class="card-title">Portable folding table for study, laptop desk, mini laptop support tray for sofa bed</h6>
+                        <p class="price card-text">P377</p>
+                        <div class="rating d-flex justify-content-center">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <p class="address card-text text-center">Metro Manila</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#monthlyCatalogCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#monthlyCatalogCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

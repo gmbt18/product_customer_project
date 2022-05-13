@@ -1,0 +1,39 @@
+input[type='radio'] {
+  display: none;
+}
+
+.detailed-product-view-contents {
+  background-color: white;
+}
+
+.left-flag {
+  width: 100%;
+  height: 100%;
+}
+
+.vertical-lines-div {
+  left: 12px;
+  height: 100%;
+}
+
+.vertical-line-lg {
+  border: 6px solid black;
+  height: 100%;
+}
+
+.vertical-line-sm {
+  border: 4px solid black;
+  height: 100%;
+}
+.product-img{
+  width: 100%;
+  height: 100%;
+  float: left;
+  margin: 5px;
+  padding: 5px;
+}
+.tab-content{
+  margin-left: 16px;
+}
+
+  
