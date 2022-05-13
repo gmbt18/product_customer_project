@@ -1,0 +1,107 @@
+{% extends 'crms_app/main.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href={% static 'css/detailedProduct.css' %}>
+<div class="app container-fluid">
+  <div class="app-contents container">
+      <div class="detailed-product-view container-fluid py-2">
+          <div class="detailed-product-view-contents default-border container-fluid d-flex pt-2 pb-4">
+            <div class="row">
+              <div class="left-div col-lg-5 m-3 d-flex flex-column">
+                <div class="d-flex flex-wrap">
+                  <div class="product-img mt-3 me-3 bg-secondary">
+                      <div class="text-center p-4"> <img id="main-image" src="https://wallpaperaccess.com/full/1285952.jpg" width = "100%"/> </div>
+                      <div class="thumbnail text-center"> 
+                          <!-- JavaScript still not added -->
+                          <img onclick="change_image(this)" src="https://wallpaperaccess.com/full/1285952.jpg" width="20%">  
+                          <img onclick="change_image(this)" src="https://wallpaperaccess.com/full/1285952.jpg" width="20%"> 
+                      </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="right-div col-lg position-relative d-flex justify-content-left">
+                <div class="mt-3 mb-3"> 
+                  <span class="text-uppercase text-muted">【Fast delivery】</span>                                <!-- TAGS -->
+                  <h5 class="text-uppercase">Speaker Soundbar Bluetooth Version</h5>                              <!-- NAME -->
+                  <div class="rating d-flex m-2">
+                    <u class="rating fw-bold" style="padding-right: 4px;">4.8</u>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="price d-flex flex-row align-items-center">                                          <!-- PRICE -->
+                      <del class="dis-price text-muted" style="padding-right: 10px">$629</del> 
+                      <span class="act-price fw-bold" style="padding-right: 10px">$377</span>
+                      <small class="discount bg-dark text-white" style="padding: 1px ; padding-left: 4px; padding-right: 4px;">40% OFF</small> 
+                  </div>
+                  <div class="text-justify col-lg-10">
+                      <p class="brief-description ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                  </div>
+  
+                  <h5 class="text-uppercase text-muted mt-2">Options</h5> 
+                  <div class="options text-uppercase">
+                    <label class="btn btn-dark radio active px-1"> <input type="radio" name="type" value="1" autocomplete="off" checked> <span>Bluetooth 2.0</span> </label> 
+                    <label class="btn btn-dark radio px-1"> <input type="radio" name="type" value="2" autocomplete="off"> <span>Bluetooth 3.0</span> </label> 
+                    <label class="btn btn-dark radio px-1"> <input type="radio" name="type" value="3" autocomplete="off">  <span>Bluetooth 4.0</span> </label> 
+                  </div>
+                  <h5 class="text-uppercase text-muted mt-3">Quantity</h5> 
+                  <div class="quantity d-inline-flex" >
+                      <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="quantity-left-minus btn btn-dark btn-number" type="button" data-type="minus" data-field="">
+                              <span class="fa fa-minus"></span>
+                            </button>
+                        </span>
+                        <!-- JavaScript still not added -->
+                        <input class="quantity form-control input-number text-center"  type="text" value="10" min="1" max="100">
+                        <span class="input-group-btn">
+                            <button class="quantity-right-plus btn btn-dark btn-number"  type="button" data-type="plus" data-field="">
+                                <span class="fa fa-plus"></span>
+                            </button>
+                        </span>
+                      </div>
+                    </div>
+                  <div class="cart align-items-center mt-3"> 
+                    <button class="btn btn-dark text-uppercase"><span class="fa fa-shopping-cart px-1"></span>Add to cart</button> 
+                    <button class="btn btn-dark text-uppercase">buy now</button> 
+                  </div>  
+               </div>
+                <!-- right div -->
+              </div>
+              <!-- row -->
+              <div class="row mt-3">
+                <div class="col-lg product-info">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">product description</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">product specification</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        <h3>Speaker Soundbar Bluetooth Version Features:</h3>
+                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+                        <li>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</li>
+                      </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      ...
+                    </div>
+                  </div>
+                </div> 
+              </div>
+
+              <div class="row">
+                
+              </div>
+
+            </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

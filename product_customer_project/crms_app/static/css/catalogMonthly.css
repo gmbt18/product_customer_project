@@ -1,0 +1,53 @@
+.carousel-indicators {
+  position: absolute;
+  bottom: -50px;
+}
+
+.carousel-control-prev {
+  position: absolute;
+  left: -150px;
+}
+
+.carousel-control-next {
+  position: absolute;
+  right: -150px;
+}
+
+.monthly-catalog-view-contents {
+  background-color: white;
+}
+
+.company-logo {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.company-name-div, .top-products-label-div {
+  background: rgb(0,0,0,0.3);
+}
+
+.left-flag {
+  width: 100%;
+  height: 100%;
+}
+
+.vertical-lines-div {
+  left: 12px;
+  height: 100%;
+}
+
+.vertical-line-lg {
+  border: 6px solid black;
+  height: 100%;
+}
+
+.vertical-line-sm {
+  border: 4px solid black;
+  height: 100%;
+}
+
+.product-card .card-title {
+  height: 90px;
+}

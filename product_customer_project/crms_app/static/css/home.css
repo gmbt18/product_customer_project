@@ -1,0 +1,19 @@
+.home-view-contents {
+  background-color: white;
+  height: 100%;
+}
+
+.company-logo {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.company-name-div, .top-products-label-div {
+  background: rgb(0,0,0,0.3);
+}
+
+.product-card .card-title {
+  height: 76px;
+}

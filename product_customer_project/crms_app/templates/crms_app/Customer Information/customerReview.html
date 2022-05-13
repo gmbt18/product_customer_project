@@ -1,0 +1,42 @@
+{% extends 'crms_app/main.html' %}
+{% block content %}
+
+    <br><br>
+
+    <div class="container">
+         <h1>
+            customerReview Page
+         </h1>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card text-center shadow">
+                    <div class="card-header">
+                        Your customerReview
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{customerReview}}</h5>
+                        <!-- Filler pic for now -->
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="45%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                        <p class="card-text">
+                            <strong>rating: </strong>
+                            {{customerReview.rating}}
+                            <br>
+                            <strong>reviewDate: </strong>
+                            {{customerReview.reviewDate}}
+                            <br>
+                            <strong>productReview: </strong>
+                            {{customerReview.productReview}}
+                            <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

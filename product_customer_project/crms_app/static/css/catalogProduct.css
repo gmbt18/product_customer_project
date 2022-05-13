@@ -1,0 +1,73 @@
+a.dropdown-item:hover {
+  cursor: pointer;
+}
+
+.product-catalog-view-contents {
+  background-color: white;
+}
+
+.left-flag {
+  width: 100%;
+  height: 100%;
+}
+
+.vertical-lines-div {
+  left: 12px;
+  height: 100%;
+}
+
+.vertical-line-lg {
+  border: 6px solid black;
+  height: 100%;
+}
+
+.vertical-line-sm {
+  border: 4px solid black;
+  height: 100%;
+}
+
+.product-card .card-title {
+  height: 90px;
+}
+
+/*
+  css adapted from and credits to
+  https://stackoverflow.com/a/33858727
+  https://jsfiddle.net/nuv7ftrj/1/
+*/
+.ratings {
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  /* color: #b1b1b1; */
+  overflow: hidden;
+}
+.full-stars {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  /* color: #fde16d; */
+}
+/* .empty-stars:before, .full-stars:before {
+  content:"\2605\2605\2605\2605\2605";
+  font-size: 16pt;
+}
+.empty-stars:before {
+  -webkit-text-stroke: 2px #848484;
+}
+.full-stars:before {
+  -webkit-text-stroke: 2px orange;
+} */
+/* Webkit-text-stroke is not supported on firefox or IE */
+
+/* Firefox */
+/* @-moz-document url-prefix() {
+  .full-stars {
+      color: #ECBE24;
+  }
+} */
+/* 
+  end copied css
+*/

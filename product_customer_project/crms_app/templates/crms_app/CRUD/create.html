@@ -1,0 +1,39 @@
+{% extends 'crms_app/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<br>
+<div class="container">
+    <h1>Create Customer</h1>
+    <br>
+
+    <div class="card">
+        <div class="card-header">
+            Create Customer Form
+        </div>
+        <div class="card-body">
+            <form action="" method="POST">
+                <!-- Input fields -->
+                {% csrf_token %}
+                {{form|crispy}}
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i>
+                    Create Customer
+                </button>
+
+                <!-- Cancel Button -->
+                <a href="{% url 'crud' %}" class="btn btn-outline-danger">
+                    <i class="fas fa-ban"></i>
+                    Cancel
+                </a>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}
