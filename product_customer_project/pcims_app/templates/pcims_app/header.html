@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row bg-dark">
+
+        <div class="col-9">
+            <div style="height:5px;"></div>
+            
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a href="{% url 'index' %}" class="navbar-brand">
+                        <img src="..." alt="" width="50" height="50">
+                    </a>
+                    
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-link" href="{% url 'index' %}">Dashboard</a>
+                                <a class="nav-link" href="{% url 'productsPage' %}">Products</a>
+                                <!-- if manager, -->
+                                <a class="nav-link" href="{% url 'suppliersPage' %}">Suppliers</a>
+                            </div>
+                        </div>
+                    
+                        <form class="d-flex flex-fill">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-light" type="submit">Search</button>
+                        </form>
+    
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-3">
+
+            <!-- if user is logged in -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-4">
+                            <div style="height:10px;"></div>
+                            <a href="" class="navbar-brand">
+                                <img src="" alt="" width="50" height="50">
+                            </a>
+                        </div>
+
+                        <div class="col-8">
+                            <a href="" class="nav-link" style="padding:0;color:white">Manage Profile</a>
+                            <a href="" class="nav-link" style="padding:0;color:white">My Reviews</a>
+                            <a href="" class="nav-link" style="padding:0;color:white">Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+
+            <!-- if user is not logged in -->
+                <!-- <div style="height:15px;"></div>
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-4">
+                            <a href="{% url 'loginPage' %}" class="nav-link" style="padding:0;color:white">Log in</a>
+                            <a href="" class="nav-link" style="padding:0;color:white">Sign up</a>
+                        </div>
+                    </div>
+                </div> -->
+
+        </div>
+
+
+
+    </div>
+</div>
