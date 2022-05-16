@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 login_URL = "/crms/testLogin/"
 
-def home(request):
+def customerHome(request):
     return render(request, 'crms_app/pages/home.html')
 
 def catalogCustomer(request):
