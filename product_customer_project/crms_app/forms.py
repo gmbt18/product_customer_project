@@ -3,29 +3,36 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import get_user_model
 from crms_app.models import * 
+from django import forms
 
 User = get_user_model()
 
-class CustomerCreationForm(UserCreationForm):
+USER_TYPE_CHOICES = {
+        (1, 'Product Manager'),
+        (2, 'Customer')
+    }
+
+class AuthUserCreationForm(UserCreationForm):
     attrs = { 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Password' , 'required': True, } 
     password1 =  CharField( widget=PasswordInput(attrs=attrs) )
     password2 =  CharField( widget=PasswordInput(attrs=attrs) )
     class Meta:
-        model = Customer
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        model = AuthUser
+        fields = ['first_name', 'last_name', 'username', 'email', 'user_type', 'password1', 'password2']
         widgets = { 
             #insert bootstrap designs here
             'first_name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter First Name', 'required': True, } ),
             'last_name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Last Name', 'required': True, } ),
             'username': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput' , 'placeholder':'Enter Username', 'required': True, } ),
             'email': TextInput( attrs={ 'type':'email', 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Email Address', 'required': True, } ),
+            'sex' : forms.Select(choices=USER_TYPE_CHOICES),
         }
 
-class CustomerUpdateForm(ModelForm):
+class CustomerInformationUpdateForm(ModelForm):
     class Meta:
-        model = Customer
+        model = CustomerInformation
         #insert here attributes of Customer to be included in form
-        fields = ['username', 'name', 'birthday','sex', 'nationality', 'citizenship', 'picture', 'isSubscribed', 
+        fields = ['name', 'birthday','sex', 'nationality', 'citizenship', 'picture', 'isSubscribed', 
         'presentAddress', 'permanentAddress', 'billingAddress', 'shippingAddress', 'officeAddress', 
         'personalCPNumber', 'officeCPNumber', 'homeLandlineNumber', 'officeLandlineNumber',
         'personalEmail', 'officeEmail']

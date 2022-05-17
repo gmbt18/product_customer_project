@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # Create your views here.
+
+def productHome(request):
+    return render(request, 'pcims_app/home.html')
+
 def index(request):
     return render(request, 'pcims_app/dashboard.html')
 
@@ -25,3 +29,4 @@ def productReviews(request):
 
 def myReviews(request):
     return render(request, 'pcims_app/myreviews.html')
+
