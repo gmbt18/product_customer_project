@@ -96,20 +96,21 @@ def register(request):
 #CustomerInformation Page
 @login_required(login_url=login_URL)
 def customer(request,pk):
-    customer = Customer.objects.get(id=pk)
-    form = CustomerUpdateForm(instance=customer)
+    customer = AuthUser.objects.get(id=pk,user_type=2)
+    customerInformation = CustomerInformation.objects.get_or_create(customer=customer)
+    form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
-        form = CustomerUpdateForm(request.POST, instance=customer)
+        form = CustomerInformationUpdateForm(request.POST, instance=customer)
         if(form.is_valid()):
             form.save()
-            return redirect("/customerInformation/"+pk)
+            return redirect("/crms/customerInformation/"+pk)
     data = {"form": form}
     return render(request, 'crms_app/Customer Information/customerInformation.html', data)
 
 
 @login_required(login_url=login_URL)
 def productComplaint(request,pk):
-    customer = Customer.objects.get(id=pk)
+    customer = AuthUser.objects.get(id=pk, user_type=2)
     productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer)
     data = {
         "productComplaint" : productComplaint,
@@ -119,7 +120,7 @@ def productComplaint(request,pk):
 
 @login_required(login_url=login_URL)
 def customerReview(request,pk):
-    customer = Customer.objects.get(id=pk)
+    customer = AuthUser.objects.get(id=pk, user_type=2)
     customerReview, created = CustomerReview.objects.get_or_create(customer=customer)
     data = {
         "customerReview" : customerReview,
@@ -142,37 +143,39 @@ def about(request):
 @login_required(login_url=login_URL)
 def crud(request):
     #query
-    customers = Customer.objects.all()
+    customers = getCustomersList()
+    # Gets all the customer information
     data = {"customers": customers}
     return render(request, 'crms_app/pages/crud.html', data)
 
 def create(request):
-    form = CustomerCreationForm()
+    form = AuthUserCreationForm()
     if(request.method == "POST"):
-        form = CustomerCreationForm(request.POST)
+        form = AuthUserCreationForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return redirect("/crud")
+            return redirect("/crms/crud")
 
     data = {"form": form}
     return render(request, 'crms_app/CRUD/create.html', data)
 
 def update(request,pk):
-    customer = Customer.objects.get(id=pk)
-    form = CustomerUpdateForm(instance=customer)
+    customer = AuthUser.objects.get(id=pk,user_type=2)
+    customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
+    form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
-        form = CustomerUpdateForm(request.POST, instance=customer)
+        form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
         if(form.is_valid()):
             form.save()
-            return redirect("/crud")
+            return redirect("/crms/crud")
     data = {"form": form}
     return render(request, 'crms_app/CRUD/update.html', data)
 
 
 def delete(request,pk):
-    customer = Customer.objects.get(id=pk)
+    customer = AuthUser.objects.get(id=pk,user_type=2)
     customer.delete()
-    return redirect("/crud")
+    return redirect("/crms/crud")
 
 
 
@@ -181,13 +184,13 @@ def delete(request,pk):
 
 #REGISTER-LOGIN
 def testRegister_page(request):
-    form = CustomerCreationForm()
+    form = AuthUserCreationForm()
     if( request.method == "POST"):
-        form = CustomerCreationForm(request.POST)
+        form = AuthUserCreationForm(request.POST)
         if( form.is_valid() ):
             form.save()
             messages.success(request, "Account was created for "+form.cleaned_data.get("username"))
-            return redirect('/testLogin')
+            return redirect('/crms/testLogin')
 
     data = {"form": form}
     return render(request, 'crms_app/TEST-Register-Login/test-register.html',data)
@@ -203,7 +206,7 @@ def testLogin_page(request):
         if customer is not None:
             login(request, customer)
             print("Login Success.")
-            return redirect('/')
+            return redirect('/crms/')
         else:
             print("Login Fail.")
             messages.error(request, "Incorrect password or username.")
@@ -214,8 +217,16 @@ def testLogin_page(request):
 
 def testLogout_page(request):
     logout(request)
-    return redirect('testLogin')
+    return redirect('/crmscrms/testLogin')
 
 
 #Auxilliary functions
     #Create Functions
+
+def getCustomersList():
+    authUser = AuthUser.objects.filter(user_type=2)
+    customers = []
+    for customer in authUser:
+        customers.append(customer)
+    return customers
+

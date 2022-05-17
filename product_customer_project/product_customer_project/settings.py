@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'mathfilters',
 ]
 
-AUTH_USER_MODEL = 'crms_app.Customer'
+AUTH_USER_MODEL = 'crms_app.AuthUser'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5' 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'

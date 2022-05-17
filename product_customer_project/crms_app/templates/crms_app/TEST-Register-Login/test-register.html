@@ -59,6 +59,10 @@
                             <label for="floatingInput">Confirm Password</label>
                         </div> 
 
+                        <div class="form-floating mb-3">
+                            {{form.user_type}}
+                            <label for="floatingInput">Select User Type</label>
+                        </div> 
                         <br>
                         {% if form.errors %}
                             {% for key, value in form.errors.items %}

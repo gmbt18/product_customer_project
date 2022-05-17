@@ -6,9 +6,23 @@ from django.contrib.auth.models import AbstractUser
 ##modify Cutomer to AUTH_USER???
 #Register them in admins.py
 
+
+#User
+
+class AuthUser(AbstractUser):
+    USER_TYPE_CHOICES = {
+        (1, 'Product Manager'),
+        (2, 'Customer')
+    }
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
+
+
+
+
 # Create your models here.
-class Customer(AbstractUser):
+class CustomerInformation(models.Model):
     # blank: False = required
+    customer = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, null=True, blank=True)
     birthday = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     sex = models.CharField(max_length=10, null=True, default='Male', blank=True)
@@ -30,11 +44,11 @@ class Customer(AbstractUser):
 
 
 class ProductComplaint(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
     complaint = models.CharField(max_length=200, null=True, blank=False)
 
 class CustomerReview(models.Model):
-    customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
+    customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE)
     rating = models.IntegerField(
         null=True,
         validators=[
