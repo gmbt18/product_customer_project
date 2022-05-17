@@ -217,7 +217,7 @@ def testLogin_page(request):
 
 def testLogout_page(request):
     logout(request)
-    return redirect('/crmscrms/testLogin')
+    return redirect('/crms/testLogin')
 
 
 #Auxilliary functions
