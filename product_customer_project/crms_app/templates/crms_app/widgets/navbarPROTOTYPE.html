@@ -21,9 +21,9 @@
                 Catalogs
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li class="dropdown-item">
+                <!-- <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'catalogCustomer' %}active{% endif %}" href="{% url 'catalogCustomer' %}">Catalog Customer</a>
-                </li>
+                </li> -->
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'catalogMonthly' %}active{% endif %}" href="{% url 'catalogMonthly' %}">Catalog Monthly</a>
                 </li>
@@ -58,9 +58,9 @@
               </ul>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.view_name == 'about' %}active{% endif %} text-light" href="{% url 'about' %}">About</a>
-            </li>
+            </li> -->
 
             {% if request.user.is_staff %}
             <li class="nav-item">
