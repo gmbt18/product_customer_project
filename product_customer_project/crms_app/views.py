@@ -70,9 +70,7 @@ def catalogProduct(request):
     }
     return render(request, 'crms_app/pages/catalogProduct.html', context)
 
-@login_required(login_url=login_URL)
-def customerInfo(request):
-    return render(request, 'crms_app/pages/customerInfo.html')
+
 
 def searchPage(request):
     return render(request, 'crms_app/pages/searchPage.html')
@@ -95,7 +93,7 @@ def register(request):
 # Customer Information
 #CustomerInformation Page
 @login_required(login_url=login_URL)
-def customer(request,pk):
+def customerInformation(request,pk):
     customer = AuthUser.objects.get(id=pk,user_type=2)
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)

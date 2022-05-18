@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms import ImageField
 from django.contrib.auth.models import AbstractUser
+from pcims_app.models import *
 ##modify Cutomer to AUTH_USER???
 #Register them in admins.py
 
@@ -24,6 +25,7 @@ class AuthUser(AbstractUser):
 class CustomerInformation(models.Model):
     # blank: False = required
     customer = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
+    productCatalog = models.ForeignKey(ProductCatalog, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50, null=True, blank=True)
     birthday = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     sex = models.CharField(max_length=10, null=True, default='Male', blank=True)
@@ -46,10 +48,12 @@ class CustomerInformation(models.Model):
 
 class ProductComplaint(models.Model):
     customer = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,null=True)
     complaint = models.CharField(max_length=200, null=True, blank=False)
 
 class CustomerReview(models.Model):
     customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,null=True)
     rating = models.IntegerField(
         null=True,
         validators=[

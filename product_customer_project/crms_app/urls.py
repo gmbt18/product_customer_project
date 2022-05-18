@@ -9,8 +9,6 @@ urlpatterns = [
     path('catalogProduct/', views.catalogProduct, name="catalogProduct"),
     # Search
     path('searchPage/', views.searchPage, name="searchPage"),
-    # CustomerInfos
-    path('customerInfo/', views.customerInfo, name="customerInfo"),
     path('detailedProduct/', views.detailedProduct, name="detailedProduct"),
     path('login/', views.login_page, name="login"),
     path('passwordChange/', views.passwordChange, name="passwordChange"),
@@ -29,7 +27,7 @@ urlpatterns = [
     path('testLogout/', views.testLogout_page, name="testLogout"),
 
     # CustomerInfos
-    path('customerInformation/<str:pk>', views.customer, name="customerInformation"),
+    path('customerInformation/<str:pk>', views.customerInformation, name="customerInformation"),
     path('productComplaint/<str:pk>', views.productComplaint, name="productComplaint"),
     path('customerReview/<str:pk>', views.customerReview, name="customerReview"),
 ]

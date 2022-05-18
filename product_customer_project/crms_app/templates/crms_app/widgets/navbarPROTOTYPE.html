@@ -42,9 +42,7 @@
                   <a class="nav-link {% if request.resolver_match.view_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a>
                 </li>
     
-                <li class="dropdown-item"> <!--This is customerInfo-->
-                  <a class="nav-link {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' %}">View Profile</a>
-                </li>
+
     
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'passwordChange' %}active{% endif %}" href="{% url 'passwordChange' %}">Password Change</a>
