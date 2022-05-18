@@ -12,9 +12,10 @@ from django.contrib.auth.models import AbstractUser
 class AuthUser(AbstractUser):
     USER_TYPE_CHOICES = {
         (1, 'Product Manager'),
-        (2, 'Customer')
+        (2, 'Customer'),
+        (3, 'Customer Manager')
     }
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES,null=True)
 
 
 

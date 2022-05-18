@@ -28,13 +28,13 @@
             </thead>
             <tbody>
 
-                {% for customer in customers %}
+                {% for customerInformation in customerInformations %}
                 <tr>
-                    <td>{{customer.username}}</td>
-                    <td>{{customer.picture}}<</td>
-                    <td>{{customer.isSubscribed}}</td>
+                    <td>{{customerInformation.customer.username}}</td>
+                    <td>{{customerInformation.picture}}</td>
+                    <td>{{customerInformation.isSubscribed}}</td>
                     <td>
-                        <a href="{% url 'update' customer.id %}" class = "btn btn-outline-primary">
+                        <a href="{% url 'update' customerInformation.customer.id %}" class = "btn btn-outline-primary">
                             <i class="fas fa-edit"></i>
                             Update
                         </a>
@@ -54,10 +54,10 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure you want to delete {{customer.username}}?
+                                        Are you sure you want to delete {{customerInformation.customer.username}}?
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="{% url 'delete' customer.id %}" class="btn btn-outline-success">
+                                        <a href="{% url 'delete' customerInformation.customer.id %}" class="btn btn-outline-success">
                                             <i class="fas fa-trash"></i> Delete
                                         </a>
                                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">

@@ -18,7 +18,7 @@ urlpatterns = [
     path('register/', views.register, name="register"),
     path('about/', views.about, name="about"),
     
-    path('crud/', views.crud, name="crud"),
+    path('manageCustomers/', views.manageCustomers, name="manageCustomers"),
     path('create/', views.create, name="create"),
     path('update/<str:pk>', views.update, name="update"),
     path('delete/<str:pk>', views.delete, name="delete"),

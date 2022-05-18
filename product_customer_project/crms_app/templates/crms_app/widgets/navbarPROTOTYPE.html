@@ -64,10 +64,11 @@
               <a class="nav-link {% if request.resolver_match.view_name == 'about' %}active{% endif %} text-light" href="{% url 'about' %}">About</a>
             </li>
 
+            {% if request.user.is_staff %}
             <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == 'crud' %}active{% endif %} text-light" href="{% url 'crud' %}">CRUD</a>
+              <a class="nav-link {% if request.resolver_match.view_name == 'manageCustomers' %}active{% endif %} text-light" href="{% url 'manageCustomers' %}">Manage Customers</a>
             </li>
-
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
             </li>
@@ -138,4 +139,8 @@
 
       </div>
     </nav>
+</div>
+
+<div>
+
 </div>

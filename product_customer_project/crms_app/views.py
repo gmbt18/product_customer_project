@@ -97,7 +97,7 @@ def register(request):
 @login_required(login_url=login_URL)
 def customer(request,pk):
     customer = AuthUser.objects.get(id=pk,user_type=2)
-    customerInformation = CustomerInformation.objects.get_or_create(customer=customer)
+    customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
         form = CustomerInformationUpdateForm(request.POST, instance=customer)
@@ -141,12 +141,17 @@ def about(request):
 #TESTS
 #CRUD
 @login_required(login_url=login_URL)
-def crud(request):
+def manageCustomers(request):
     #query
     customers = getCustomersList()
+    customerInformations = []
+    for customer in customers:
+        customerInformations.append(getCustomerInformation(customer))
     # Gets all the customer information
-    data = {"customers": customers}
-    return render(request, 'crms_app/pages/crud.html', data)
+    data = {"customers": customers,
+            "customerInformations": customerInformations,
+    }
+    return render(request, 'crms_app/pages/manageCustomers.html', data)
 
 def create(request):
     form = AuthUserCreationForm()
@@ -154,7 +159,7 @@ def create(request):
         form = AuthUserCreationForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return redirect("/crms/crud")
+            return redirect("/crms/manageCustomers")
 
     data = {"form": form}
     return render(request, 'crms_app/CRUD/create.html', data)
@@ -167,15 +172,18 @@ def update(request,pk):
         form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
         if(form.is_valid()):
             form.save()
-            return redirect("/crms/crud")
-    data = {"form": form}
+            return redirect("/crms/manageCustomers")
+    data = {"form": form,
+    "customerInformation": customerInformation,
+    
+    }
     return render(request, 'crms_app/CRUD/update.html', data)
 
 
 def delete(request,pk):
     customer = AuthUser.objects.get(id=pk,user_type=2)
     customer.delete()
-    return redirect("/crms/crud")
+    return redirect("/crms/manageCustomers")
 
 
 
@@ -205,7 +213,6 @@ def testLogin_page(request):
         
         if customer is not None:
             login(request, customer)
-            print("Login Success.")
             return redirect('/crms/')
         else:
             print("Login Fail.")
@@ -230,3 +237,6 @@ def getCustomersList():
         customers.append(customer)
     return customers
 
+def getCustomerInformation(authUser):
+    customerInformation, created = CustomerInformation.objects.get_or_create(customer=authUser)
+    return customerInformation
