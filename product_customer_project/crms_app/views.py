@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
 login_URL = "/crms/testLogin/"
 
@@ -18,53 +20,55 @@ def catalogMonthly(request):
     return render(request, 'crms_app/pages/catalogMonthly.html')
 
 def catalogProduct(request):
-    products = [
-        {
-          "name": "COD Super Bass JBL Charge 3+ Mini Portable Bluetooth Speaker",
-          "rating": 4.8,
-          "stocks": 100,
-          "reorderlvl": 20,
-          "sellingprice": 179,
-          "discount": 24,
-          "isarchived": False
-        },
-        {
-          "name": "120 Mini Portable Wireless Bluetooth Karaoke Speaker with FREE MICROPHONE",
-          "rating": 4.7,
-          "stocks": 80,
-          "reorderlvl": 20,
-          "sellingprice": 899,
-          "discount": 79,
-          "isarchived": False
-        },
-        {
-          "name": "JBL Charge MINI2+ plus Portable Wireless Bluetooth Speaker High Quality",
-          "rating": 4.7,
-          "stocks": 69,
-          "reorderlvl": 20,
-          "sellingprice": 399,
-          "discount": 58,
-          "isarchived": False
-        },
-        {
-          "name": "Original Super Bass Portable Bluetooth Speaker with Mic BT-1308 BT-1315 (3 inch) Wireless Bluetooth",
-          "rating": 4.7,
-          "stocks": 21,
-          "reorderlvl": 20,
-          "sellingprice": 100,
-          "discount": 75,
-          "isarchived": False
-        },
-        {
-          "name": "S6U/s10u Portable Mini LED Bluetooth Speaker",
-          "rating": 3.6,
-          "stocks": 120,
-          "reorderlvl": 20,
-          "sellingprice": 75,
-          "discount": 22,
-          "isarchived": False
-        }
-    ]
+    products = Product.objects.filter(isarchived=False)
+    # products = [
+    #     {
+    #       "name": "COD Super Bass JBL Charge 3+ Mini Portable Bluetooth Speaker",
+    #       "rating": 4.8,
+    #       "stocks": 100,
+    #       "reorderlvl": 20,
+    #       "sellingprice": 179,
+    #       "discount": 24,
+    #       "isarchived": False
+    #     },
+    #     {
+    #       "name": "120 Mini Portable Wireless Bluetooth Karaoke Speaker with FREE MICROPHONE",
+    #       "rating": 4.7,
+    #       "stocks": 80,
+    #       "reorderlvl": 20,
+    #       "sellingprice": 899,
+    #       "discount": 79,
+    #       "isarchived": False
+    #     },
+    #     {
+    #       "name": "JBL Charge MINI2+ plus Portable Wireless Bluetooth Speaker High Quality",
+    #       "rating": 4.7,
+    #       "stocks": 69,
+    #       "reorderlvl": 20,
+    #       "sellingprice": 399,
+    #       "discount": 58,
+    #       "isarchived": False
+    #     },
+    #     {
+    #       "name": "Original Super Bass Portable Bluetooth Speaker with Mic BT-1308 BT-1315 (3 inch) Wireless Bluetooth",
+    #       "rating": 4.7,
+    #       "stocks": 21,
+    #       "reorderlvl": 20,
+    #       "sellingprice": 100,
+    #       "discount": 75,
+    #       "isarchived": False
+    #     },
+    #     {
+    #       "name": "S6U/s10u Portable Mini LED Bluetooth Speaker",
+    #       "rating": 3.6,
+    #       "stocks": 120,
+    #       "reorderlvl": 20,
+    #       "sellingprice": 75,
+    #       "discount": 22,
+    #       "isarchived": False
+    #     }
+    # ]
+
     context = {
         'products': products
     }
@@ -75,8 +79,61 @@ def catalogProduct(request):
 def searchPage(request):
     return render(request, 'crms_app/pages/searchPage.html')
 
-def detailedProduct(request):
-    return render(request, 'crms_app/pages/detailedProduct.html')
+def detailedProduct(request,pk):
+    data = {}
+    reviewForm = CustomerReviewForm()
+    try:
+        customer = AuthUser.objects.get(id=request.user.id)
+        data["isRegistered"] = True
+    except AuthUser.DoesNotExist:
+        data["isRegistered"] = False
+    product = Product.objects.get(id=pk)
+    reviews = CustomerReview.objects.filter(product=product)
+    reviewNum = len(reviews)
+    print(reviews)
+    print(reviewNum)
+    mean_rating = 0
+    if(reviewNum != 0):
+        for review in reviews:
+            mean_rating += review.rating
+        mean_rating = mean_rating/reviewNum
+    data['reviewNum'] = reviewNum
+    data['reviews'] = reviews
+    data["mean_rating"] = mean_rating
+
+    if(request.method == "POST" and data.get("isRegistered")):
+        review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
+        reviewForm = CustomerReviewForm(request.POST, instance=review)
+        if(reviewForm.is_valid()):
+            reviewForm.save()
+            messages.success(request, "The review was created on "+ product.name)
+            return redirect(f"/crms/detailedProduct/{pk}")
+    data['product'] = product
+    data['reviewForm'] = reviewForm
+
+    return render(request, 'crms_app/pages/detailedProduct.html', data)
+
+def submitProductComplaint(request, pk):
+    data = {}
+    productComplaintForm = ProductComplaintForm()
+    data["productComplaintForm"] = productComplaintForm
+    try:
+        customer = AuthUser.objects.get(id=request.user.id)
+        data["isRegistered"] = True
+    except AuthUser.DoesNotExist:
+        data["isRegistered"] = False
+    
+    product = Product.objects.get(id=pk)
+    data["product"] = product
+    if(request.method == "POST" and data.get("isRegistered")):
+        productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer,product=product)
+        productComplaintForm = ProductComplaintForm(request.POST, instance=productComplaint)
+        if(productComplaintForm.is_valid()):
+            productComplaintForm.save()
+            messages.success(request, "A complaint was created on "+ product.name)
+            return redirect(f"/crms/detailedProduct/{pk}")
+
+    return render(request, 'crms_app/pages/submitProductComplaint.html',data)
 
 def login_page(request):
     return render(request, 'crms_app/pages/login.html')
@@ -127,7 +184,12 @@ def customerReview(request,pk):
     return render(request, 'crms_app/Customer Information/customerReview.html', data)
 
 
-
+def removeReview(request, pk):
+    review = CustomerReview.objects.get(id=pk)
+    product = review.product
+    review.delete()
+    messages.success(request, "The review was removed on "+ product.name)
+    return redirect(f"/crms/detailedProduct/{product.id}")
 
 
 

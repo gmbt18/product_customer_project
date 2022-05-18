@@ -9,7 +9,7 @@ urlpatterns = [
     path('catalogProduct/', views.catalogProduct, name="catalogProduct"),
     # Search
     path('searchPage/', views.searchPage, name="searchPage"),
-    path('detailedProduct/', views.detailedProduct, name="detailedProduct"),
+    path('detailedProduct/<str:pk>', views.detailedProduct, name="detailedProduct"),
     path('login/', views.login_page, name="login"),
     path('passwordChange/', views.passwordChange, name="passwordChange"),
     path('passwordForgot/', views.passwordForgot, name="passwordForgot"),
@@ -30,4 +30,7 @@ urlpatterns = [
     path('customerInformation/<str:pk>', views.customerInformation, name="customerInformation"),
     path('productComplaint/<str:pk>', views.productComplaint, name="productComplaint"),
     path('customerReview/<str:pk>', views.customerReview, name="customerReview"),
+    path('removeReview/<str:pk>', views.removeReview, name="removeReview"),
+    path('submitProductComplaint/<str:pk>', views.submitProductComplaint, name="submitProductComplaint"),
+
 ]

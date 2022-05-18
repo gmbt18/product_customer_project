@@ -45,7 +45,7 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True,blank=True)
     name=models.CharField(max_length=200,null=True)
     rating = models.FloatField()
     reviews = models.TextField(blank=True,null=True)
