@@ -37,7 +37,7 @@
           <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
             <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
               <p class="fs-3 fw-bold mt-3 mb-0">SellPoint</p>
-              <p class="fs-4">Audio</p>
+              <p class="curr-category fs-4">Audio</p>
               <p class="fs-4">Category</p>
             </div>
             <img 
@@ -50,100 +50,172 @@
             <p class="text-start fs-5 fw-bold mb-0">By Category</p>
             <div class="filter-categories d-flex flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" type="radio"  checked name="categoryRadio" id="audioRadio">
+                <input class="form-check-input" value="audio" type="radio"  name="categoryRadio" id="audioRadio" checked>
                 <label class="form-check-label" for="audioRadio">
                   Audio
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="categoryRadio" id="babiesAndKidsRadio">
-                <label class="form-check-label" for="babiesAndKidsRadio">
-                  Babies & Kids
+                <input class="form-check-input" value="clothes" type="radio" name="categoryRadio" id="clothesRadio">
+                <label class="form-check-label" for="clothesRadio">
+                  Clothes
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="categoryRadio" id="camerasRadio">
-                <label class="form-check-label" for="camerasRadio">
-                  Cameras
+                <input class="form-check-input" value="shoes" type="radio" name="categoryRadio" id="shoesRadio">
+                <label class="form-check-label" for="shoesRadio">
+                  Shoes
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="categoryRadio" id="digitalGoodsAndVouchersRadio">
-                <label class="form-check-label" for="digitalGoodsAndVouchersRadio">
-                  Digital Goods & Vouchers
+                <input class="form-check-input" value="tech" type="radio" name="categoryRadio" id="techRadio">
+                <label class="form-check-label" for="techRadio">
+                  Tech
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="categoryRadio" id="gamingRadio">
-                <label class="form-check-label" for="gamingRadio">
-                  Gaming
+                <input class="form-check-input" value="accessories" type="radio" name="categoryRadio" id="accessoriesRadio">
+                <label class="form-check-label" for="accessoriesRadio">
+                  Accessories
                 </label>
               </div>
-              <span id="showMoreCategories">Show More Categories</span>
-            
-              <!-- Define the text that would be 
-                  hidden by default and only shown 
-                  when clicked on the button -->
-              <span id="hiddenCategories"> 
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="categoryRadio" id="groceriesRadio">
-                  <label class="form-check-label" for="groceriesRadio">
-                    Groceries
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="categoryRadio" id="healthAndPersonalCareRadio">
-                  <label class="form-check-label" for="healthAndPersonalCareRadio">
-                    Health & Personal Care
-                  </label>
-                </div>
-              </span>
             </div>
             <p class="text-start fs-5 fw-bold mb-0">By Subcategory</p>
-            <div class="filter-subcategories d-flex flex-column ms-4">
+            <div class="audio-filter-subcategories d-flex flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" type="check" id="speakersCheck">
+                <input class="form-check-input" type="checkbox" id="speakersCheck">
                 <label class="form-check-label" for="speakersCheck">
                   Speakers
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="check" id="earphonesHeadphonesAndHeadSetsCheck">
-                <label class="form-check-label" for="earphonesHeadphonesAndHeadSetsCheck">
-                  Earphones, Headphones & Headsets
+                <input class="form-check-input" type="checkbox" id="headphonesAndHeadSetsCheck">
+                <label class="form-check-label" for="headphonesAndHeadSetsCheck">
+                  Headphones/<br>Headset
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="check" id="microphonesCheck">
+                <input class="form-check-input" type="checkbox" id="microphonesCheck">
                 <label class="form-check-label" for="microphonesCheck">
                   Microphones
                 </label>
               </div>
+            </div>
+            <div class="clothes-filter-subcategories d-none flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" type="check" id="amplifiersAndMixersCheck">
-                <label class="form-check-label" for="amplifiersAndMixersCheck">
-                  Amplifiers & Mixers
+                <input class="form-check-input" type="checkbox" id="menUpperCheck">
+                <label class="form-check-label" for="menUpperCheck">
+                  Men Upper
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="check" id="AVReceiversCheck">
-                <label class="form-check-label" for="AVReceiversCheck">
-                  AV Receivers
+                <input class="form-check-input" type="checkbox" id="menLowerCheck">
+                <label class="form-check-label" for="menLowerCheck">
+                  Men Lower
                 </label>
               </div>
-              <span id="showMoreSubcategories">Show More Subcategories</span>
-            
-              <!-- Define the text that would be 
-                  hidden by default and only shown 
-                  when clicked on the button -->
-              <span id="hiddenSubcategories"> 
-                <div class="form-check">
-                  <input class="form-check-input" type="check" id="homeTheatherSystemsCheck">
-                  <label class="form-check-label" for="homeTheatherSystemsCheck">
-                    Home Theather Systems
-                  </label>
-                </div>
-              </span>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="menUnderwearCheck">
+                <label class="form-check-label" for="menUnderwearCheck">
+                  Men Underwear
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="womenUpperCheck">
+                <label class="form-check-label" for="womenUpperCheck">
+                  Women Upper
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="womenLowerCheck">
+                <label class="form-check-label" for="womenLowerCheck">
+                  Women Lower
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="womenUnderwearCheck">
+                <label class="form-check-label" for="womenUnderwearCheck">
+                  Women Underwear
+                </label>
+              </div>
+            </div>
+            <div class="shoes-filter-subcategories d-none flex-column ms-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="menShoesCheck">
+                <label class="form-check-label" for="menShoesCheck">
+                  Men Shoes
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="womenShoesCheck">
+                <label class="form-check-label" for="womenShoesCheck">
+                  Women Shoes
+                </label>
+              </div>
+            </div>
+            <div class="tech-filter-subcategories d-none flex-column ms-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="smartphoneCheck">
+                <label class="form-check-label" for="smartphoneCheck">
+                  Smartphone
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="pcCheck">
+                <label class="form-check-label" for="pcCheck">
+                  PC
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="laptopCheck">
+                <label class="form-check-label" for="laptopCheck">
+                  Laptop
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cameraCheck">
+                <label class="form-check-label" for="cameraCheck">
+                  Camera
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="tvCheck">
+                <label class="form-check-label" for="tvCheck">
+                  TV
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="peripheralsCheck">
+                <label class="form-check-label" for="peripheralsCheck">
+                  Peripherals
+                </label>
+              </div>
+            </div>
+            <div class="accessories-filter-subcategories d-none flex-column ms-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="watchesCheck">
+                <label class="form-check-label" for="watchesCheck">
+                  Watches
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="glassesCheck">
+                <label class="form-check-label" for="glassesCheck">
+                  Glasses
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="bagsCheck">
+                <label class="form-check-label" for="bagsCheck">
+                  Bags
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="jewelryCheck">
+                <label class="form-check-label" for="jewelryCheck">
+                  Jewelry
+                </label>
+              </div>
             </div>
             <p class="text-start fs-5 fw-bold mb-0">By Ratings</p>
             <div class="filter-ratings d-flex flex-column ms-4">
@@ -316,7 +388,7 @@
                     </div>
                   </div>
                 </div>
-                <span class="product-rating d-none">{{product.rating}}</span>
+                <span class="product-rating d-none">{{product.ratings}}</span>
               </div>
               {% endfor %}
             </div>
