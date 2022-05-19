@@ -24,7 +24,7 @@ def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
     products = [
         {
-            "category": "Speakers",
+            "category": "speakers",
             "name": "COD Super Bass JBL Charge 3+ Mini Portable Bluetooth Speaker",
             "ratings": [1, 2, 1, 10, 45],
             "stocks": 100,
@@ -34,7 +34,7 @@ def catalogProduct(request):
             "isarchived": False
         },
         {
-            "category": "Speakers",
+            "category": "speakers",
             "name": "120 Mini Portable Wireless Bluetooth Karaoke Speaker with FREE MICROPHONE",
             "ratings": [8, 2, 15, 60, 110],
             "stocks": 80,
@@ -44,7 +44,7 @@ def catalogProduct(request):
             "isarchived": False
         },
         {
-            "category": "Speakers",
+            "category": "speakers",
             "name": "JBL Charge MINI2+ plus Portable Wireless Bluetooth Speaker High Quality",
             "ratings": [3, 1, 9, 15, 60],
             "stocks": 69,
@@ -54,7 +54,7 @@ def catalogProduct(request):
             "isarchived": False
         },
         {
-            "category": "Speakers",
+            "category": "speakers",
             "name": "Original Super Bass Portable Bluetooth Speaker with Mic BT-1308 BT-1315 (3 inch) Wireless Bluetooth",
             "ratings": [12, 2, 6, 15, 92],
             "stocks": 21,
@@ -64,7 +64,7 @@ def catalogProduct(request):
             "isarchived": False
         },
         {
-            "category": "Speakers",
+            "category": "speakers",
             "name": "S6U/s10u Portable Mini LED Bluetooth Speaker",
             "ratings": [4, 0, 5, 8, 42],
             "stocks": 120,
