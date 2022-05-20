@@ -11,11 +11,12 @@ window.onload = () => {
     let avg = 0;
     let count = 0;
     for (let i = 0; i < RATING_ARR.length; i++) {
-      avg += RATING_ARR[i] * i+1;
+      avg += RATING_ARR[i] * (i+1);
       count += Number(RATING_ARR[i]);
     }
-    avg /= count;
-    e.querySelector('.full-stars').style.width = e.querySelector('.product-rating').textContent * 20 + '%';
+    avg = shortenDecimal(avg / count);
+    e.querySelector('.full-stars').title = `${shortenDecimal(avg)} (${count} votes)`;
+    e.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
 
     e.querySelector('.product-name').textContent = e.querySelector('.product-name').textContent.slice(0, 80) + '...';
   })
@@ -38,10 +39,7 @@ changeCategory = () => {
   document.querySelectorAll('.shoes-cat-products').forEach(e => e.classList.replace('d-flex', 'd-none'));
   document.querySelectorAll('.tech-cat-products').forEach(e => e.classList.replace('d-flex', 'd-none'));
   document.querySelectorAll('.accessories-cat-products').forEach(e => e.classList.replace('d-flex', 'd-none'));
-  document.querySelectorAll(`.${SPINAL_CATEGORY}-cat-products`).forEach(e => {
-    e.classList.replace('d-none', 'd-flex');
-    console.log(e)
-  });
+  document.querySelectorAll(`.${SPINAL_CATEGORY}-cat-products`).forEach(e => e.classList.replace('d-none', 'd-flex'));
 }
 
 changeSubcategory = () => {
@@ -66,5 +64,5 @@ changeSubcategory = () => {
 }
 
 shortenDecimal = num => {
-  return Math.round((num + Number.EPSILON) * (10 ** numDecimals)) / (10 ** numDecimals);
+  return Math.round((num + Number.EPSILON) * (10 ** 2)) / (10 ** 2);
 }
