@@ -17,6 +17,7 @@ window.onload = () => {
   document.querySelector('.apply-pricing-filter-btn').addEventListener('click', changePrice);
 
   document.getElementById('sortSelect').addEventListener('change', changeSort);
+  document.querySelector('.search-products-btn').addEventListener('click', searchProducts);
 
   document.querySelectorAll('.product-card').forEach(e => {
     const RATING_ARR = e.querySelector('.product-rating').textContent.match(/\d+/g);
@@ -206,6 +207,16 @@ changeSort = event => {
       });
       break;
   }
+}
+
+searchProducts = () => {
+  document.querySelectorAll('.product-card').forEach(e => {
+    if (e.querySelector('.product-name').textContent.includes(document.getElementById('searchProductsField').value)) {
+      e.classList.replace('d-none', 'd-flex');
+    } else {
+      e.classList.replace('d-flex', 'd-none');
+    }
+  });
 }
 
 shortenDecimal = num => {
