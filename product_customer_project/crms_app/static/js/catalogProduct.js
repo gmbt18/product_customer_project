@@ -15,7 +15,7 @@ window.onload = () => {
       count += Number(RATING_ARR[i]);
     }
     avg = shortenDecimal(avg / count);
-    e.querySelector('.full-stars').title = `${shortenDecimal(avg)} (${count} votes)`;
+    e.querySelector('.full-stars').title = `${shortenDecimal(avg)}/5 (${count} ratings)\n1* - ${RATING_ARR[0]} ratings\n2* - ${RATING_ARR[1]} ratings\n3* - ${RATING_ARR[2]} ratings\n4* - ${RATING_ARR[3]} ratings\n5* - ${RATING_ARR[4]} ratings`;
     e.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
 
     e.querySelector('.product-name').textContent = e.querySelector('.product-name').textContent.slice(0, 80) + '...';
