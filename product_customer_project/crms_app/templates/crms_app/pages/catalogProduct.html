@@ -3,7 +3,7 @@
 {% load static %}
 {% load mathfilters %}
 <link rel="stylesheet" href={% static 'css/catalogProduct.css' %}>
-<div class="modal fade" id="productComplaintModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productComplaintModalLabel" aria-hidden="true">
+<div class="modal product-complaint-modal fade" id="productComplaintModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productComplaintModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -11,11 +11,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <p class="complaint-product-name fw-bold"></p>
         <p class="text-center lead fw-bold mb-1">Reason for Complaint</p>
-        <select class="form-select">
-          <option value="1" selected>Product Condition</option>
-          <option value="2">Misleading Info</option>
-          <option value="3">Pornography</option>
+        <select class="form-select product-complaint-select">
+          <option value="productCondition" selected>Product Condition</option>
+          <option value="misleadingInfo">Misleading Info</option>
+          <option value="pornography">Pornography</option>
         </select>
         <div class="overflow-hidden mt-2">
           <label for="complaintComments" class="form-label">Complaint Comments</label>
@@ -348,12 +349,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -405,12 +406,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -462,12 +463,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -519,12 +520,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -576,12 +577,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -633,12 +634,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -690,12 +691,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -747,12 +748,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -804,12 +805,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -861,12 +862,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -918,12 +919,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -975,12 +976,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -1032,12 +1033,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -1089,12 +1090,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -1146,12 +1147,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -1203,12 +1204,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -1260,12 +1261,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -1317,12 +1318,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -1374,12 +1375,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -1431,12 +1432,12 @@
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>

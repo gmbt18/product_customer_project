@@ -3664,16 +3664,20 @@ def catalogProduct(request):
           "isarchived": 0
         },
     ]
+    # photos = [
+
+    # ]
 
     i = 1
     for product in products:
         product['id'] = i
         i += 1
     
-    print(products[0])
+    # print(products[0])
 
     context = {
         'products': products
+        'photos': photos
     }
     return render(request, 'crms_app/pages/catalogProduct.html', context)
 

@@ -20,6 +20,12 @@ window.onload = () => {
   document.querySelector('.search-products-btn').addEventListener('click', searchProducts);
 
   document.querySelectorAll('.product-card').forEach(e => {
+    e.querySelector('.product-condition-complaint').addEventListener('click', initializeComplaintModal);
+    e.querySelector('.misleading-info-complaint').addEventListener('click', initializeComplaintModal);
+    e.querySelector('.pornography-complaint').addEventListener('click', initializeComplaintModal);
+  })
+
+  document.querySelectorAll('.product-card').forEach(e => {
     const RATING_ARR = e.querySelector('.product-rating').textContent.match(/\d+/g);
     let avg = 0;
     let count = 0;
@@ -217,6 +223,11 @@ searchProducts = () => {
       e.classList.replace('d-flex', 'd-none');
     }
   });
+}
+
+initializeComplaintModal = event => {
+  document.querySelector('.product-complaint-modal').querySelector('.complaint-product-name').textContent = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.product-name').textContent;
+  document.querySelector('.product-complaint-modal').querySelector('.product-complaint-select').value = (event.target.textContent.charAt(0).toLowerCase() + event.target.textContent.slice(1,)).split(' ').join('');
 }
 
 shortenDecimal = num => {
