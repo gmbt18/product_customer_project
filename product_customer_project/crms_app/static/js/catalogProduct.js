@@ -1,10 +1,14 @@
 window.onload = () => {
   document.querySelectorAll('input[name="categoryRadio"]').forEach(e => {
     e.addEventListener('change', changeCategory);
-  })
+  });
   document.querySelectorAll('input[type="checkbox"]').forEach(e => {
     e.addEventListener('change', changeSubcategory);
-  })
+  });
+
+  document.querySelectorAll('input[name="ratingsRadio"]').forEach(e => {
+    e.addEventListener('change', changeMinRating);
+  });
 
   document.querySelectorAll('.product-card').forEach(e => {
     const RATING_ARR = e.querySelector('.product-rating').textContent.match(/\d+/g);
@@ -19,13 +23,12 @@ window.onload = () => {
     e.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
 
     e.querySelector('.product-name').textContent = e.querySelector('.product-name').textContent.slice(0, 80) + '...';
-  })
+  });
 };
 
 changeCategory = () => {
   const CURR_CATEGORY = document.querySelector('input[name="categoryRadio"]:checked').value;
   const SPINAL_CATEGORY = CURR_CATEGORY.replace(/([A-Z])/, '-$1').toLowerCase();
-  console.log(SPINAL_CATEGORY);
   document.querySelectorAll('input[type="checkbox"]').forEach(e => e.checked = false)
   document.querySelector('.curr-category').textContent = CURR_CATEGORY.charAt(0).toUpperCase() + CURR_CATEGORY.slice(1,CURR_CATEGORY.length);
   document.querySelector('.audio-filter-subcategories').classList.replace('d-flex', 'd-none');
@@ -61,6 +64,16 @@ changeSubcategory = () => {
       e.classList.replace('d-none', 'd-flex')
     })
   }
+}
+
+changeMinRating = event => {
+  document.querySelectorAll('.product-card').forEach(e => {
+    if (Number(e.querySelector('.full-stars').style.width.replace('%','')) / 20 >= event.target.value) {
+      e.classList.replace('d-none', 'd-flex');
+    } else {
+      e.classList.replace('d-flex', 'd-none');
+    }
+  })
 }
 
 shortenDecimal = num => {
