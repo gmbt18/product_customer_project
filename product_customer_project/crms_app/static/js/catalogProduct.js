@@ -33,12 +33,15 @@ changeCategory = () => {
   document.querySelector('.tech-filter-subcategories').classList.replace('d-flex', 'd-none');
   document.querySelector('.accessories-filter-subcategories').classList.replace('d-flex', 'd-none');
   document.querySelector(`.${CURR_CATEGORY}-filter-subcategories`).classList.replace('d-none', 'd-flex');
-  document.querySelector('.audio-cat-products').classList.replace('d-flex', 'd-none');
-  document.querySelector('.clothes-cat-products').classList.replace('d-flex', 'd-none');
-  document.querySelector('.shoes-cat-products').classList.replace('d-flex', 'd-none');
-  document.querySelector('.tech-cat-products').classList.replace('d-flex', 'd-none');
-  document.querySelector('.accessories-cat-products').classList.replace('d-flex', 'd-none');
-  document.querySelector(`.${SPINAL_CATEGORY}-cat-products`).classList.replace('d-flex', 'd-none');
+  document.querySelectorAll('.audio-cat-products').forEach(e => e.classList.replace('d-flex', 'd-none'));
+  document.querySelectorAll('.clothes-cat-products').forEach(e => e.classList.replace('d-flex', 'd-none'));
+  document.querySelectorAll('.shoes-cat-products').forEach(e => e.classList.replace('d-flex', 'd-none'));
+  document.querySelectorAll('.tech-cat-products').forEach(e => e.classList.replace('d-flex', 'd-none'));
+  document.querySelectorAll('.accessories-cat-products').forEach(e => e.classList.replace('d-flex', 'd-none'));
+  document.querySelectorAll(`.${SPINAL_CATEGORY}-cat-products`).forEach(e => {
+    e.classList.replace('d-none', 'd-flex');
+    console.log(e)
+  });
 }
 
 changeSubcategory = () => {
