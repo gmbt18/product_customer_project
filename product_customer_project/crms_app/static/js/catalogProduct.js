@@ -3,6 +3,8 @@ let minPrice = 0;
 let maxPrice = 9999999;
 
 window.onload = () => {
+  handleWindowResize();
+  window.addEventListener('resize', handleWindowResize);
   document.querySelectorAll('input[name="categoryRadio"]').forEach(e => {
     e.addEventListener('change', changeCategory);
   });
@@ -27,10 +29,16 @@ window.onload = () => {
     avg = shortenDecimal(avg / count);
     e.querySelector('.full-stars').title = `${shortenDecimal(avg)}/5 (${count} ratings)\n1* - ${RATING_ARR[0]} ratings\n2* - ${RATING_ARR[1]} ratings\n3* - ${RATING_ARR[2]} ratings\n4* - ${RATING_ARR[3]} ratings\n5* - ${RATING_ARR[4]} ratings`;
     e.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
-
-    e.querySelector('.product-name').textContent = e.querySelector('.product-name').textContent.slice(0, 80) + '...';
   });
 };
+
+handleWindowResize = () => {
+  document.querySelectorAll('.product-card').forEach(e => {
+    e.querySelector('.product-name').textContent = e.querySelector('.product-name').textContent.replace('...', '');
+    if (window.innerWidth < 1720) e.querySelector('.product-name').textContent = e.querySelector('.product-name').textContent.slice(0, 64) + '...';
+    else if (window.innerWidth >= 1720) e.querySelector('.product-name').textContent = e.querySelector('.product-name').textContent.slice(0, 80) + '...';
+  })
+}
 
 changeCategory = () => {
   const CURR_CATEGORY = document.querySelector('input[name="categoryRadio"]:checked').value;
