@@ -11,12 +11,12 @@ window.onload = () => {
   document.querySelectorAll('input[type="checkbox"]').forEach(e => {
     e.addEventListener('change', changeSubcategory);
   });
-
   document.querySelectorAll('input[name="ratingsRadio"]').forEach(e => {
     e.addEventListener('change', changeMinRating);
   });
-
   document.querySelector('.apply-pricing-filter-btn').addEventListener('click', changePrice);
+
+  document.getElementById('sortSelect').addEventListener('change', changeSort);
 
   document.querySelectorAll('.product-card').forEach(e => {
     const RATING_ARR = e.querySelector('.product-rating').textContent.match(/\d+/g);
@@ -107,6 +107,105 @@ handleRatingPriceChange = () => {
       setTimeout(e.classList.replace('d-flex', 'd-none'), 300)
     }
   });
+}
+
+changeSort = event => {
+  switch (event.target.value) {
+    case 'dateAddedDescending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let idArr = [];
+        e.querySelectorAll('.product-card').forEach(f => idArr.push(f.querySelector('.product-id').textContent));
+        idArr.sort((a,b) => a - b);
+        e.querySelectorAll('.product-card').forEach(f => {
+          f.style.order = (f.querySelector('.product-id').textContent - idArr[idArr.length-1]) * -1;
+        });
+      })
+      break;
+    case 'dateAddedAscending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let idArr = [];
+        e.querySelectorAll('.product-card').forEach(f => idArr.push(f.querySelector('.product-id').textContent));
+        idArr.sort((a,b) => a - b);
+        e.querySelectorAll('.product-card').forEach(f => {
+          f.style.order = f.querySelector('.product-id').textContent - idArr[0];
+        });
+      });
+      break;
+    case 'popularityDescending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let ratingsCountArr = [];
+        e.querySelectorAll('.product-card').forEach(f => ratingsCountArr.push(f.querySelector('.product-rating').textContent.match(/\d+/g)));
+        ratingsCountArr = ratingsCountArr.map(arr => arr.reduce((partialSum, curr) => partialSum + Number(curr), 0));
+        ratingsCountArrSorted = [...ratingsCountArr].sort((a,b) => b - a);
+        e.querySelectorAll('.product-card').forEach((f,i) => {
+          f.style.order = ratingsCountArrSorted.indexOf(ratingsCountArr[i]);
+        });
+      });
+      break;
+    case 'popularityAscending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let ratingsCountArr = [];
+        e.querySelectorAll('.product-card').forEach(f => ratingsCountArr.push(f.querySelector('.product-rating').textContent.match(/\d+/g)));
+        ratingsCountArr = ratingsCountArr.map(arr => arr.reduce((partialSum, curr) => partialSum + Number(curr), 0));
+        ratingsCountArrSorted = [...ratingsCountArr].sort((a,b) => a - b);
+        e.querySelectorAll('.product-card').forEach((f,i) => {
+          f.style.order = ratingsCountArrSorted.indexOf(ratingsCountArr[i]);
+        });
+      });
+      break;
+    case 'ratingDescending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let ratingsArr = [];
+        e.querySelectorAll('.product-card').forEach(f => ratingsArr.push(Number(f.querySelector('.full-stars').style.width.replace('%','')) / 20));
+        ratingsArrSorted = [...ratingsArr].sort((a,b) => b - a);
+        e.querySelectorAll('.product-card').forEach((f,i) => {
+          f.style.order = ratingsArrSorted.indexOf(ratingsArr[i]);
+        });
+      });
+      break;
+    case 'ratingAscending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let ratingsArr = [];
+        e.querySelectorAll('.product-card').forEach(f => ratingsArr.push(Number(f.querySelector('.full-stars').style.width.replace('%','')) / 20));
+        ratingsArrSorted = [...ratingsArr].sort((a,b) => a - b);
+        e.querySelectorAll('.product-card').forEach((f,i) => {
+          f.style.order = ratingsArrSorted.indexOf(ratingsArr[i]);
+        });
+      });
+      break;
+    case 'priceDescending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let priceArr = [];
+        e.querySelectorAll('.product-card').forEach(f => {
+          if (f.querySelector('.discounted-price')) {
+            priceArr.push(Number(f.querySelector('.discounted-price').textContent.replace('₱','')));
+          } else if (!f.querySelector('.discounted-price')) {
+            priceArr.push(Number(f.querySelector('.original-price').textContent.replace('₱','')));
+          }
+        });
+        priceArrSorted = [...priceArr].sort((a,b) => b - a);
+        e.querySelectorAll('.product-card').forEach((f,i) => {
+          f.style.order = priceArrSorted.indexOf(priceArr[i]);
+        });
+      });
+      break;
+    case 'priceAscending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let priceArr = [];
+        e.querySelectorAll('.product-card').forEach(f => {
+          if (f.querySelector('.discounted-price')) {
+            priceArr.push(Number(f.querySelector('.discounted-price').textContent.replace('₱','')));
+          } else if (!f.querySelector('.discounted-price')) {
+            priceArr.push(Number(f.querySelector('.original-price').textContent.replace('₱','')));
+          }
+        });
+        priceArrSorted = [...priceArr].sort((a,b) => a - b);
+        e.querySelectorAll('.product-card').forEach((f,i) => {
+          f.style.order = priceArrSorted.indexOf(priceArr[i]);
+        });
+      });
+      break;
+  }
 }
 
 shortenDecimal = num => {
