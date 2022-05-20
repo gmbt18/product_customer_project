@@ -283,7 +283,7 @@
               <div>
                 <input type="number" class="form-control" id="maxPriceField" value="9999999">
               </div>
-              <button type="button" class="btn btn-dark mt-2">Apply Pricing Filter</button>
+              <button type="button" class="apply-pricing-filter-btn btn btn-dark mt-2">Apply Pricing Filter</button>
             </div>
           </div>
         </div>
@@ -346,7 +346,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -401,7 +401,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -456,7 +456,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -511,7 +511,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -566,7 +566,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -621,7 +621,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -676,7 +676,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -731,7 +731,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -786,7 +786,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -841,7 +841,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -896,7 +896,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -951,7 +951,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -1006,7 +1006,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -1061,7 +1061,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -1116,7 +1116,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -1171,7 +1171,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -1226,7 +1226,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -1281,7 +1281,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -1336,7 +1336,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
@@ -1391,7 +1391,7 @@
                       <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
                       <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">

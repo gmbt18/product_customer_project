@@ -1,3 +1,7 @@
+let minRating = 0;
+let minPrice = 0;
+let maxPrice = 9999999;
+
 window.onload = () => {
   document.querySelectorAll('input[name="categoryRadio"]').forEach(e => {
     e.addEventListener('change', changeCategory);
@@ -9,6 +13,8 @@ window.onload = () => {
   document.querySelectorAll('input[name="ratingsRadio"]').forEach(e => {
     e.addEventListener('change', changeMinRating);
   });
+
+  document.querySelector('.apply-pricing-filter-btn').addEventListener('click', changePrice);
 
   document.querySelectorAll('.product-card').forEach(e => {
     const RATING_ARR = e.querySelector('.product-rating').textContent.match(/\d+/g);
@@ -49,31 +55,50 @@ changeSubcategory = () => {
   let checkedSubs = [];
   document.querySelectorAll('input[type="checkbox"]:checked').forEach(e => {
     checkedSubs.push(e.value);
-  })
+  });
   if (checkedSubs.length) {
     checkedSubs = checkedSubs.map(e => {
       return e.replace(/([A-Z])/, '-$1').toLowerCase();
-    })
+    });
     document.querySelectorAll('.products-group').forEach(e => {
       let sub = e.classList[1].replace('-sub-products', '');
       if (checkedSubs.includes(sub)) e.classList.replace('d-none', 'd-flex');
       else if (!checkedSubs.includes(sub)) e.classList.replace('d-flex', 'd-none');
-    })
+    });
   } else {
     document.querySelectorAll('.products-group').forEach(e => {
       e.classList.replace('d-none', 'd-flex')
-    })
+    });
   }
 }
 
-changeMinRating = event => {
+changeMinRating = e => {
+  minRating = e.target.value;
+  handleRatingPriceChange();
+}
+
+changePrice = () => {
+  minPrice = document.getElementById('minPriceField').value;
+  maxPrice = document.getElementById('maxPriceField').value;
+  handleRatingPriceChange();
+}
+
+handleRatingPriceChange = () => {
   document.querySelectorAll('.product-card').forEach(e => {
-    if (Number(e.querySelector('.full-stars').style.width.replace('%','')) / 20 >= event.target.value) {
-      e.classList.replace('d-none', 'd-flex');
-    } else {
-      e.classList.replace('d-flex', 'd-none');
+    const RATING = Number(e.querySelector('.full-stars').style.width.replace('%','')) / 20;
+    let price = 99999999;
+    if (e.querySelector('.discounted-price')) {
+      price = Number(e.querySelector('.discounted-price').textContent.replace('₱',''));
+    } else if (!e.querySelector('.discounted-price')) {
+      price = Number(e.querySelector('.original-price').textContent.replace('₱',''));
     }
-  })
+    
+    if (RATING >= minRating && price >= minPrice && price <= maxPrice) {
+      setTimeout(e.classList.replace('d-none', 'd-flex'), 300)
+    } else {
+      setTimeout(e.classList.replace('d-flex', 'd-none'), 300)
+    }
+  });
 }
 
 shortenDecimal = num => {
