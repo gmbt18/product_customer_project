@@ -3676,7 +3676,7 @@ def catalogProduct(request):
     # print(products[0])
 
     context = {
-        'products': products
+        'products': products,
         'photos': photos
     }
     return render(request, 'crms_app/pages/catalogProduct.html', context)
