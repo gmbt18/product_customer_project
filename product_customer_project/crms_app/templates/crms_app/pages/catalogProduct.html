@@ -331,7 +331,7 @@
             {% for product in products %}
               {% if product.category == "speakers" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -388,7 +388,7 @@
             {% for product in products %}
               {% if product.category == "headsets" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -445,7 +445,7 @@
             {% for product in products %}
               {% if product.category == "microphones" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -502,7 +502,7 @@
             {% for product in products %}
               {% if product.category == "menUpper" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -559,7 +559,7 @@
             {% for product in products %}
               {% if product.category == "menLower" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -616,7 +616,7 @@
             {% for product in products %}
               {% if product.category == "menUnderwear" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -673,7 +673,7 @@
             {% for product in products %}
               {% if product.category == "womenUpper" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -730,7 +730,7 @@
             {% for product in products %}
               {% if product.category == "womenLower" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -787,7 +787,7 @@
             {% for product in products %}
               {% if product.category == "womenUnderwear" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -844,7 +844,7 @@
             {% for product in products %}
               {% if product.category == "menShoes" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -901,7 +901,7 @@
             {% for product in products %}
               {% if product.category == "womenShoes" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -958,7 +958,7 @@
             {% for product in products %}
               {% if product.category == "smartphone" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -1015,7 +1015,7 @@
             {% for product in products %}
               {% if product.category == "desktop" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -1072,7 +1072,7 @@
             {% for product in products %}
               {% if product.category == "laptop" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -1129,7 +1129,7 @@
             {% for product in products %}
               {% if product.category == "camera" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -1186,7 +1186,7 @@
             {% for product in products %}
               {% if product.category == "tv" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -1243,7 +1243,7 @@
             {% for product in products %}
               {% if product.category == "watches" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -1300,7 +1300,7 @@
             {% for product in products %}
               {% if product.category == "glasses" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -1357,7 +1357,7 @@
             {% for product in products %}
               {% if product.category == "bags" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}
@@ -1414,7 +1414,7 @@
             {% for product in products %}
               {% if product.category == "jewelry" %}
               <div class="product-card d-flex flex-column card mt-3 me-3" style="width: 22%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
+                <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
                     {{ product.name }}

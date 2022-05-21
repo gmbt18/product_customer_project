@@ -7670,17 +7670,18 @@ def catalogProduct(request):
     i = 1
     for product in products:
       product['id'] = i
-      i += 1
-      
-    for photo in photos:
-      photo['id'] = i
+      for photo in photos:
+        if product['name'] == photo['product']:
+          product['photo'] = photo['filename']
+          break
+      if not product.__contains__('photo'):
+        product['photo'] = 'https://wallpaperaccess.com/full/1285952.jpg'
       i += 1
     
     # print(products[0])
 
     context = {
-        'products': products,
-        'photos': photos
+        'products': products
     }
     return render(request, 'crms_app/pages/catalogProduct.html', context)
 
