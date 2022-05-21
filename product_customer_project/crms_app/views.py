@@ -24,54 +24,54 @@ def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
     products = [
         {
-            "category": "speakers",
-            "name": "COD Super Bass JBL Charge 3+ Mini Portable Bluetooth Speaker",
-            "ratings": [1, 2, 1, 10, 45],
-            "stocks": 100,
-            "reorderlvl": 20,
-            "sellingprice": 179,
-            "discount": 24,
-            "isarchived": False
+          "category": "speakers",
+          "name": "COD Super Bass JBL Charge 3+ Mini Portable Bluetooth Speaker",
+          "ratings": [1, 2, 1, 10, 45],
+          "stocks": 100,
+          "reorderlvl": 20,
+          "sellingprice": 179,
+          "discount": 24,
+          "isarchived": False
         },
         {
-            "category": "speakers",
-            "name": "120 Mini Portable Wireless Bluetooth Karaoke Speaker with FREE MICROPHONE",
-            "ratings": [8, 2, 15, 60, 110],
-            "stocks": 80,
-            "reorderlvl": 20,
-            "sellingprice": 899,
-            "discount": 79,
-            "isarchived": False
+          "category": "speakers",
+          "name": "120 Mini Portable Wireless Bluetooth Karaoke Speaker with FREE MICROPHONE",
+          "ratings": [8, 2, 15, 60, 110],
+          "stocks": 80,
+          "reorderlvl": 20,
+          "sellingprice": 899,
+          "discount": 79,
+          "isarchived": False
         },
         {
-            "category": "speakers",
-            "name": "JBL Charge MINI2+ plus Portable Wireless Bluetooth Speaker High Quality",
-            "ratings": [3, 1, 9, 15, 60],
-            "stocks": 69,
-            "reorderlvl": 20,
-            "sellingprice": 399,
-            "discount": 58,
-            "isarchived": False
+          "category": "speakers",
+          "name": "JBL Charge MINI2+ plus Portable Wireless Bluetooth Speaker High Quality",
+          "ratings": [3, 1, 9, 15, 60],
+          "stocks": 69,
+          "reorderlvl": 20,
+          "sellingprice": 399,
+          "discount": 58,
+          "isarchived": False
         },
         {
-            "category": "speakers",
-            "name": "Original Super Bass Portable Bluetooth Speaker with Mic BT-1308 BT-1315 (3 inch) Wireless Bluetooth",
-            "ratings": [12, 2, 6, 15, 92],
-            "stocks": 21,
-            "reorderlvl": 20,
-            "sellingprice": 100,
-            "discount": 75,
-            "isarchived": False
+          "category": "speakers",
+          "name": "Original Super Bass Portable Bluetooth Speaker with Mic BT-1308 BT-1315 (3 inch) Wireless Bluetooth",
+          "ratings": [12, 2, 6, 15, 92],
+          "stocks": 21,
+          "reorderlvl": 20,
+          "sellingprice": 100,
+          "discount": 75,
+          "isarchived": False
         },
         {
-            "category": "speakers",
-            "name": "S6U/s10u Portable Mini LED Bluetooth Speaker",
-            "ratings": [4, 0, 5, 8, 42],
-            "stocks": 120,
-            "reorderlvl": 20,
-            "sellingprice": 75,
-            "discount": 22,
-            "isarchived": False
+          "category": "speakers",
+          "name": "S6U/s10u Portable Mini LED Bluetooth Speaker",
+          "ratings": [4, 0, 5, 8, 42],
+          "stocks": 120,
+          "reorderlvl": 20,
+          "sellingprice": 75,
+          "discount": 22,
+          "isarchived": False
         },
         {
           "category": "speakers",
@@ -7690,7 +7690,41 @@ def catalogProduct(request):
 def searchPage(request):
     return render(request, 'crms_app/pages/searchPage.html')
 
-def detailedProduct(request,pk):
+# def detailedProduct(request,pk):
+#     data = {}
+#     reviewForm = CustomerReviewForm()
+#     try:
+#         customer = AuthUser.objects.get(id=request.user.id)
+#         data["isRegistered"] = True
+#     except AuthUser.DoesNotExist:
+#         data["isRegistered"] = False
+#     product = Product.objects.get(id=pk)
+#     reviews = CustomerReview.objects.filter(product=product)
+#     reviewNum = len(reviews)
+#     print(reviews)
+#     print(reviewNum)
+#     mean_rating = 0
+#     if(reviewNum != 0):
+#         for review in reviews:
+#             mean_rating += review.rating
+#         mean_rating = mean_rating/reviewNum
+#     data['reviewNum'] = reviewNum
+#     data['reviews'] = reviews
+#     data["mean_rating"] = mean_rating
+
+#     if(request.method == "POST" and data.get("isRegistered")):
+#         review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
+#         reviewForm = CustomerReviewForm(request.POST, instance=review)
+#         if(reviewForm.is_valid()):
+#             reviewForm.save()
+#             messages.success(request, "The review was created on "+ product.name)
+#             return redirect(f"/crms/detailedProduct/{pk}")
+#     data['product'] = product
+#     data['reviewForm'] = reviewForm
+
+#     return render(request, 'crms_app/pages/detailedProduct.html', data)
+
+def detailedProduct(request):
     data = {}
     reviewForm = CustomerReviewForm()
     try:
@@ -7698,8 +7732,66 @@ def detailedProduct(request,pk):
         data["isRegistered"] = True
     except AuthUser.DoesNotExist:
         data["isRegistered"] = False
-    product = Product.objects.get(id=pk)
-    reviews = CustomerReview.objects.filter(product=product)
+    product = {
+          "id": 1,
+          "category": "speakers",
+          "name": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+          "ratings": [9,24,22,7,54],
+          "stocks": 4920,
+          "reorderlvl": 240,
+          "sellingprice": 1999,
+          "discount": 64,
+          "isarchived": 0
+        }
+    photos = [
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/fa1c1992e4440589fdc542e238cf9eee.jpg",
+        "photo": ""
+      },
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/9f6ef04db35f72744442d6dd5078cf82.jpg",
+        "photo": ""
+      },
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/2e15fa8c8e54538b280ff62462a44620.jpg",
+        "photo": ""
+      },
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/8a1a1a32d61c88b86373454dcd5081aa.jpg",
+        "photo": ""
+      },
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/30426e3a1c180e2463f681753fbb72cd.jpg",
+        "photo": ""
+      },
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/da71ae358aaba61346809024a44536ad.jpg",
+        "photo": ""
+      },
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/a8c3fe86e73d8eb59036a00226ea8d5b.jpg",
+        "photo": ""
+      },
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/2934c919939438552b5131d4b050579e.jpg",
+        "photo": ""
+      },
+      {
+        "product": "Zeus Z-350 2.1 25Watts/Peak 60Watts Bluetooth Speakers Noise reduction Desk Speakers W/ Subwoofer CD A350",
+        "filename": "https://lzd-img-global.slatic.net/g/p/1b16b23e58f2e8b44876e7fcfa1375c8.jpg",
+        "photo": ""
+      },
+    ]
+    
+    reviews = CustomerReview.objects.filter(product=1)
     reviewNum = len(reviews)
     print(reviews)
     print(reviewNum)
@@ -7718,7 +7810,8 @@ def detailedProduct(request,pk):
         if(reviewForm.is_valid()):
             reviewForm.save()
             messages.success(request, "The review was created on "+ product.name)
-            return redirect(f"/crms/detailedProduct/{pk}")
+            return redirect(f"/crms/detailedProduct/")
+    data['photos'] = photos
     data['product'] = product
     data['reviewForm'] = reviewForm
 
