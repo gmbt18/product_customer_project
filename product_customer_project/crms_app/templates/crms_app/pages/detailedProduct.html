@@ -129,10 +129,10 @@
             <div class="col-lg product-info">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active text-uppercase" href="#description" id="descriptionNav" data-toggle="tab" role="tab" aria-controls="descriptionTab" aria-selected="true">product description</a>
+                  <a class="nav-link active text-uppercase" href="#descriptionTab" id="descriptionNav" data-bs-toggle="tab" role="tab" aria-controls="descriptionTab" aria-selected="true">product description</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-uppercase" href="#reviews" id="reviewsNav" data-toggle="tab" role="tab" aria-controls="reviewsTab" aria-selected="false">product reviews</a>
+                  <a class="nav-link text-uppercase" href="#reviewsTab" id="reviewsNav" data-bs-toggle="tab" role="tab" aria-controls="reviewsTab" aria-selected="false">product reviews</a>
                 </li>
               </ul>
               <div class="product-description tab-content" id="myTabContent">
@@ -174,92 +174,92 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="reviewsTab" role="tabpanel" aria-labelledby="reviews-tab">
-                  ...
-                </div>
-                <br><br><br>
-                <div class = "row">
-                  {% for message in messages %}
-                  {% if 'success' == message.tags %}
-                    <!-- Alert Box -->
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                      <strong>Success!</strong> {{message | striptags}}
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                  {% endif %}
-                  {% endfor %}
-                </div>
-                <br><br><br>
-                <div class="row">
-                  COMPLAINT HERE
-                  <a>Submit Complaint</a>
-                </div>
-                <br><br><br>
-                <div class="row">
-                  REVIEW HERE
-                </div>
-                {% if isRegistered %}
-                <!-- Insert Review HERE -->
-                <div class="container">
-                  <form action="" method="POST">
-                    {% csrf_token %}
-                    <div class="form-floating mb-3">
-                      {{reviewForm.customer}}
-                      <label for="floatingInput">Enter customer: {{request.user}}</label>
-                    </div> 
-                    <br>
-                    <div class="form-floating mb-3">
-                      {{reviewForm.product}}
-                      <label for="floatingInput">Enter product {{product.name}}</label>
-                    </div> 
-                    <div class="form-floating mb-3">
-                      {{reviewForm.rating}}
-                      <label for="floatingInput">Enter rating</label>
-                    </div> 
-                    <div class="form-floating mb-3">
-                      {{reviewForm.reviewDate}}
-                      <label for="floatingInput">Enter reviewDate </label>
-                    </div> 
-                    <div class="form-floating mb-3">
-                      {{reviewForm.productReview}}
-                      <label for="floatingInput">Enter productReview</label>
-                    </div> 
-                    <center>
-                      <!-- DYNAMICALLY CHANGE URL -->
-                        <div class="d-grid gap-2">
-                          <button type="submit" class="btn btn-outline-success">
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                            Submit Review
-                          </button>
+                <div class="tab-pane fade p-4" id="reviewsTab" role="tabpanel" aria-labelledby="reviews-tab">
+                  <div class="tab-pane-contents d-flex flex-column p-4">
+                    <div class = "row">
+                      {% for message in messages %}
+                      {% if 'success' == message.tags %}
+                        <!-- Alert Box -->
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <strong>Success!</strong> {{message | striptags}}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    </center>
-                  </form>
-                </div>
-                {% endif %}
-                <br><br>
-                <div>
-                  <h1>REVIEW PAGE </h1>
-                  <h2> There are {{reviewNum}} reviews</h2>
-                  <h2> Average rating is {{mean_rating}} stars</h2>
-                </div>
-                <br><br><br>
-                <div>
-                  <!-- Review Section -->
-                  {% if reviewNum != 0 %}
-                    {% for review in reviews %}
-                      <div>{{review.user}}</div>
-                      <br>
-                      <div>{{review.rating}}</div>
-                      <br>
-                      <div>{{review.productReview}}</div>
-                      <br>
-                      {% if review.customer == request.user %}
-                      <div>
-                        <a href="{% url 'removeReview' review.id %}"> Remove Review</a>
-                      </div>
                       {% endif %}
-                    {% endfor %}
-                  {% endif %}
+                      {% endfor %}
+                    </div>
+                    <br><br><br>
+                    <div class="row">
+                      COMPLAINT HERE
+                      <a>Submit Complaint</a>
+                    </div>
+                    <br><br><br>
+                    <div class="row">
+                      REVIEW HERE
+                    </div>
+                    {% if isRegistered %}
+                    <!-- Insert Review HERE -->
+                    <div class="container">
+                      <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                          {{reviewForm.customer}}
+                          <label for="floatingInput">Enter customer: {{request.user}}</label>
+                        </div> 
+                        <br>
+                        <div class="form-floating mb-3">
+                          {{reviewForm.product}}
+                          <label for="floatingInput">Enter product {{product.name}}</label>
+                        </div> 
+                        <div class="form-floating mb-3">
+                          {{reviewForm.rating}}
+                          <label for="floatingInput">Enter rating</label>
+                        </div> 
+                        <div class="form-floating mb-3">
+                          {{reviewForm.reviewDate}}
+                          <label for="floatingInput">Enter reviewDate </label>
+                        </div> 
+                        <div class="form-floating mb-3">
+                          {{reviewForm.productReview}}
+                          <label for="floatingInput">Enter productReview</label>
+                        </div> 
+                        <center>
+                          <!-- DYNAMICALLY CHANGE URL -->
+                            <div class="d-grid gap-2">
+                              <button type="submit" class="btn btn-outline-success">
+                                <i class="fa-solid fa-arrow-right-long"></i>
+                                Submit Review
+                              </button>
+                            </div>
+                        </center>
+                      </form>
+                    </div>
+                    {% endif %}
+                    <br><br>
+                    <div>
+                      <h1>REVIEW PAGE </h1>
+                      <h2> There are {{reviewNum}} reviews</h2>
+                      <h2> Average rating is {{mean_rating}} stars</h2>
+                    </div>
+                    <br><br><br>
+                    <div>
+                      <!-- Review Section -->
+                      {% if reviewNum != 0 %}
+                        {% for review in reviews %}
+                          <div>{{review.user}}</div>
+                          <br>
+                          <div>{{review.rating}}</div>
+                          <br>
+                          <div>{{review.productReview}}</div>
+                          <br>
+                          {% if review.customer == request.user %}
+                          <div>
+                            <a href="{% url 'removeReview' review.id %}"> Remove Review</a>
+                          </div>
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div> 
