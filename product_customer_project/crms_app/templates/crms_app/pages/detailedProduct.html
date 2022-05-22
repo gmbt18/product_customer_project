@@ -18,7 +18,7 @@
                   <!-- JavaScript still not added -->
                   <!-- <img onclick="change_image(this)" src="https://wallpaperaccess.com/full/1285952.jpg" width="20%">  
                   <img onclick="change_image(this)" src="https://wallpaperaccess.com/full/1285952.jpg" width="20%">  -->
-                  <div id="imgsCarousel" class="carousel slide" data-bs-ride="carousel">
+                  <div id="smallImgsCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner" role="listbox">
                       <div class="carousel-item active" data-bs-interval="10000">
                         <div class="col-lg-3 m-0 p-0" style="height: 75px;">
@@ -35,11 +35,11 @@
                         {% endif %}
                       {% endfor %}
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#imgsCarousel" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#smallImgsCarousel" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#imgsCarousel" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#smallImgsCarousel" data-bs-slide="next">
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Next</span>
                     </button>
@@ -127,20 +127,52 @@
             <div class="col-lg product-info">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">product description</a>
+                  <a class="nav-link active text-uppercase" href="#description" id="descriptionNav" data-toggle="tab" role="tab" aria-controls="descriptionTab" aria-selected="true">product description</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">product specification</a>
+                  <a class="nav-link text-uppercase" href="#reviews" id="reviewsNav" data-toggle="tab" role="tab" aria-controls="reviewsTab" aria-selected="false">product reviews</a>
                 </li>
               </ul>
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  <h3>Speaker Soundbar Bluetooth Version Features:</h3>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                  <li>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</li>
+              <div class="product-description tab-content" id="myTabContent">
+                <div class="tab-pane fade p-4 show active" id="descriptionTab" role="tabpanel" aria-labelledby="description-tab">
+                  <div class="tab-pane-contents d-flex flex-column p-4">
+                    <p class="fs-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor libero sit amet felis accumsan, nec auctor nulla fermentum. Praesent sem arcu, laoreet ac pharetra porta, laoreet quis nisl. Nam vitae nisi augue. Sed maximus nulla vel enim volutpat semper. Etiam turpis mi, gravida eu ullamcorper vitae, hendrerit sed massa. Vestibulum imperdiet, sapien in tincidunt dignissim, libero dolor congue quam, eget condimentum tortor lectus eget elit. Praesent finibus enim non mauris mollis, nec dictum nibh elementum. Praesent neque velit, viverra porttitor blandit sed, porta lobortis quam. Quisque et sem scelerisque, vehicula nisi in, vestibulum nibh. Sed egestas tellus sit amet volutpat dictum. Cras sollicitudin massa diam, accumsan rhoncus mi eleifend ut. Nullam in massa egestas, molestie ligula in, egestas arcu. Phasellus vel porta leo.</p>
+                    <h3>Product Features:</h3>
+                    <ul>
+                      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+                      <li>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</li>
+                      <li>Phasellus id purus posuere, cursus mi sed, ullamcorper libero</li>
+                    </ul>
+                    <h3 class="mb-3">Product Photos:</h3>
+                    <div id="largeImgsCarousel" class="carousel slide" data-bs-ride="carousel">
+                      <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                          <div class="col-lg-3 m-0 p-0" style="height: 250px;">
+                            <img src="{{photos.0.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                          </div>
+                        </div>
+                        {% for photo in photos %}
+                          {% if not forloop.first %}
+                          <div class="carousel-item" data-bs-interval="10000">
+                            <div class="col-lg-3 m-0 p-0" style="height: 250px;">
+                            <img src="{{photo.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                            </div>
+                          </div>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#largeImgsCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#largeImgsCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="reviewsTab" role="tabpanel" aria-labelledby="reviews-tab">
                   ...
                 </div>
                 <br><br><br>
