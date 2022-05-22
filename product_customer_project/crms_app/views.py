@@ -2,11 +2,11 @@ from re import I
 from django.shortcuts import render, redirect
 from crms_app.models import *
 from crms_app.forms import *
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 login_URL = "/crms/testLogin/"
@@ -7978,8 +7978,9 @@ def testLogin_page(request):
         password = request.POST.get('password')
         
         customer = authenticate(request, username=username, password=password)
-        
-        if customer is not None:
+        print(customer.user_type)
+
+        if customer is not None and customer.user_type == 2:
             login(request, customer)
             return redirect('/crms/')
         else:
@@ -7993,6 +7994,26 @@ def testLogin_page(request):
 def testLogout_page(request):
     logout(request)
     return redirect('/crms/testLogin')
+
+@login_required(login_url=login_URL)
+def testChangePassword(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('/crms/testChangePassword')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    data = {
+      "form": form,
+    }
+
+    return render(request, 'crms_app/TEST-Register-Login/test-changePassword.html', data)
 
 
 #Auxilliary functions
@@ -8008,3 +8029,5 @@ def getCustomersList():
 def getCustomerInformation(authUser):
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=authUser)
     return customerInformation
+
+

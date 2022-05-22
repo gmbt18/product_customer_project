@@ -111,8 +111,10 @@
             </li>
 
 
-
-
+            <!-- Change Password -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'testChangePassword' %}active{% endif %} text-light" href="{% url 'testChangePassword' %}">testChangePassword</a>
+            </li>
 
             <!-- Logout -->
             <li class="nav-item">
