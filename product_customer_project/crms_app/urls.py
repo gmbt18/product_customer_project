@@ -26,6 +26,7 @@ urlpatterns = [
     path('testRegister/', views.testRegister_page, name="testRegister"),
     path('testLogin/', views.testLogin_page, name="testLogin"),
     path('testLogout/', views.testLogout_page, name="testLogout"),
+    path('testChangePassword/', views.testChangePassword, name="testChangePassword"),
 
     # CustomerInfos
     path('customerInformation/<str:pk>', views.customerInformation, name="customerInformation"),

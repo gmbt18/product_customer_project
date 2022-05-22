@@ -74,3 +74,4 @@ class CustomerReviewForm(ModelForm):
     class Meta:
         model = CustomerReview
         fields = "__all__"
+
