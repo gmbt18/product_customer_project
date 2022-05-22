@@ -50,7 +50,9 @@
           </div>
           <div class="right-div col-lg position-relative d-flex justify-content-left">
             <div class="mt-3 mb-3"> 
+              {% if not product.discount == 0 %}
               <span class="text-uppercase text-muted">【Discounted】</span>
+              {% endif %}
               <h5 class="text-uppercase">{{product.name}}</h5>                              <!-- NAME -->
               <!-- <div class="rating d-flex m-2">
                 <u class="rating fw-bold" style="padding-right: 4px;">{{product.rating}}</u>
@@ -99,17 +101,17 @@
                   <label class="btn btn-dark radio px-1"> <input type="radio" name="type" value="3" autocomplete="off">  <span>Bluetooth 4.0</span> </label> 
                 </div> -->
                 <h5 class="text-uppercase text-muted mt-3">Quantity</h5> 
-                <div class="quantity d-inline-flex col-lg-4">
+                <div class="quantity-div d-inline-flex col-lg-4">
                   <div class="input-group">
                     <span class="input-group-btn">
-                      <button class="quantity-left-minus btn btn-dark btn-number" type="button" data-type="minus" data-field="" style="border-radius: 5px 0 0 5px;">
+                      <button id="quantityMinusBtn" class="quantity-left-minus btn btn-dark btn-number" type="button" data-type="minus" data-field="" style="border-radius: 5px 0 0 5px;">
                         <span class="fa fa-minus"></span>
                       </button>
                     </span>
                     <!-- JavaScript still not added -->
-                    <input class="quantity form-control input-number text-center"  type="text" value="1" min="1" max="100">
+                    <input id="quantityField" class="quantity form-control input-number text-center" type="text" value="1" min="1" max="100">
                     <span class="input-group-btn">
-                      <button class="quantity-right-plus btn btn-dark btn-number"  type="button" data-type="plus" data-field="" style="border-radius: 0 5px 5px 0;">
+                      <button id="quantityAddBtn" class="quantity-right-plus btn btn-dark btn-number" type="button" data-type="plus" data-field="" style="border-radius: 0 5px 5px 0;">
                         <span class="fa fa-plus"></span>
                       </button>
                     </span>

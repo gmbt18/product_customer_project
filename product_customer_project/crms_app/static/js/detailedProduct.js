@@ -1,6 +1,9 @@
 window.onload = () => {
   formatImgsCarousel();
-  
+
+  document.getElementById('quantityMinusBtn').addEventListener('click', minusQuantity);
+  document.getElementById('quantityAddBtn').addEventListener('click', addQuantity);
+
   const RATING_ARR = document.querySelector('.product-rating').textContent.match(/\d+/g);
   let avg = 0;
   let count = 0;
@@ -9,7 +12,6 @@ window.onload = () => {
     count += Number(RATING_ARR[i]);
   }
   avg = shortenDecimal(avg / count);
-  console.log(avg);
   document.querySelector('.product-rating').textContent = `${avg}/5`;
   document.querySelector('.full-stars').title = `${shortenDecimal(avg)}/5 (${count} ratings)\n1* - ${RATING_ARR[0]} ratings\n2* - ${RATING_ARR[1]} ratings\n3* - ${RATING_ARR[2]} ratings\n4* - ${RATING_ARR[3]} ratings\n5* - ${RATING_ARR[4]} ratings`;
   document.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
@@ -17,7 +19,7 @@ window.onload = () => {
 
 formatImgsCarousel = () => {
   /*
-    css adapted from and credits to
+    code adapted from and credits to
     https://stackoverflow.com/questions/20007610/bootstrap-carousel-multiple-frames-at-once
     https://www.codeply.com/p/0CWffz76Q9
   */
@@ -38,8 +40,16 @@ formatImgsCarousel = () => {
       }
   })
   /* 
-    end copied css
+    end copied code
   */
+}
+
+addQuantity = () => {
+  document.getElementById('quantityField').value = Number(document.getElementById('quantityField').value) + 1;
+}
+
+minusQuantity = () => {
+  document.getElementById('quantityField').value = Number(document.getElementById('quantityField').value) - 1;
 }
 
 shortenDecimal = num => {
