@@ -50,7 +50,7 @@ handleWindowResize = () => {
 changeCategory = () => {
   const CURR_CATEGORY = document.querySelector('input[name="categoryRadio"]:checked').value;
   const SPINAL_CATEGORY = CURR_CATEGORY.replace(/([A-Z])/, '-$1').toLowerCase();
-  document.querySelectorAll('input[type="checkbox"]').forEach(e => e.checked = false)
+  document.querySelectorAll('input[type="checkbox"]').forEach(e => e.checked = false);
   document.querySelector('.curr-category').textContent = CURR_CATEGORY.charAt(0).toUpperCase() + CURR_CATEGORY.slice(1,CURR_CATEGORY.length);
   document.querySelector('.audio-filter-subcategories').classList.replace('d-flex', 'd-none');
   document.querySelector('.clothes-filter-subcategories').classList.replace('d-flex', 'd-none');

@@ -7689,6 +7689,9 @@ def catalogProduct(request):
 
 
 def searchPage(request):
+    if(request.method == "POST"):
+      print(list(request.POST.items()))
+      print(dict(request.POST.items()))
     return render(request, 'crms_app/pages/searchPage.html')
 
 # def detailedProduct(request,pk):
