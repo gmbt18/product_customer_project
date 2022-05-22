@@ -4,6 +4,10 @@ window.onload = () => {
   document.getElementById('quantityMinusBtn').addEventListener('click', minusQuantity);
   document.getElementById('quantityAddBtn').addEventListener('click', addQuantity);
 
+  document.getElementById('smallImgsCarousel').querySelectorAll('img').forEach(e => {
+    e.addEventListener('click', changeMainImg)
+  })
+
   const RATING_ARR = document.querySelector('.product-rating').textContent.match(/\d+/g);
   let avg = 0;
   let count = 0;
@@ -50,6 +54,10 @@ addQuantity = () => {
 
 minusQuantity = () => {
   document.getElementById('quantityField').value = Number(document.getElementById('quantityField').value) - 1;
+}
+
+changeMainImg = event => {
+  document.querySelector('.main-image').src = event.target.src;
 }
 
 shortenDecimal = num => {
