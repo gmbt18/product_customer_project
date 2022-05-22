@@ -75,7 +75,7 @@ transform: translateX(0);
   end copied css
 */
 
-.carousel-item img:hover {
+#smallImgsCarousel img:hover {
   cursor: pointer;
 }
 

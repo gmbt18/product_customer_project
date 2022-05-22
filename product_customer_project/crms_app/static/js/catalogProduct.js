@@ -160,6 +160,34 @@ changeSort = event => {
         });
       });
       break;
+    case 'discountDescending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let discountsArr = [];
+        e.querySelectorAll('.product-card').forEach(f => {
+          if (f.querySelector('.product-discount') !== null) {
+            discountsArr.push(f.querySelector('.product-discount').textContent.match(/\d+/g));
+          } else discountsArr.push(0);
+        });
+        discountsArrSorted = [...discountsArr].sort((a,b) => b - a);
+        e.querySelectorAll('.product-card').forEach((f,i) => {
+          f.style.order = discountsArrSorted.indexOf(discountsArr[i]);
+        });
+      });
+      break;
+    case 'discountAscending':
+      document.querySelectorAll('.products-group').forEach(e => {
+        let discountsArr = [];
+        e.querySelectorAll('.product-card').forEach(f => {
+          if (f.querySelector('.product-discount') !== null) {
+            discountsArr.push(f.querySelector('.product-discount').textContent.match(/\d+/g));
+          } else discountsArr.push(0);
+        });
+        discountsArrSorted = [...discountsArr].sort((a,b) => a - b);
+        e.querySelectorAll('.product-card').forEach((f,i) => {
+          f.style.order = discountsArrSorted.indexOf(discountsArr[i]);
+        });
+      });
+      break;
     case 'ratingDescending':
       document.querySelectorAll('.products-group').forEach(e => {
         let ratingsArr = [];
