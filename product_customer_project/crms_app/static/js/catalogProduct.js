@@ -23,9 +23,9 @@ window.onload = () => {
     e.querySelector('.product-condition-complaint').addEventListener('click', initializeComplaintModal);
     e.querySelector('.misleading-info-complaint').addEventListener('click', initializeComplaintModal);
     e.querySelector('.pornography-complaint').addEventListener('click', initializeComplaintModal);
-  })
 
-  document.querySelectorAll('.product-card').forEach(e => {
+    e.querySelector('.product-category').textContent = e.querySelector('.product-category').textContent.charAt(0).toUpperCase() + e.querySelector('.product-category').textContent.replace(/([A-Z])/, ' $1').slice(1,);
+
     const RATING_ARR = e.querySelector('.product-rating').textContent.match(/\d+/g);
     let avg = 0;
     let count = 0;
