@@ -1084,6 +1084,9 @@
       </div>
     </div>
   </div>
+  <a class="to-advanced-search nav-link d-none {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
+  <a class="to-catalog-monthly nav-link d-none {% if request.resolver_match.view_name == 'catalogMonthly' %}active{% endif %}" href="{% url 'catalogMonthly' %}">Catalog Monthly</a>
+  <a class="to-catalog-product nav-link d-none {% if request.resolver_match.view_name == 'catalogProduct' %}active{% endif %}" href="{% url 'catalogProduct' %}">Catalog Product</a>
 </div>
 
 <script>

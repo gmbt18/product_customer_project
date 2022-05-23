@@ -107,6 +107,9 @@
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'customerInformation' %}active{% endif %}" href="{% url 'customerInformation' request.user.id %}">customerInformation</a>
                 </li>
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' request.user.id %}">Profile</a>
+                </li>
               </ul>
             </li>
 
