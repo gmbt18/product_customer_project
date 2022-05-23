@@ -82,7 +82,9 @@ changeSubcategory = () => {
     });
   } else {
     document.querySelectorAll('.products-group').forEach(e => {
-      e.classList.replace('d-none', 'd-flex')
+      if (e.classList[0].split('-')[0] === document.querySelector('.curr-category').textContent.toLowerCase()) {
+        e.classList.replace('d-none', 'd-flex');
+      } else e.classList.replace('d-flex', 'd-none');
     });
   }
 }
