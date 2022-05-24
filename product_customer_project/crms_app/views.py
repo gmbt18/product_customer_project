@@ -7900,7 +7900,7 @@ def customerInfoAdd(request):
     return redirect("/crms/pages/customerInfo.html")
     
 def customerInfoUpdate(request,pk):
-    customer = AuthUser.objects.get(id=pk,user_type=2)
+    customer = AuthUser.objects.get(Q(id=pk,user_type=2) | Q(id=pk,user_type=3))
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
