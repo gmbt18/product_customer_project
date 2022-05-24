@@ -39,3 +39,4 @@ urlpatterns = [
     path('submitProductComplaint/<str:pk>', views.submitProductComplaint, name="submitProductComplaint"),
 
 ]
+

@@ -7865,8 +7865,11 @@ def customerInformation(request,pk):
     customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     print(isNew)
+    print(customer)
+    print(customerInformation.picture)
+
     if(request.method == "POST"):
-        form = CustomerInformationUpdateForm(data=request.POST,files=request.FILES,instance=customerInformation)
+        form = CustomerInformationUpdateForm(request.POST,request.FILES,instance=customerInformation)
         if(form.is_valid()):
             form.save()
             return redirect("/crms/customerInformation/"+pk)

@@ -24,4 +24,6 @@ urlpatterns = [
     path('crms/', include("crms_app.urls")),
     path('pcis/', include("pcims_app.urls")),
     path('', include("manager_app.urls")),
-]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

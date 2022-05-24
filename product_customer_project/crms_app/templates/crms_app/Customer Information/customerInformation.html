@@ -5,6 +5,17 @@
     <br><br>
 
     <div class="container">
+        <img class="img-fluid" src={{customerInformation.picture.url}}>
+        <a href="{{customerInformation.picture.url}}"> Click image</a>
+        <h1>
+            {{customerInformation.picture.url}}
+        </h1>
+
+        {% if customerInformation.picture %}
+        <h1>PICTURE EXISTS</h1>
+        {% else %}
+        <h1>NOPE</h1>
+        {% endif %}
          <h1>
             customer Information Page
          </h1>
