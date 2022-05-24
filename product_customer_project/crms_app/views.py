@@ -8109,14 +8109,14 @@ def subscribeCatalog(request):
   customerInformation = getCustomerInformation(request.user)
   customerInformation.isSubscribed = True
   customerInformation.save()
-  return redirect(f"/crms/customerInformation/{request.user.id}")
+  return redirect(f"/crms/customerInfo/{request.user.id}")
 
 @login_required(login_url=login_URL)
 def unsubscribeCatalog(request):
   customerInformation = getCustomerInformation(request.user)
   customerInformation.isSubscribed = False
   customerInformation.save()
-  return redirect(f"/crms/customerInformation/{request.user.id}")
+  return redirect(f"/crms/customerInfo/{request.user.id}")
 
 
 

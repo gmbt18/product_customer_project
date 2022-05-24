@@ -6,7 +6,14 @@ window.onload = () => {
     document.querySelector('.add-btn').addEventListener('click', addMode);
     document.querySelector('.finish-adding-btn').addEventListener('click', submitAdd);
     document.querySelector('.cancel-adding-btn').addEventListener('click', addToView);
-  } else document.querySelectorAll('.subscribe-btn').forEach(e => e.addEventListener('click', subscribe))
+  } else { 
+    document.querySelectorAll('.subscription-btn').forEach(e => {
+      if (document.querySelector('.subscription-span').textContent === 'True') {
+        e.textContent = 'Unsubscribe';
+      } else e.textContent = 'Subscribe';
+      e.addEventListener('click', handleSubscription);
+    });
+  }
 
   switch (document.getElementById('sexField').value) {
     case '0':
@@ -21,7 +28,6 @@ window.onload = () => {
   }
 
   document.getElementById('birthdayField').value = document.getElementById('birthdayField').value.split(',').slice(0,-1).join(',');
-
   if (document.querySelector('.birthday-span').textContent !== '') {
     console.log(document.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' '))
     let birthdayArr = document.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
@@ -71,13 +77,13 @@ window.onload = () => {
 updateMode = () => {
   document.querySelector('.profile-view').classList.replace('d-flex', 'd-none');
   document.querySelector('.profile-form').classList.replace('d-none', 'd-flex');
-  document.querySelector('.profile-form').action = document.querySelector('.customer-update-url').textContent;
+  // document.querySelector('.profile-form').action = document.querySelector('.customer-update-url').textContent;
   document.querySelector('.update-btn').classList.replace('d-block', 'd-none');
   if (document.querySelector('.superuser-span').textContent === 'True') {
     document.querySelector('.add-btn').classList.replace('d-block', 'd-none');
     document.querySelector('.finish-adding-btn').classList.replace('d-block', 'd-none');
     document.querySelector('.cancel-adding-btn').classList.replace('d-block', 'd-none');
-  } else document.querySelector('.subscribe-btn').classList.replace('d-block', 'd-none');
+  } else document.querySelector('.subscription-btn').classList.replace('d-block', 'd-none');
   document.querySelector('.finish-update-btn').classList.replace('d-none', 'd-block');
   document.querySelector('.cancel-update-btn').classList.replace('d-none', 'd-block');
 }
@@ -93,7 +99,7 @@ updateToView = () => {
   document.querySelector('.update-btn').classList.replace('d-none', 'd-block');
   if (document.querySelector('.superuser-span').textContent === 'True') {
     document.querySelector('.add-btn').classList.replace('d-none', 'd-block');
-  } else document.querySelector('.subscribe-btn').classList.replace('d-none', 'd-block');
+  } else document.querySelector('.subscription-btn').classList.replace('d-none', 'd-block');
   document.querySelector('.finish-update-btn').classList.replace('d-block', 'd-none');
   document.querySelector('.cancel-update-btn').classList.replace('d-block', 'd-none');
 }
@@ -110,6 +116,7 @@ addToView = () => {
 
 }
 
-subscribe = () => {
-
+handleSubscription = event => {
+  if (event.target.textContent === 'Subscribe') document.querySelector('.subscribe-link').click();
+  else document.querySelector('.unsubscribe-link').click();
 }

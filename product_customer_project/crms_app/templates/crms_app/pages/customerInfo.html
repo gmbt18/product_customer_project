@@ -23,10 +23,17 @@
             <div class="col-lg-5 d-flex flex-column justify-content-around">
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
+                  {% if not userInfo.picture == None or userInfo.picture|length > 0 %}
                   <img
                     src="{% static 'media/profile-placeholder.png' %}"
                     class="customer-img" 
                   />
+                  {% else %}
+                  <img
+                    src="{{userInfo.picture}}"
+                    class="customer-img"
+                  >
+                  {% endif %}
                   <!-- <input 
                     type="text" 
                     value="Customer Name"
@@ -98,7 +105,7 @@
                 {% if request.user.is_superuser %}
                 <button type="button" class="add-btn d-block btn-lg btn-secondary fw-bold">Add</button>
                 {% else %}
-                <button type="button" class="subscribe-btn d-block subscribe-btn btn-lg btn-secondary fw-bold">Subscribe</button>
+                <button type="button" class="subscription-btn d-block btn-lg btn-secondary fw-bold">Subscribe</button>
                 {% endif %}
               </div>
             </div>
@@ -555,8 +562,11 @@
       </div>
     </div>
   </div>
+  <a class="subscribe-link d-none" href="{% url 'subscribeCatalog' %}">SUBSCRIBE TO CATALOG</a>
+  <a class="unsubscribe-link d-none" href="{% url 'unsubscribeCatalog' %}">UNSUBSCRIBE TO CATALOG</a>
   <span class="superuser-span d-none">{{request.user.is_superuser}}</span>
   <span class="birthday-span d-none">{% if not userInfo.birthday == None or userInfo.birthday|length == 0 %}{{userInfo.birthday}}{% endif %}</span>
+  <span class="subscription-span d-none">{{userInfo.isSubscribed}}</span>
 </div>
 <script type="text/javascript" src="{% static 'js/onload.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/customerInfo.js' %}"></script>
