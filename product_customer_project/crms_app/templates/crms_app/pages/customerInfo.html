@@ -29,14 +29,15 @@
                   id="customerNameField"
                   class="form-control position-absolute"
                 > -->
-                <div class="float-container d-flex flex-column">
+                <div class="float-container d-flex flex-column bg-white">
                   <label for="nameField">Name</label>
                   <input 
                     type="text" 
                     name="name"
                     id="nameField"
                     class="float-field align-self-center"
-                    value="{{customer.name}}"
+                    value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
+                    disabled
                   >
                 </div>
               </div>
@@ -53,14 +54,18 @@
                   type="text" 
                   id="birthdayField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo.birthday == None or userInfo.birthday|length == 0 %}{{userInfo.birthday}}{% endif %}"
+                  disabled
                 >
               </div>
               <div class="float-container d-flex flex-column">
-                <label for="genderField">Gender</label>
+                <label for="sexField">Sex</label>
                 <input 
                   type="text" 
-                  id="genderField"
+                  id="sexField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo.sex == None or userInfo.sex|length == 0 %}{{userInfo.sex}}{% endif %}"
+                  disabled
                 >
               </div>
               <div class="float-container d-flex flex-column">
@@ -69,6 +74,8 @@
                   type="text" 
                   id="nationalityField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo.nationality == None or userInfo.nationality|length == 0 %}{{userInfo.nationality}}{% endif %}"
+                  disabled
                 >
               </div>
               <div class="float-container d-flex flex-column">
@@ -77,6 +84,8 @@
                   type="text" 
                   id="citizenshipField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo.citizenship == None or userInfo.citizenship|length == 0 %}{{userInfo.citizenship}}{% endif %}"
+                  disabled
                 >
               </div>
             </div>
@@ -98,6 +107,8 @@
                   type="text" 
                   id="presentAddressField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo.presentAddress == None or userInfo.presentAddress|length == 0 %}{{userInfo.presentAddress}}{% endif %}"
+                  disabled
                 >
               </div>
               <div class="float-container d-flex flex-column">
@@ -106,6 +117,8 @@
                   type="text" 
                   id="permanentField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo.permanentAddress == None or userInfo.permanentAddress|length == 0 %}{{userInfo.permanentAddress}}{% endif %}"
+                  disabled
                 >
               </div>
               <div class="float-container d-flex flex-column">
@@ -114,6 +127,8 @@
                   type="text"
                   id="billingAddressField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo.billingAddress == None or userInfo.billingAddress|length == 0 %}{{userInfo.billingAddress}}{% endif %}"
+                  disabled
                 >
               </div>
               <div class="float-container d-flex flex-column">
@@ -122,6 +137,8 @@
                   type="text" 
                   id="shippingAddressField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo.shippingAddress == None or userInfo.shippingAddress|length == 0 %}{{userInfo.shippingAddress}}{% endif %}"
+                  disabled
                 >
               </div>
               <div class="float-container d-flex flex-column">
@@ -130,6 +147,8 @@
                   type="text" 
                   id="officeAddressField"
                   class="float-field align-self-center"
+                  value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
+                  disabled
                 >
               </div>
             </div>
@@ -142,6 +161,8 @@
                     type="text" 
                     id="personalMobileNumberField"
                     class="float-field align-self-center"
+                    value="{% if not userInfo.personalCPNumber == None or userInfo.personalCPNumber|length == 0 %}{{userInfo.personalCPNumber}}{% endif %}"
+                    disabled
                   >
                 </div>
                 <div class="float-container float-container-split d-flex flex-column">
@@ -150,6 +171,8 @@
                     type="text" 
                     id="officeMobileNumberField"
                     class="float-field align-self-center"
+                    value="{% if not userInfo.officeCPNumber == None or userInfo.officeCPNumber|length == 0 %}{{userInfo.officeCPNumber}}{% endif %}"
+                    disabled
                   >
                 </div>
               </div>
@@ -163,6 +186,8 @@
                     type="text" 
                     id="homeLandlineNumberField"
                     class="float-field align-self-center"
+                    value="{% if not userInfo.homeLandlineNumber == None or userInfo.homeLandlineNumber|length == 0 %}{{userInfo.homeLandlineNumber}}{% endif %}"
+                    disabled
                   >
                 </div>
                 <div class="float-container float-container-split d-flex flex-column">
@@ -171,6 +196,8 @@
                     type="text" 
                     id="officeLandlineNumberField"
                     class="float-field align-self-center"
+                    value="{% if not userInfo.officeLandlineNumber == None or userInfo.officeLandlineNumber|length == 0 %}{{userInfo.officeLandlineNumber}}{% endif %}"
+                    disabled
                   >
                 </div>
               </div>
@@ -184,6 +211,8 @@
                     type="text" 
                     id="personalEmailField"
                     class="float-field align-self-center"
+                    value="{% if not userInfo.personalEmail == None or userInfo.personalEmail|length == 0 %}{{userInfo.personalEmail}}{% endif %}"
+                    disabled
                   >
                 </div>
                 <div class="float-container float-container-split d-flex flex-column">
@@ -192,6 +221,8 @@
                     type="text" 
                     id="officeEmailField"
                     class="float-field align-self-center"
+                    value="{% if not userInfo.officeEmail == None or userInfo.officeEmail|length == 0 %}{{userInfo.officeEmail}}{% endif %}"
+                    disabled
                   >
                 </div>
               </div>
