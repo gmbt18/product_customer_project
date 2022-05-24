@@ -7864,21 +7864,24 @@ def customerInformation(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
+    data = {}
+    data["customerInformation"] = customerInformation
     print(isNew)
     print(customer)
     print(customerInformation.picture)
-
+    print(vars(customerInformation))
     if(request.method == "POST"):
         form = CustomerInformationUpdateForm(request.POST,request.FILES,instance=customerInformation)
+        
         if(form.is_valid()):
             form.save()
             return redirect("/crms/customerInformation/"+pk)
-    data = {
-      "customer": customer,
-      "customerInfo": customerInformation,
-      "form": form,
-      "isNew": isNew,
-    }
+    data["customer"] = customer
+    data["customerInformation"] = customerInformation
+    data["form"] = form
+    data["isNew"] = isNew
+    
+
     return render(request, 'crms_app/Customer Information/customerInformation.html', data)
 
 
@@ -8082,6 +8085,22 @@ def testChangePassword(request):
     }
 
     return render(request, 'crms_app/TEST-Register-Login/test-changePassword.html', data)
+
+
+@login_required(login_url=login_URL)
+def subscribeCatalog(request):
+  customerInformation = getCustomerInformation(request.user)
+  customerInformation.isSubscribed = True
+  customerInformation.save()
+  return redirect(f"/crms/customerInformation/{request.user.id}")
+
+@login_required(login_url=login_URL)
+def unsubscribeCatalog(request):
+  customerInformation = getCustomerInformation(request.user)
+  customerInformation.isSubscribed = False
+  customerInformation.save()
+  return redirect(f"/crms/customerInformation/{request.user.id}")
+
 
 
 #Auxilliary functions
