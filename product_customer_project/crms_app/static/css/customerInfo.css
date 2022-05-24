@@ -1,5 +1,6 @@
-input {
+input, select {
   border: 2px solid black;
+  color: black;
 }
 
 .customer-info-view-contents {
@@ -22,11 +23,11 @@ input {
   object-fit: cover;
 }
 
-#customerNameField {
+/* #nameField {
   border: 0px;
   top: 55%;
   width: 60%;
-}
+} */
 
 .float-container-split {
   width: 49%;

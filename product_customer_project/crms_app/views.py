@@ -7893,7 +7893,7 @@ def customerInfo(request,pk):
             return redirect("/crms/customerInfo/"+pk)
     data = {
       "customer": customer,
-      "customerInfo": customerInformation,
+      "userInfo": customerInformation,
       "form": form,
       "created": created,
     }
@@ -7908,7 +7908,7 @@ def customerInfoAdd(request):
         form = AuthUserCreationForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return redirect("/crms/pages/customerInfo.html")
+            return redirect("/crms/pages/customerInfo/")
 
     data = {"form": form}
     return redirect("/crms/pages/customerInfo.html")
@@ -7918,13 +7918,15 @@ def customerInfoUpdate(request,pk):
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
-        form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
-        if(form.is_valid()):
-            form.save()
-            return redirect("/crms/pages/customerInfo.html")
-    data = {"form": form,
-    "customerInformation": customerInformation,
-    
+      form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
+      print(list(request.POST.items()))
+      print(list(form.errors))
+      if(form.is_valid()):
+        form.save()
+        return redirect("/crms/pages/customerInfo/"+pk)
+    data = {
+      "form": form,
+      "customerInformation": customerInformation,
     }
     return redirect("/crms/pages/customerInfo.html")
 
