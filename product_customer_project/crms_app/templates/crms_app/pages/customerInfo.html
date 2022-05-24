@@ -252,7 +252,7 @@
                       name="name"
                       id="nameInput"
                       class="float-field align-self-center"
-                      value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
+                      value="{% if not userInfo.name == None or userInfo.name|length == 0 %}{{userInfo.name}}{% endif %}"
                     >
                   </div>
                 </div>
@@ -282,9 +282,9 @@
                     class="float-field align-self-center text-end"
                   >
                     <option {% if not userInfo.sex == None or userInfo.sex|length == "0" %}selected{% endif %}>-----</option>
-                    <option value="0" {% if customerInfo.sex == "0" %}selected{% endif %}>Male</option>
-                    <option value="1" {% if customerInfo.sex == "1" %}selected{% endif %}>Female</option>
-                    <option value="2" {% if customerInfo.sex == "2" %}selected{% endif %}>Intersex</option>
+                    <option value="0" {% if userInfo.sex == "0" %}selected{% endif %}>Male</option>
+                    <option value="1" {% if userInfo.sex == "1" %}selected{% endif %}>Female</option>
+                    <option value="2" {% if userInfo.sex == "2" %}selected{% endif %}>Intersex</option>
                   </select>
                 </div>
                 <div class="float-container d-flex flex-column">
@@ -367,7 +367,7 @@
                     name="officeAddress"
                     id="officeAddressInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
+                    value="{% if not userInfo.officeAddress == None or userInfo.officeAddress|length == 0 %}{{userInfo.officeAddress}}{% endif %}"
                   >
                 </div>
               </div>
@@ -553,6 +553,7 @@
     </div>
   </div>
   <span class="superuser-span d-none">{{request.user.is_superuser}}</span>
+  <span class="birthday-span d-none">{% if not userInfo.birthday == None or userInfo.birthday|length == 0 %}{{userInfo.birthday}}{% endif %}</span>
 </div>
 <script type="text/javascript" src="{% static 'js/onload.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/customerInfo.js' %}"></script>

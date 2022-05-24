@@ -7,6 +7,65 @@ window.onload = () => {
     document.querySelector('.finish-adding-btn').addEventListener('click', submitAdd);
     document.querySelector('.cancel-adding-btn').addEventListener('click', addToView);
   } else document.querySelector('.subscribe-btn').addEventListener('click', subscribe);
+
+  switch (document.getElementById('sexField').value) {
+    case '0':
+      document.getElementById('sexField').value = 'Male';
+      break;
+    case '1':
+      document.getElementById('sexField').value = 'Female';
+      break;
+    case '2':
+      document.getElementById('sexField').value = 'Intersex';
+      break;
+  }
+
+  document.getElementById('birthdayField').value = document.getElementById('birthdayField').value.split(',').slice(0,-1).join(',');
+
+  if (document.querySelector('.birthday-span').textContent !== '') {
+    console.log(document.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' '))
+    let birthdayArr = document.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
+    switch (birthdayArr[0]) {
+      case 'January':
+        birthdayArr[0] = '01';
+        break;
+      case 'February':
+        birthdayArr[0] = '02';
+        break;
+      case 'March':
+        birthdayArr[0] = '03';
+        break;
+      case 'April':
+        birthdayArr[0] = '04';
+        break;
+      case 'May':
+        birthdayArr[0] = '05';
+        break;
+      case 'June':
+        birthdayArr[0] = '06';
+        break;
+      case 'July':
+        birthdayArr[0] = '07';
+        break;
+      case 'August':
+        birthdayArr[0] = '08';
+        break;
+      case 'September':
+        birthdayArr[0] = '09';
+        break;
+      case 'October':
+        birthdayArr[0] = '10';
+        break;
+      case 'November':
+        birthdayArr[0] = '11';
+        break;
+      case 'December':
+        birthdayArr[0] = '12';
+        break;
+    }
+    birthdayArr[1] = '0' + birthdayArr[1];
+    document.getElementById('birthdayInput').value = `${birthdayArr[2]}-${birthdayArr[0]}-${birthdayArr[1]}`;
+  }
 }
 
 updateMode = () => {
