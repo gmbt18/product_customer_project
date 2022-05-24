@@ -4,9 +4,6 @@
 <link rel="stylesheet" href={% static 'css/customerInfo.css' %}>
 <div class="app container-fluid">
   <div class="app-contents container d-flex align-items-center">
-
-
-
     {% if request.user.is_superuser %}
     <div class="customer-info-view container-fluid py-2">
     {% else %}
@@ -23,14 +20,14 @@
             <div class="col-lg-5 d-flex flex-column justify-content-around">
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
-                  {% if not userInfo.picture == None or userInfo.picture|length > 0 %}
+                  {% if not customerInformation.picture == None or customerInformation.picture|length > 0 %}
                   <img
-                    src="{% static 'media/profile-placeholder.png' %}"
+                    src="{{customerInformation.picture.url}}"
                     class="customer-img" 
                   />
                   {% else %}
                   <img
-                    src="{{userInfo.picture}}"
+                    src="{% static 'media/profile-placeholder.png' %}"
                     class="customer-img"
                   >
                   {% endif %}
@@ -47,7 +44,7 @@
                       name="name"
                       id="nameField"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.name == None or userInfo.name|length == 0 %}{{userInfo.name}}{% endif %}"
+                      value="{% if not customerInformation.name == None or customerInformation.name|length == 0 %}{{customerInformation.name}}{% endif %}"
                       disabled
                     >
                   </div>
@@ -65,7 +62,7 @@
                     type="text" 
                     id="birthdayField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.birthday == None or userInfo.birthday|length == 0 %}{{userInfo.birthday}}{% endif %}"
+                    value="{% if not customerInformation.birthday == None or customerInformation.birthday|length == 0 %}{{customerInformation.birthday}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -75,7 +72,7 @@
                     type="text" 
                     id="sexField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.sex == None or userInfo.sex|length == 0 %}{{userInfo.sex}}{% endif %}"
+                    value="{% if not customerInformation.sex == None or customerInformation.sex|length == 0 %}{{customerInformation.sex}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -85,7 +82,7 @@
                     type="text" 
                     id="nationalityField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.nationality == None or userInfo.nationality|length == 0 %}{{userInfo.nationality}}{% endif %}"
+                    value="{% if not customerInformation.nationality == None or customerInformation.nationality|length == 0 %}{{customerInformation.nationality}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -95,7 +92,7 @@
                     type="text" 
                     id="citizenshipField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.citizenship == None or userInfo.citizenship|length == 0 %}{{userInfo.citizenship}}{% endif %}"
+                    value="{% if not customerInformation.citizenship == None or customerInformation.citizenship|length == 0 %}{{customerInformation.citizenship}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -118,7 +115,7 @@
                     type="text" 
                     id="presentAddressField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.presentAddress == None or userInfo.presentAddress|length == 0 %}{{userInfo.presentAddress}}{% endif %}"
+                    value="{% if not customerInformation.presentAddress == None or customerInformation.presentAddress|length == 0 %}{{customerInformation.presentAddress}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -128,7 +125,7 @@
                     type="text" 
                     id="permanentField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.permanentAddress == None or userInfo.permanentAddress|length == 0 %}{{userInfo.permanentAddress}}{% endif %}"
+                    value="{% if not customerInformation.permanentAddress == None or customerInformation.permanentAddress|length == 0 %}{{customerInformation.permanentAddress}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -138,7 +135,7 @@
                     type="text"
                     id="billingAddressField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.billingAddress == None or userInfo.billingAddress|length == 0 %}{{userInfo.billingAddress}}{% endif %}"
+                    value="{% if not customerInformation.billingAddress == None or customerInformation.billingAddress|length == 0 %}{{customerInformation.billingAddress}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -148,7 +145,7 @@
                     type="text" 
                     id="shippingAddressField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.shippingAddress == None or userInfo.shippingAddress|length == 0 %}{{userInfo.shippingAddress}}{% endif %}"
+                    value="{% if not customerInformation.shippingAddress == None or customerInformation.shippingAddress|length == 0 %}{{customerInformation.shippingAddress}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -158,7 +155,7 @@
                     type="text" 
                     id="officeAddressField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.officeAddress == None or userInfo.officeAddress|length == 0 %}{{userInfo.officeAddress}}{% endif %}"
+                    value="{% if not customerInformation.officeAddress == None or customerInformation.officeAddress|length == 0 %}{{customerInformation.officeAddress}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -172,7 +169,7 @@
                       type="text" 
                       id="personalMobileNumberField"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.personalCPNumber == None or userInfo.personalCPNumber|length == 0 %}{{userInfo.personalCPNumber}}{% endif %}"
+                      value="{% if not customerInformation.personalCPNumber == None or customerInformation.personalCPNumber|length == 0 %}{{customerInformation.personalCPNumber}}{% endif %}"
                       disabled
                     >
                   </div>
@@ -182,7 +179,7 @@
                       type="text" 
                       id="officeMobileNumberField"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.officeCPNumber == None or userInfo.officeCPNumber|length == 0 %}{{userInfo.officeCPNumber}}{% endif %}"
+                      value="{% if not customerInformation.officeCPNumber == None or customerInformation.officeCPNumber|length == 0 %}{{customerInformation.officeCPNumber}}{% endif %}"
                       disabled
                     >
                   </div>
@@ -197,7 +194,7 @@
                       type="text" 
                       id="homeLandlineNumberField"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.homeLandlineNumber == None or userInfo.homeLandlineNumber|length == 0 %}{{userInfo.homeLandlineNumber}}{% endif %}"
+                      value="{% if not customerInformation.homeLandlineNumber == None or customerInformation.homeLandlineNumber|length == 0 %}{{customerInformation.homeLandlineNumber}}{% endif %}"
                       disabled
                     >
                   </div>
@@ -207,7 +204,7 @@
                       type="text" 
                       id="officeLandlineNumberField"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.officeLandlineNumber == None or userInfo.officeLandlineNumber|length == 0 %}{{userInfo.officeLandlineNumber}}{% endif %}"
+                      value="{% if not customerInformation.officeLandlineNumber == None or customerInformation.officeLandlineNumber|length == 0 %}{{customerInformation.officeLandlineNumber}}{% endif %}"
                       disabled
                     >
                   </div>
@@ -222,7 +219,7 @@
                       type="text" 
                       id="personalEmailField"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.personalEmail == None or userInfo.personalEmail|length == 0 %}{{userInfo.personalEmail}}{% endif %}"
+                      value="{% if not customerInformation.personalEmail == None or customerInformation.personalEmail|length == 0 %}{{customerInformation.personalEmail}}{% endif %}"
                       disabled
                     >
                   </div>
@@ -232,7 +229,7 @@
                       type="text" 
                       id="officeEmailField"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.officeEmail == None or userInfo.officeEmail|length == 0 %}{{userInfo.officeEmail}}{% endif %}"
+                      value="{% if not customerInformation.officeEmail == None or customerInformation.officeEmail|length == 0 %}{{customerInformation.officeEmail}}{% endif %}"
                       disabled
                     >
                   </div>
@@ -240,15 +237,23 @@
               </div>
             </div>
           </div>
-          <form class="profile-form container-fluid d-none justify-content-around m-0 p-0" action="" method="POST" onsubmit="return false;">
+          <form class="profile-form container-fluid d-none justify-content-around m-0 p-0" action="" method="POST" enctype="multipart/form-data" onsubmit="return false;">
             {% csrf_token %}
             <div class="col-lg-5 d-flex flex-column justify-content-around">
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
+                  <input type="file" name="picture" id="pictureInput" class="d-none" accept="image/*">
+                  {% if not customerInformation.picture == None or customerInformation.picture|length > 0 %}
+                  <img
+                    src="{{customerInformation.picture.url}}"
+                    class="customer-img editing-customer-img" 
+                  />
+                  {% else %}
                   <img
                     src="{% static 'media/profile-placeholder.png' %}"
-                    class="customer-img" 
-                  />
+                    class="customer-img editing-customer-img"
+                  >
+                  {% endif %}
                   <!-- <input 
                     type="text" 
                     value="Customer Name"
@@ -262,7 +267,7 @@
                       name="name"
                       id="nameInput"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.name == None or userInfo.name|length == 0 %}{{userInfo.name}}{% endif %}"
+                      value="{% if not customerInformation.name == None or customerInformation.name|length == 0 %}{{customerInformation.name}}{% endif %}"
                     >
                   </div>
                 </div>
@@ -280,7 +285,7 @@
                     name="birthday"
                     id="birthdayInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.birthday == None or userInfo.birthday|length == 0 %}{{userInfo.birthday}}{% endif %}"
+                    value="{% if not customerInformation.birthday == None or customerInformation.birthday|length == 0 %}{{customerInformation.birthday}}{% endif %}"
                   >
                 </div>
                 <div class="overlapping-container d-flex flex-column">
@@ -291,10 +296,10 @@
                     id="sexInput"
                     class="float-field align-self-center text-end"
                   >
-                    <option {% if not userInfo.sex == None or userInfo.sex|length == "0" %}selected{% endif %}>-----</option>
-                    <option value="0" {% if userInfo.sex == "0" %}selected{% endif %}>Male</option>
-                    <option value="1" {% if userInfo.sex == "1" %}selected{% endif %}>Female</option>
-                    <option value="2" {% if userInfo.sex == "2" %}selected{% endif %}>Intersex</option>
+                    <option {% if not customerInformation.sex == None or customerInformation.sex|length == "0" %}selected{% endif %}>-----</option>
+                    <option value="0" {% if customerInformation.sex == "0" %}selected{% endif %}>Male</option>
+                    <option value="1" {% if customerInformation.sex == "1" %}selected{% endif %}>Female</option>
+                    <option value="2" {% if customerInformation.sex == "2" %}selected{% endif %}>Intersex</option>
                   </select>
                 </div>
                 <div class="float-container d-flex flex-column">
@@ -304,7 +309,7 @@
                     name="nationality"
                     id="nationalityInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.nationality == None or userInfo.nationality|length == 0 %}{{userInfo.nationality}}{% endif %}"
+                    value="{% if not customerInformation.nationality == None or customerInformation.nationality|length == 0 %}{{customerInformation.nationality}}{% endif %}"
                   >
                 </div>
                 <div class="float-container d-flex flex-column">
@@ -314,7 +319,7 @@
                     name="citizenship"
                     id="citizenshipInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.citizenship == None or userInfo.citizenship|length == 0 %}{{userInfo.citizenship}}{% endif %}"
+                    value="{% if not customerInformation.citizenship == None or customerInformation.citizenship|length == 0 %}{{customerInformation.citizenship}}{% endif %}"
                   >
                 </div>
               </div>
@@ -337,7 +342,7 @@
                     name="presentAddress"
                     id="presentAddressInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.presentAddress == None or userInfo.presentAddress|length == 0 %}{{userInfo.presentAddress}}{% endif %}"
+                    value="{% if not customerInformation.presentAddress == None or customerInformation.presentAddress|length == 0 %}{{customerInformation.presentAddress}}{% endif %}"
                   >
                 </div>
                 <div class="float-container d-flex flex-column">
@@ -347,7 +352,7 @@
                     name="permanentAddress"
                     id="permanentAddressInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.permanentAddress == None or userInfo.permanentAddress|length == 0 %}{{userInfo.permanentAddress}}{% endif %}"
+                    value="{% if not customerInformation.permanentAddress == None or customerInformation.permanentAddress|length == 0 %}{{customerInformation.permanentAddress}}{% endif %}"
                   >
                 </div>
                 <div class="float-container d-flex flex-column">
@@ -357,7 +362,7 @@
                     name="billingAddress"
                     id="billingAddressInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.billingAddress == None or userInfo.billingAddress|length == 0 %}{{userInfo.billingAddress}}{% endif %}"
+                    value="{% if not customerInformation.billingAddress == None or customerInformation.billingAddress|length == 0 %}{{customerInformation.billingAddress}}{% endif %}"
                   >
                 </div>
                 <div class="float-container d-flex flex-column">
@@ -367,7 +372,7 @@
                     name="shippingAddress"
                     id="shippingAddressInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.shippingAddress == None or userInfo.shippingAddress|length == 0 %}{{userInfo.shippingAddress}}{% endif %}"
+                    value="{% if not customerInformation.shippingAddress == None or customerInformation.shippingAddress|length == 0 %}{{customerInformation.shippingAddress}}{% endif %}"
                   >
                 </div>
                 <div class="float-container d-flex flex-column">
@@ -377,7 +382,7 @@
                     name="officeAddress"
                     id="officeAddressInput"
                     class="float-field align-self-center"
-                    value="{% if not userInfo.officeAddress == None or userInfo.officeAddress|length == 0 %}{{userInfo.officeAddress}}{% endif %}"
+                    value="{% if not customerInformation.officeAddress == None or customerInformation.officeAddress|length == 0 %}{{customerInformation.officeAddress}}{% endif %}"
                   >
                 </div>
               </div>
@@ -391,7 +396,7 @@
                       name="personalCPNumber"
                       id="personalMobileNumberInput"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.personalCPNumber == None or userInfo.personalCPNumber|length == 0 %}{{userInfo.personalCPNumber}}{% endif %}"
+                      value="{% if not customerInformation.personalCPNumber == None or customerInformation.personalCPNumber|length == 0 %}{{customerInformation.personalCPNumber}}{% endif %}"
                     >
                   </div>
                   <div class="float-container float-container-split d-flex flex-column">
@@ -401,7 +406,7 @@
                       name="officeCPNumber"
                       id="officeMobileNumberInput"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.officeCPNumber == None or userInfo.officeCPNumber|length == 0 %}{{userInfo.officeCPNumber}}{% endif %}"
+                      value="{% if not customerInformation.officeCPNumber == None or customerInformation.officeCPNumber|length == 0 %}{{customerInformation.officeCPNumber}}{% endif %}"
                     >
                   </div>
                 </div>
@@ -416,7 +421,7 @@
                       name="homeLandlineNumber"
                       id="homeLandlineNumberInput"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.homeLandlineNumber == None or userInfo.homeLandlineNumber|length == 0 %}{{userInfo.homeLandlineNumber}}{% endif %}"
+                      value="{% if not customerInformation.homeLandlineNumber == None or customerInformation.homeLandlineNumber|length == 0 %}{{customerInformation.homeLandlineNumber}}{% endif %}"
                     >
                   </div>
                   <div class="float-container float-container-split d-flex flex-column">
@@ -426,7 +431,7 @@
                       name="officeLandlineNumber"
                       id="officeLandlineNumberInput"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.officeLandlineNumber == None or userInfo.officeLandlineNumber|length == 0 %}{{userInfo.officeLandlineNumber}}{% endif %}"
+                      value="{% if not customerInformation.officeLandlineNumber == None or customerInformation.officeLandlineNumber|length == 0 %}{{customerInformation.officeLandlineNumber}}{% endif %}"
                     >
                   </div>
                 </div>
@@ -441,7 +446,7 @@
                       name="personalEmail"
                       id="personalEmailInput"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.personalEmail == None or userInfo.personalEmail|length == 0 %}{{userInfo.personalEmail}}{% endif %}"
+                      value="{% if not customerInformation.personalEmail == None or customerInformation.personalEmail|length == 0 %}{{customerInformation.personalEmail}}{% endif %}"
                     >
                   </div>
                   <div class="float-container float-container-split d-flex flex-column">
@@ -451,7 +456,7 @@
                       name="officeEmail"
                       id="officeEmailInput"
                       class="float-field align-self-center"
-                      value="{% if not userInfo.officeEmail == None or userInfo.officeEmail|length == 0 %}{{userInfo.officeEmail}}{% endif %}"
+                      value="{% if not customerInformation.officeEmail == None or customerInformation.officeEmail|length == 0 %}{{customerInformation.officeEmail}}{% endif %}"
                     >
                   </div>
                 </div>
@@ -565,8 +570,8 @@
   <a class="subscribe-link d-none" href="{% url 'subscribeCatalog' %}">SUBSCRIBE TO CATALOG</a>
   <a class="unsubscribe-link d-none" href="{% url 'unsubscribeCatalog' %}">UNSUBSCRIBE TO CATALOG</a>
   <span class="superuser-span d-none">{{request.user.is_superuser}}</span>
-  <span class="birthday-span d-none">{% if not userInfo.birthday == None or userInfo.birthday|length == 0 %}{{userInfo.birthday}}{% endif %}</span>
-  <span class="subscription-span d-none">{{userInfo.isSubscribed}}</span>
+  <span class="birthday-span d-none">{% if not customerInformation.birthday == None or customerInformation.birthday|length == 0 %}{{customerInformation.birthday}}{% endif %}</span>
+  <span class="subscription-span d-none">{{customerInformation.isSubscribed}}</span>
 </div>
 <script type="text/javascript" src="{% static 'js/onload.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/customerInfo.js' %}"></script>

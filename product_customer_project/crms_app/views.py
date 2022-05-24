@@ -7890,20 +7890,21 @@ def customerInformation(request,pk):
 @login_required(login_url=login_URL)
 def customerInfo(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
-    customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
+    customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
-
+    # print(vars(customerInformation))
+    data = {}
+    data["customerInformation"] = customerInformation
     if(request.method == "POST"):
-        form = CustomerInformationUpdateForm(request.POST, instance=customer)
+        form = CustomerInformationUpdateForm(request.POST, request.FILES, instance=customerInformation)
+        print(list(form.errors))
         if(form.is_valid()):
             form.save()
-            return redirect("/crms/customerInfo/"+pk)
-    data = {
-      "customer": customer,
-      "userInfo": customerInformation,
-      "form": form,
-      "created": created,
-    }
+            return redirect("/crms_app/pages/customerInfo/"+pk)
+    data["customer"] = customer
+    data["customerInformation"] = customerInformation
+    data["form"] = form
+    data["isNew"] = isNew
 
     return render(request, 'crms_app/pages/customerInfo.html', data)
 
