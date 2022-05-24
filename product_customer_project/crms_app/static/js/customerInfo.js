@@ -6,7 +6,7 @@ window.onload = () => {
     document.querySelector('.add-btn').addEventListener('click', addMode);
     document.querySelector('.finish-adding-btn').addEventListener('click', submitAdd);
     document.querySelector('.cancel-adding-btn').addEventListener('click', addToView);
-  } else document.querySelector('.subscribe-btn').addEventListener('click', subscribe);
+  } else document.querySelectorAll('.subscribe-btn').forEach(e => e.addEventListener('click', subscribe))
 
   switch (document.getElementById('sexField').value) {
     case '0':

@@ -1,4 +1,5 @@
 from re import I
+from struct import pack
 from django.shortcuts import render, redirect
 from crms_app.models import *
 from crms_app.forms import *
@@ -7881,7 +7882,6 @@ def customerInfo(request,pk):
     #     if(form.is_valid()):
     #         form.save()
     #         return redirect("/crms/pages/customerInfo/"+pk)
-    print(vars(customerInformation))
     data = {
       "customer": customer,
       "userInfo": customerInformation,
@@ -7915,8 +7915,24 @@ def customerInfoUpdate(request,pk):
       "form": form,
       "customerInformation": customerInformation,
     }
-    return redirect("/crms/pages/customerInfo.html")
+    return redirect("/crms/pages/customerInfo/"+pk)
 
+def customerInfoSubscribe(request,pk):
+  customer = AuthUser.objects.get(id=pk,user_type=2)
+  customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
+  form = CustomerInformationUpdateForm(instance=customerInformation)
+  if(request.method == "POST"):
+    form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
+    print(list(request.POST.items()))
+    print(list(form.errors))
+    if(form.is_valid()):
+      form.save()
+      return redirect("/crms/pages/customerInfo/"+pk)
+  data = {
+    "form": form,
+    "customerInformation": customerInformation,
+  }
+  return redirect("/crms/pages/customerInfo/"+pk)
 
 @login_required(login_url=login_URL)
 def productComplaint(request,pk):

@@ -93,9 +93,9 @@
               <div class="bottom-left-buttons d-flex justify-content-between">
                 <button type="button" class="update-btn d-block btn-lg btn-dark fw-bold">Update</button>
                 {% if request.user.is_superuser %}
-                <button type="button" class="add-btn d-block btn-lg btn-dark fw-bold">Add</button>
+                <button type="button" class="add-btn d-block btn-lg btn-secondary fw-bold">Add</button>
                 {% else %}
-                <button type="button" class="subscribe-btn d-block subscribe-btn btn-lg btn-dark fw-bold">Subscribe</button>
+                <button type="button" class="subscribe-btn d-block subscribe-btn btn-lg btn-secondary fw-bold">Subscribe</button>
                 {% endif %}
               </div>
             </div>
