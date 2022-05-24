@@ -75,13 +75,22 @@
             <!-- FOR UNLOGGED IN USER -->
 
             {% if not request.user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == 'testRegister' %}active{% endif %} text-light" href="{% url 'testRegister' %}">testRegister</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Test
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'testRegister' %}active{% endif %}" href="{% url 'testRegister' %}">testRegister</a>
+                </li>
+    
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'testLogin' %}active{% endif %}" href="{% url 'testLogin' %}">testLogin</a>
+                </li>
+              </ul>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == 'testLogin' %}active{% endif %} text-light" href="{% url 'testLogin' %}">testLogin</a>
-            </li>
+            
+            
 
 
 
