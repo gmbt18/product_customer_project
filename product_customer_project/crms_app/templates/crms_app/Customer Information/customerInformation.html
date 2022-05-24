@@ -5,13 +5,14 @@
     <br><br>
 
     <div class="container">
+
+
+        {% if customerInformation.picture %}
+        <h1>PICTURE EXISTS</h1>
         <img class="img-fluid" src={{customerInformation.picture.url}}>
         <h1>
             {{customerInformation.picture.url}}
         </h1>
-
-        {% if customerInformation.picture %}
-        <h1>PICTURE EXISTS</h1>
         {% else %}
         <h1>NOPE</h1>
         {% endif %}
