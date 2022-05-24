@@ -7,21 +7,12 @@ from tokenize import Name
 from typing import KeysView
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from crms_app.models import *
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
-class AuthUser(AbstractUser):
-    USER_TYPE_CHOICES = {
-        (1, 'Product Manager'),
-        (2, 'Customer'),
-        (3, 'Customer Manager'),
-        (4, 'Reviewer'),
-    }
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES,null=True)
-
 class ProductManager(models.Model):
-    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey("crms_app.AuthUser", on_delete=models.CASCADE, null=True)
     profilepicture=models.ImageField(null=True, blank=True, upload_to = '', default='default_pfp.png')
 
 class Supplier(models.Model):
@@ -37,7 +28,7 @@ class Supplier(models.Model):
         return self.name
 
 class Reviewer(models.Model):
-    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey("crms_app.AuthUser", on_delete=models.CASCADE, null=True)
     name=models.CharField(max_length=200,null=True)
     address = models.CharField(max_length=200,null=True)
     profilepicture = models.ImageField(null=True, blank=True, upload_to = '', default='/default_pfp.png')
@@ -111,7 +102,7 @@ class Review(models.Model):
     rating = models.FloatField(null=True, validators=[MinValueValidator(1), MaxValueValidator(5)])
     date = models.DateTimeField(auto_now_add=True)
 
-class Catalog(models.Model):
+class ProductCatalog(models.Model):
     details = models.TextField(blank=True)
     products = models.ManyToManyField(Product)
     date = models.DateTimeField(auto_now_add=True, null=True)

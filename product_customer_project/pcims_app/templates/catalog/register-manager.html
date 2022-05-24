@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,18 +28,15 @@
                     <!-- replace all p and input with form | as_crispy_form -->
                     <div class="col">
                         
-                        <p>Username</p>
-                        {{form.username}}
+                        {{form.username | as_crispy_field}}
                         
                         <br>
-
-                        <p>First Name</p>
-                        {{form.first_name}}
+                        
+                        {{form.first_name | as_crispy_field}}
                         
                         <br>
-
-                        <p>Last Name</p>
-                        {{form.last_name}}
+                        
+                        {{form.last_name | as_crispy_field}}
                         
                         <br>
 
@@ -46,17 +44,21 @@
                     </div>
 
                     <div class="col">
-
+                        <div class="mb-3">                            
+                            
+                            {{form.email | as_crispy_field}}
+                            
+                        </div>
                         <div class="mb-3">
                             <!-- replace p and input with form.password1 | as_crispy_field -->
-                            <p>Password</p>
-                            {{form.password1}}
+                          
+                            {{form.password1 | as_crispy_field}}
                             
                         </div>
                         <div class="mb-3">
                             <!-- form.password2 | as_crispy_field -->
-                            <p>Re-enter Password</p>
-                            {{form.password2}}
+
+                            {{form.password2 | as_crispy_field}}
                             
                         </div>
 

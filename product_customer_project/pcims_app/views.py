@@ -122,6 +122,7 @@ def registerManagerPage(request):
                 )
             
             messages.success(request, 'Account was created for ' + username)
+            return redirect('managePage')
 
     context = {'form': form,'profile':pr}
     return render(request, 'catalog/register-manager.html',context)
@@ -681,7 +682,7 @@ def monthlyCatalogPage(request, id):
         pr= ProductManager.objects.get(user=user)
     ## -------------------- ##
 
-    catalog = Catalog.objects.filter(id=id)
+    catalog = ProductCatalog.objects.filter(id=id)
     products = Product.objects.filter(catalog=id)
 
     context={'catalog':catalog,'products':products,'profile':pr}

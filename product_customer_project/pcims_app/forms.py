@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelChoiceField, ModelForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
+from crms_app.models import *
 from .models import *
 
 class CreateUserForm(UserCreationForm):

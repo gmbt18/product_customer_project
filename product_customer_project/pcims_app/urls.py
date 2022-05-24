@@ -47,4 +47,3 @@ urlpatterns = [
     path('myreviews/<int:id>/edit', views.reviewsEditPage, name='reviewsEditPage'),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
