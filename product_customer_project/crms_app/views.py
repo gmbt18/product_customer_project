@@ -7866,7 +7866,7 @@ def customerInformation(request,pk):
     form = CustomerInformationUpdateForm(instance=customerInformation)
     print(isNew)
     if(request.method == "POST"):
-        form = CustomerInformationUpdateForm(request.POST, instance=customer)
+        form = CustomerInformationUpdateForm(data=request.POST,files=request.FILES,instance=customerInformation)
         if(form.is_valid()):
             form.save()
             return redirect("/crms/customerInformation/"+pk)

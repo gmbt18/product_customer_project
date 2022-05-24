@@ -31,7 +31,7 @@
                 Update Customer Form
             </div>
             <div class="card-body">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <!-- Input fields -->
                     {% csrf_token %}
                     {{form|crispy}}
