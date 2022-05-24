@@ -9,9 +9,15 @@ window.onload = () => {
 }
 
 updateMode = () => {
+  document.querySelector('.profile-form').action = document.querySelector('.customer-update-url').textContent;
   document.querySelectorAll('input').forEach(e => e.disabled = false);
 }
 
 submitUpdate = () => {
-  
+  document.querySelector('.profile-form').submit();
+  document.querySelectorAll('input').forEach(e => e.disabled = true);
+}
+
+cancelUpdate = () => {
+  document.querySelectorAll('input').forEach(e => e.disabled = true);
 }

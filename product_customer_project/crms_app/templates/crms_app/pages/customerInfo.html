@@ -16,7 +16,7 @@
       <div class="customer-info-view-contents default-border col-lg-8 d-flex">
         <div class="col-lg-11 d-flex justify-content-around ms-3">
       {% endif %}
-          <form class="profile-form container-fluid d-flex justify-content-around m-0 p-0" method="" action="POST" onsubmit="return false;">
+          <div class="profile-form container-fluid d-flex justify-content-around m-0 p-0">
             <div class="col-lg-5 d-flex flex-column justify-content-around">
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
@@ -233,6 +233,210 @@
                 </div>
               </div>
             </div>
+          </div>
+          <form class="profile-form container-fluid d-flex justify-content-around d-none m-0 p-0" method="" action="POST" onsubmit="return false;">
+            <div class="col-lg-5 d-flex flex-column justify-content-around">
+              <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
+                <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
+                  <img
+                    src="{% static 'media/profile-placeholder.png' %}"
+                    class="customer-img" 
+                  />
+                  <!-- <input 
+                    type="text" 
+                    value="Customer Name"
+                    id="customerNameField"
+                    class="form-control position-absolute"
+                  > -->
+                  <div class="float-container d-flex flex-column bg-white">
+                    <label for="nameInput">Name</label>
+                    <input 
+                      type="text" 
+                      name="name"
+                      id="nameInput"
+                      class="float-field align-self-center"
+                      value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
+                    >
+                  </div>
+                </div>
+                <img 
+                  src="{% static 'media/image-flag-red.svg' %}" 
+                  class="customer-img-flag"
+                />
+              </div>
+              <div class="personal-info default-border d-flex flex-column align-items-center">
+                <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Personal Info</p>
+                <div class="float-container d-flex flex-column">
+                  <label for="birthdayInput">Birthday</label>
+                  <input 
+                    type="text" 
+                    id="birthdayInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo.birthday == None or userInfo.birthday|length == 0 %}{{userInfo.birthday}}{% endif %}"
+                  >
+                </div>
+                <div class="float-container d-flex flex-column">
+                  <label for="sexInput">Sex</label>
+                  <input 
+                    type="text" 
+                    id="sexInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo.sex == None or userInfo.sex|length == 0 %}{{userInfo.sex}}{% endif %}"
+                  >
+                </div>
+                <div class="float-container d-flex flex-column">
+                  <label for="nationalityInput">Nationality</label>
+                  <input 
+                    type="text" 
+                    id="nationalityInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo.nationality == None or userInfo.nationality|length == 0 %}{{userInfo.nationality}}{% endif %}"
+                  >
+                </div>
+                <div class="float-container d-flex flex-column">
+                  <label for="citizenshipInput">Citizenship</label>
+                  <input 
+                    type="text" 
+                    id="citizenshipInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo.citizenship == None or userInfo.citizenship|length == 0 %}{{userInfo.citizenship}}{% endif %}"
+                  >
+                </div>
+              </div>
+              <div class="bottom-left-buttons d-flex justify-content-between">
+                <button type="button" class="update-btn d-block btn-lg btn-dark fw-bold">Update</button>
+                <button type="button" class="finish-update-btn d-none btn-lg btn-dark fw-bold">Finish Update</button>
+                <button type="button" class="cancel-update-btn d-none btn-lg btn-secondary fw-bold">Cancel Update</button>
+                {% if request.user.is_superuser %}
+                <button type="button" class="add-btn d-block btn-lg btn-dark fw-bold">Add</button>
+                <button type="button" class="finish-adding-btn d-none btn-lg btn-dark fw-bold">Finish Adding</button>
+                <button type="button" class="cancel-adding-btn d-none btn-lg btn-secondary fw-bold">Cancel Adding</button>
+                {% else %}
+                <button type="button" class="subscribe-btn d-block subscribe-btn btn-lg btn-dark fw-bold">Subscribe</button>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-lg-7 d-flex flex-column justify-content-around p-3">
+              <div class="addresses-div default-border d-flex flex-column align-items-center mb-3">
+                <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Addresses</p>
+                <div class="float-container d-flex flex-column">
+                  <label for="presentAddressInput">Present Address</label>
+                  <input 
+                    type="text" 
+                    id="presentAddressInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo.presentAddress == None or userInfo.presentAddress|length == 0 %}{{userInfo.presentAddress}}{% endif %}"
+                  >
+                </div>
+                <div class="float-container d-flex flex-column">
+                  <label for="permanentInput">Permanent Address</label>
+                  <input 
+                    type="text" 
+                    id="permanentInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo.permanentAddress == None or userInfo.permanentAddress|length == 0 %}{{userInfo.permanentAddress}}{% endif %}"
+                  >
+                </div>
+                <div class="float-container d-flex flex-column">
+                  <label for="billingAddressInput">Billing Address</label>
+                  <input 
+                    type="text"
+                    id="billingAddressInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo.billingAddress == None or userInfo.billingAddress|length == 0 %}{{userInfo.billingAddress}}{% endif %}"
+                  >
+                </div>
+                <div class="float-container d-flex flex-column">
+                  <label for="shippingAddressInput">Shipping Address</label>
+                  <input 
+                    type="text" 
+                    id="shippingAddressInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo.shippingAddress == None or userInfo.shippingAddress|length == 0 %}{{userInfo.shippingAddress}}{% endif %}"
+                  >
+                </div>
+                <div class="float-container d-flex flex-column">
+                  <label for="officeAddressInput">Office Address</label>
+                  <input 
+                    type="text" 
+                    id="officeAddressInput"
+                    class="float-field align-self-center"
+                    value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
+                  >
+                </div>
+              </div>
+              <div class="mobile-numbers default-border d-flex flex-column align-items-center mb-3">
+                <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Mobile Numbers</p>
+                <div class="split-fields-div d-flex justify-content-around">
+                  <div class="float-container float-container-split d-flex flex-column">
+                    <label for="personalMobileNumberInput">Personal</label>
+                    <input 
+                      type="text" 
+                      id="personalMobileNumberInput"
+                      class="float-field align-self-center"
+                      value="{% if not userInfo.personalCPNumber == None or userInfo.personalCPNumber|length == 0 %}{{userInfo.personalCPNumber}}{% endif %}"
+                    >
+                  </div>
+                  <div class="float-container float-container-split d-flex flex-column">
+                    <label for="officeMobileNumberInput">Office</label>
+                    <input 
+                      type="text" 
+                      id="officeMobileNumberInput"
+                      class="float-field align-self-center"
+                      value="{% if not userInfo.officeCPNumber == None or userInfo.officeCPNumber|length == 0 %}{{userInfo.officeCPNumber}}{% endif %}"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="landline-numbers default-border d-flex flex-column align-items-center mb-3">
+                <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Landline Numbers</p>
+                <div class="split-fields-div d-flex justify-content-around">
+                  <div class="float-container float-container-split d-flex flex-column">
+                    <label for="homeLandlineNumberInput">Home</label>
+                    <input 
+                      type="text" 
+                      id="homeLandlineNumberInput"
+                      class="float-field align-self-center"
+                      value="{% if not userInfo.homeLandlineNumber == None or userInfo.homeLandlineNumber|length == 0 %}{{userInfo.homeLandlineNumber}}{% endif %}"
+                    >
+                  </div>
+                  <div class="float-container float-container-split d-flex flex-column">
+                    <label for="officeLandlineNumberInput">Office</label>
+                    <input 
+                      type="text" 
+                      id="officeLandlineNumberInput"
+                      class="float-field align-self-center"
+                      value="{% if not userInfo.officeLandlineNumber == None or userInfo.officeLandlineNumber|length == 0 %}{{userInfo.officeLandlineNumber}}{% endif %}"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="emails default-border d-flex flex-column align-items-center mb-3">
+                <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Emails</p>
+                <div class="split-fields-div d-flex justify-content-around">
+                  <div class="float-container float-container-split d-flex flex-column">
+                    <label for="personalEmailInput">Personal</label>
+                    <input 
+                      type="text" 
+                      id="personalEmailInput"
+                      class="float-field align-self-center"
+                      value="{% if not userInfo.personalEmail == None or userInfo.personalEmail|length == 0 %}{{userInfo.personalEmail}}{% endif %}"
+                    >
+                  </div>
+                  <div class="float-container float-container-split d-flex flex-column">
+                    <label for="officeEmailInput">Office</label>
+                    <input 
+                      type="text" 
+                      id="officeEmailInput"
+                      class="float-field align-self-center"
+                      value="{% if not userInfo.officeEmail == None or userInfo.officeEmail|length == 0 %}{{userInfo.officeEmail}}{% endif %}"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="customer-add-url d-none">{% url 'customerInfoAdd' %}</span>
+            <span class="customer-update-url d-none">{% url 'customerInfoUpdate' request.user.id %}</span>
             <!-- <input type="text" value="update" id="submitTypeField" class="d-none"> -->
           </form>
         </div>
