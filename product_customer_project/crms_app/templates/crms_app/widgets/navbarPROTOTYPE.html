@@ -15,6 +15,15 @@
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.view_name == 'customerHome' %}active{% endif %} text-light" aria-current="page" href="{% url 'customerHome' %}">Home</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
+            </li>
+            {% if request.user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'manageCustomers' %}active{% endif %} text-light" href="{% url 'manageCustomers' %}">Manage Customers</a>
+            </li>
+            {% endif %}
+
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,23 +47,27 @@
                 Account
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                {% if not request.user.is_authenticated %}
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a>
                 </li>
-    
-
-    
-                <li class="dropdown-item">
-                  <a class="nav-link {% if request.resolver_match.view_name == 'passwordChange' %}active{% endif %}" href="{% url 'passwordChange' %}">Password Change</a>
-                </li>
-    
-                <li class="dropdown-item">
-                  <a class="nav-link {% if request.resolver_match.view_name == 'passwordForgot' %}active{% endif %}" href="{% url 'passwordForgot' %}">Password Forgot</a>
-                </li>
-    
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'register' %}active{% endif %}" href="{% url 'register' %}">Register</a>
                 </li>
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'passwordForgot' %}active{% endif %}" href="{% url 'passwordForgot' %}">Forgot Password</a>
+                </li>
+                {% else %}
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'passwordChange' %}active{% endif %}" href="{% url 'passwordChange' %}">Change Password</a>
+                </li>
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' request.user.id %}">Profile</a>
+                </li>
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'customerInformation' %}active{% endif %}" href="{% url 'customerInformation' request.user.id %}">customerInformation</a>
+                </li>
+                {% endif %}
               </ul>
             </li>
 
@@ -62,22 +75,15 @@
               <a class="nav-link {% if request.resolver_match.view_name == 'about' %}active{% endif %} text-light" href="{% url 'about' %}">About</a>
             </li> -->
 
-            {% if request.user.is_staff %}
-            <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == 'manageCustomers' %}active{% endif %} text-light" href="{% url 'manageCustomers' %}">Manage Customers</a>
-            </li>
-            {% endif %}
-            <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
-            </li>
-
+            
 
             <!-- FOR UNLOGGED IN USER -->
 
             {% if not request.user.is_authenticated %}
+            <!-- TEST -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Test
+                Test1
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li class="dropdown-item">
@@ -98,16 +104,8 @@
             <!-- FOR LOGGED IN USER -->
             {% else %}
 
-            <!-- Display user -->
-            <li class="nav-link">
-              <a href="">
-                <i class="fas fa-user">{{request.user.first_name}} {{request.user.last_name}}</i>
-              </a>
-            </li>
 
-
-            <!-- Customer Information -->
-            
+            <!-- Customer Information
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Customer Information
@@ -120,29 +118,36 @@
                   <a class="nav-link {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' request.user.id %}">Profile</a>
                 </li>
               </ul>
+            </li>  -->
+
+            <!-- Display user -->
+            <li class="nav-link">
+              <a href="" class="text-decoration-none text-light text-uppercase fw-bold"><i class="fas fa-user text-light me-2"></i>{{request.user.first_name}} {{request.user.last_name}}</a>
             </li>
 
-
-            <!-- Change Password -->
-            <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == 'testChangePassword' %}active{% endif %} text-light" href="{% url 'testChangePassword' %}">testChangePassword</a>
+            <!-- TEST Change Password -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Test2
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'testChangePassword' %}active{% endif %}" href="{% url 'testChangePassword' %}">testChangePassword</a>
+                </li>
+    
+                <!-- Logout -->
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %}" href="{% url 'testLogout' %}">testLogout</a>
+                </li>
+              </ul>
             </li>
-
-            <!-- Logout -->
-            <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %} text-light" href="{% url 'testLogout' %}">testLogout</a>
-            </li>
+            
 
 
 
             {% endif %}
 
           </ul>
-
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
 
         </div>
 
