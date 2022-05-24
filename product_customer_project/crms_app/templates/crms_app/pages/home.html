@@ -7,7 +7,7 @@
 <head>
     <title>Home Page (Guest)</title>
     <link rel="stylesheet" href={% static 'css/home.css' %}>
-    <style>
+    <!-- <style>
       /* body {
         background-color: #98ff98;
         width: 95vw;
@@ -545,7 +545,7 @@
         margin-right: 400px;
         position: absolute;
       } */
-    </style>
+    </style> -->
 </head>
 <div class="app container-fluid">
   <div class="app-contents container">
@@ -1084,6 +1084,9 @@
       </div>
     </div>
   </div>
+  <a class="to-advanced-search nav-link d-none {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
+  <a class="to-catalog-monthly nav-link d-none {% if request.resolver_match.view_name == 'catalogMonthly' %}active{% endif %}" href="{% url 'catalogMonthly' %}">Catalog Monthly</a>
+  <a class="to-catalog-product nav-link d-none {% if request.resolver_match.view_name == 'catalogProduct' %}active{% endif %}" href="{% url 'catalogProduct' %}">Catalog Product</a>
 </div>
 
 <script>

@@ -29,6 +29,7 @@ urlpatterns = [
     path('testChangePassword/', views.testChangePassword, name="testChangePassword"),
 
     # CustomerInfos
+    path('customerInfo/<str:pk>', views.customerInfo, name="customerInfo"),
     path('customerInformation/<str:pk>', views.customerInformation, name="customerInformation"),
     path('productComplaint/<str:pk>', views.productComplaint, name="productComplaint"),
     path('customerReview/<str:pk>', views.customerReview, name="customerReview"),
