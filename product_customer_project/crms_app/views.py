@@ -7887,6 +7887,32 @@ def customerInfo(request,pk):
     }
     return render(request, 'crms_app/pages/customerInfo.html', data)
 
+def customerInfoAdd(request):
+    form = AuthUserCreationForm()
+    if(request.method == "POST"):
+        form = AuthUserCreationForm(request.POST)
+        if(form.is_valid()):
+            form.save()
+            return redirect("/crms/pages/customerInfo.html")
+
+    data = {"form": form}
+    return redirect("/crms/pages/customerInfo.html")
+    
+def customerInfoUpdate(request,pk):
+    customer = AuthUser.objects.get(id=pk,user_type=2)
+    customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
+    form = CustomerInformationUpdateForm(instance=customerInformation)
+    if(request.method == "POST"):
+        form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
+        if(form.is_valid()):
+            form.save()
+            return redirect("/crms/pages/customerInfo.html")
+    data = {"form": form,
+    "customerInformation": customerInformation,
+    
+    }
+    return redirect("/crms/pages/customerInfo.html")
+
 
 @login_required(login_url=login_URL)
 def productComplaint(request,pk):

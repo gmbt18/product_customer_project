@@ -30,6 +30,8 @@ urlpatterns = [
 
     # CustomerInfos
     path('customerInfo/<str:pk>', views.customerInfo, name="customerInfo"),
+    path('customerInfoAdd', views.customerInfoAdd, name="customerInfoAdd"),
+    path('customerInfoUpdate/<str:pk>', views.customerInfoUpdate, name="customerInfoUpdate"),
     path('customerInformation/<str:pk>', views.customerInformation, name="customerInformation"),
     path('productComplaint/<str:pk>', views.productComplaint, name="productComplaint"),
     path('customerReview/<str:pk>', views.customerReview, name="customerReview"),
