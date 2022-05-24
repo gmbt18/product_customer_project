@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms import ImageField
 from django.contrib.auth.models import AbstractUser
-from pcims_app.models import *
+from pcims_app.models import ProductCatalog, Product
 ##modify Cutomer to AUTH_USER???
 #Register them in admins.py
 
@@ -17,7 +17,8 @@ class AuthUser(AbstractUser):
         (3, 'Customer Manager')
     }
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES,null=True)
-
+    def __str__(self):
+        return f"{self.username}"
 
 
 
@@ -44,12 +45,17 @@ class CustomerInformation(models.Model):
     officeLandlineNumber = models.CharField(max_length=15, null=True, blank=True)
     personalEmail = models.CharField(max_length=40, null=True, blank=True)
     officeEmail = models.CharField(max_length=40, null=True, blank=True)
+    
+    def __str__(self):
+        return f"{self.customer}"
 
 
 class ProductComplaint(models.Model):
     customer = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,null=True)
     complaint = models.CharField(max_length=200, null=True, blank=False)
+    def __str__(self):
+        return f"{self.customer}"
 
 class CustomerReview(models.Model):
     customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE)
@@ -63,3 +69,6 @@ class CustomerReview(models.Model):
     )
     reviewDate = models.DateTimeField(auto_now_add=True, null=True)
     productReview = models.CharField(max_length=200, null=True, blank=False)
+    
+    def __str__(self):
+        return f"{self.customer}-{self.product}"

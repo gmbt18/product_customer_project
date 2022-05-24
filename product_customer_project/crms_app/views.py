@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_protect
 
 # Create your views here.
 login_URL = "/crms/testLogin/"
@@ -7862,32 +7863,51 @@ def register(request):
 @login_required(login_url=login_URL)
 def customerInformation(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
-    customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
+    customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
+    data = {}
+    data["customerInformation"] = customerInformation
+    print(isNew)
+    print(customer)
+    print(customerInformation.picture)
+    print(vars(customerInformation))
     if(request.method == "POST"):
-        form = CustomerInformationUpdateForm(request.POST, instance=customer)
+        form = CustomerInformationUpdateForm(request.POST,request.FILES,instance=customerInformation)
+        
         if(form.is_valid()):
             form.save()
             return redirect("/crms/customerInformation/"+pk)
-    data = {"form": form}
+    data["customer"] = customer
+    data["customerInformation"] = customerInformation
+    data["form"] = form
+    data["isNew"] = isNew
+    
+
     return render(request, 'crms_app/Customer Information/customerInformation.html', data)
+
+
 
 @login_required(login_url=login_URL)
 def customerInfo(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
-    # if(request.method == "POST"):
-    #     form = CustomerInformationUpdateForm(request.POST, instance=customer)
-    #     if(form.is_valid()):
-    #         form.save()
-    #         return redirect("/crms/pages/customerInfo/"+pk)
+
+    if(request.method == "POST"):
+        form = CustomerInformationUpdateForm(request.POST, instance=customer)
+        if(form.is_valid()):
+            form.save()
+            return redirect("/crms/customerInfo/"+pk)
     data = {
       "customer": customer,
       "userInfo": customerInformation,
       "form": form,
+      "created": created,
     }
+
     return render(request, 'crms_app/pages/customerInfo.html', data)
+
+
 
 def customerInfoAdd(request):
     form = AuthUserCreationForm()
@@ -7901,7 +7921,7 @@ def customerInfoAdd(request):
     return redirect("/crms/pages/customerInfo.html")
     
 def customerInfoUpdate(request,pk):
-    customer = AuthUser.objects.get(id=pk,user_type=2)
+    customer = AuthUser.objects.get(Q(id=pk,user_type=2) | Q(id=pk,user_type=3))
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
@@ -8035,17 +8055,22 @@ def testRegister_page(request):
     return render(request, 'crms_app/TEST-Register-Login/test-register.html',data)
 
 
+@csrf_protect
 def testLogin_page(request):
     if(request.method == "POST"):
         username = request.POST.get('username')
         password = request.POST.get('password')
         
         customer = authenticate(request, username=username, password=password)
-        print(customer)
+        customerInformation = CustomerInformation.objects.filter(customer=customer)
 
         if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
-            login(request, customer)
-            return redirect('/crms/')
+            if len(customerInformation) == 0:
+              login(request, customer)
+              return redirect(f"/crms/customerInformation/{customer.id}")
+            else:
+              login(request, customer)
+              return redirect('/crms/')
         else:
             print("Login Fail.")
             messages.error(request, "Incorrect password or username.")
@@ -8077,6 +8102,22 @@ def testChangePassword(request):
     }
 
     return render(request, 'crms_app/TEST-Register-Login/test-changePassword.html', data)
+
+
+@login_required(login_url=login_URL)
+def subscribeCatalog(request):
+  customerInformation = getCustomerInformation(request.user)
+  customerInformation.isSubscribed = True
+  customerInformation.save()
+  return redirect(f"/crms/customerInformation/{request.user.id}")
+
+@login_required(login_url=login_URL)
+def unsubscribeCatalog(request):
+  customerInformation = getCustomerInformation(request.user)
+  customerInformation.isSubscribed = False
+  customerInformation.save()
+  return redirect(f"/crms/customerInformation/{request.user.id}")
+
 
 
 #Auxilliary functions

@@ -4,6 +4,9 @@
 <link rel="stylesheet" href={% static 'css/customerInfo.css' %}>
 <div class="app container-fluid">
   <div class="app-contents container d-flex align-items-center">
+
+
+
     {% if request.user.is_superuser %}
     <div class="customer-info-view container-fluid py-2">
     {% else %}

@@ -37,5 +37,8 @@ urlpatterns = [
     path('customerReview/<str:pk>', views.customerReview, name="customerReview"),
     path('removeReview/<str:pk>', views.removeReview, name="removeReview"),
     path('submitProductComplaint/<str:pk>', views.submitProductComplaint, name="submitProductComplaint"),
+    path('subscribeCatalog/', views.subscribeCatalog, name="subscribeCatalog"),
+    path('unsubscribeCatalog/', views.unsubscribeCatalog, name="unsubscribeCatalog"),
 
 ]
+
