@@ -40,7 +40,6 @@ class CustomerInformationUpdateForm(ModelForm):
         emailAttributes = TextInput( attrs={ 'type':'email', 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Email Address', 'required': False, } )
         addressAttributes = TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Address', 'required': False, } ),
         widgets = { 
-            'username': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput' , 'placeholder':'Enter Username', 'required': True, } ),
             'name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter name', 'required': False, } ),
             #'birthday':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter birthday', 'required': False, } ),
             'sex': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter sex', 'required': False, } ),
