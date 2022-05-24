@@ -7876,14 +7876,15 @@ def customerInfo(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
-    if(request.method == "POST"):
-        form = CustomerInformationUpdateForm(request.POST, instance=customer)
-        if(form.is_valid()):
-            form.save()
-            return redirect("/crms/customerInfo/"+pk)
+    # if(request.method == "POST"):
+    #     form = CustomerInformationUpdateForm(request.POST, instance=customer)
+    #     if(form.is_valid()):
+    #         form.save()
+    #         return redirect("/crms/pages/customerInfo/"+pk)
+    print(vars(customerInformation))
     data = {
       "customer": customer,
-      "customerInfo": customerInformation,
+      "userInfo": customerInformation,
       "form": form,
     }
     return render(request, 'crms_app/pages/customerInfo.html', data)
@@ -7894,7 +7895,7 @@ def customerInfoAdd(request):
         form = AuthUserCreationForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return redirect("/crms/pages/customerInfo.html")
+            return redirect("/crms/pages/customerInfo/")
 
     data = {"form": form}
     return redirect("/crms/pages/customerInfo.html")
@@ -7904,13 +7905,15 @@ def customerInfoUpdate(request,pk):
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
-        form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
-        if(form.is_valid()):
-            form.save()
-            return redirect("/crms/pages/customerInfo.html")
-    data = {"form": form,
-    "customerInformation": customerInformation,
-    
+      form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
+      print(list(request.POST.items()))
+      print(list(form.errors))
+      if(form.is_valid()):
+        form.save()
+        return redirect("/crms/pages/customerInfo/"+pk)
+    data = {
+      "form": form,
+      "customerInformation": customerInformation,
     }
     return redirect("/crms/pages/customerInfo.html")
 

@@ -16,7 +16,7 @@
       <div class="customer-info-view-contents default-border col-lg-8 d-flex">
         <div class="col-lg-11 d-flex justify-content-around ms-3">
       {% endif %}
-          <div class="profile-form container-fluid d-flex justify-content-around m-0 p-0">
+          <div class="profile-view container-fluid d-flex justify-content-around m-0 p-0">
             <div class="col-lg-5 d-flex flex-column justify-content-around">
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
@@ -37,7 +37,7 @@
                       name="name"
                       id="nameField"
                       class="float-field align-self-center"
-                      value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
+                      value="{% if not userInfo.name == None or userInfo.name|length == 0 %}{{userInfo.name}}{% endif %}"
                       disabled
                     >
                   </div>
@@ -92,12 +92,8 @@
               </div>
               <div class="bottom-left-buttons d-flex justify-content-between">
                 <button type="button" class="update-btn d-block btn-lg btn-dark fw-bold">Update</button>
-                <button type="button" class="finish-update-btn d-none btn-lg btn-dark fw-bold">Finish Update</button>
-                <button type="button" class="cancel-update-btn d-none btn-lg btn-secondary fw-bold">Cancel Update</button>
                 {% if request.user.is_superuser %}
                 <button type="button" class="add-btn d-block btn-lg btn-dark fw-bold">Add</button>
-                <button type="button" class="finish-adding-btn d-none btn-lg btn-dark fw-bold">Finish Adding</button>
-                <button type="button" class="cancel-adding-btn d-none btn-lg btn-secondary fw-bold">Cancel Adding</button>
                 {% else %}
                 <button type="button" class="subscribe-btn d-block subscribe-btn btn-lg btn-dark fw-bold">Subscribe</button>
                 {% endif %}
@@ -152,7 +148,7 @@
                     type="text" 
                     id="officeAddressField"
                     class="float-field align-self-center"
-                    value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
+                    value="{% if not userInfo.officeAddress == None or userInfo.officeAddress|length == 0 %}{{userInfo.officeAddress}}{% endif %}"
                     disabled
                   >
                 </div>
@@ -234,7 +230,8 @@
               </div>
             </div>
           </div>
-          <form class="profile-form container-fluid d-flex justify-content-around d-none m-0 p-0" method="" action="POST" onsubmit="return false;">
+          <form class="profile-form container-fluid d-none justify-content-around m-0 p-0" action="" method="POST" onsubmit="return false;">
+            {% csrf_token %}
             <div class="col-lg-5 d-flex flex-column justify-content-around">
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
@@ -269,25 +266,32 @@
                 <div class="float-container d-flex flex-column">
                   <label for="birthdayInput">Birthday</label>
                   <input 
-                    type="text" 
+                    type="date" 
+                    name="birthday"
                     id="birthdayInput"
                     class="float-field align-self-center"
                     value="{% if not userInfo.birthday == None or userInfo.birthday|length == 0 %}{{userInfo.birthday}}{% endif %}"
                   >
                 </div>
-                <div class="float-container d-flex flex-column">
+                <div class="overlapping-container d-flex flex-column">
                   <label for="sexInput">Sex</label>
-                  <input 
+                  <select 
                     type="text" 
+                    name="sex"
                     id="sexInput"
-                    class="float-field align-self-center"
-                    value="{% if not userInfo.sex == None or userInfo.sex|length == 0 %}{{userInfo.sex}}{% endif %}"
+                    class="float-field align-self-center text-end"
                   >
+                    <option {% if not userInfo.sex == None or userInfo.sex|length == "0" %}selected{% endif %}>-----</option>
+                    <option value="0" {% if customerInfo.sex == "0" %}selected{% endif %}>Male</option>
+                    <option value="1" {% if customerInfo.sex == "1" %}selected{% endif %}>Female</option>
+                    <option value="2" {% if customerInfo.sex == "2" %}selected{% endif %}>Intersex</option>
+                  </select>
                 </div>
                 <div class="float-container d-flex flex-column">
                   <label for="nationalityInput">Nationality</label>
                   <input 
                     type="text" 
+                    name="nationality"
                     id="nationalityInput"
                     class="float-field align-self-center"
                     value="{% if not userInfo.nationality == None or userInfo.nationality|length == 0 %}{{userInfo.nationality}}{% endif %}"
@@ -297,6 +301,7 @@
                   <label for="citizenshipInput">Citizenship</label>
                   <input 
                     type="text" 
+                    name="citizenship"
                     id="citizenshipInput"
                     class="float-field align-self-center"
                     value="{% if not userInfo.citizenship == None or userInfo.citizenship|length == 0 %}{{userInfo.citizenship}}{% endif %}"
@@ -304,15 +309,11 @@
                 </div>
               </div>
               <div class="bottom-left-buttons d-flex justify-content-between">
-                <button type="button" class="update-btn d-block btn-lg btn-dark fw-bold">Update</button>
                 <button type="button" class="finish-update-btn d-none btn-lg btn-dark fw-bold">Finish Update</button>
                 <button type="button" class="cancel-update-btn d-none btn-lg btn-secondary fw-bold">Cancel Update</button>
                 {% if request.user.is_superuser %}
-                <button type="button" class="add-btn d-block btn-lg btn-dark fw-bold">Add</button>
                 <button type="button" class="finish-adding-btn d-none btn-lg btn-dark fw-bold">Finish Adding</button>
                 <button type="button" class="cancel-adding-btn d-none btn-lg btn-secondary fw-bold">Cancel Adding</button>
-                {% else %}
-                <button type="button" class="subscribe-btn d-block subscribe-btn btn-lg btn-dark fw-bold">Subscribe</button>
                 {% endif %}
               </div>
             </div>
@@ -323,6 +324,7 @@
                   <label for="presentAddressInput">Present Address</label>
                   <input 
                     type="text" 
+                    name="presentAddress"
                     id="presentAddressInput"
                     class="float-field align-self-center"
                     value="{% if not userInfo.presentAddress == None or userInfo.presentAddress|length == 0 %}{{userInfo.presentAddress}}{% endif %}"
@@ -332,7 +334,8 @@
                   <label for="permanentInput">Permanent Address</label>
                   <input 
                     type="text" 
-                    id="permanentInput"
+                    name="permanentAddress"
+                    id="permanentAddressInput"
                     class="float-field align-self-center"
                     value="{% if not userInfo.permanentAddress == None or userInfo.permanentAddress|length == 0 %}{{userInfo.permanentAddress}}{% endif %}"
                   >
@@ -341,6 +344,7 @@
                   <label for="billingAddressInput">Billing Address</label>
                   <input 
                     type="text"
+                    name="billingAddress"
                     id="billingAddressInput"
                     class="float-field align-self-center"
                     value="{% if not userInfo.billingAddress == None or userInfo.billingAddress|length == 0 %}{{userInfo.billingAddress}}{% endif %}"
@@ -350,6 +354,7 @@
                   <label for="shippingAddressInput">Shipping Address</label>
                   <input 
                     type="text" 
+                    name="shippingAddress"
                     id="shippingAddressInput"
                     class="float-field align-self-center"
                     value="{% if not userInfo.shippingAddress == None or userInfo.shippingAddress|length == 0 %}{{userInfo.shippingAddress}}{% endif %}"
@@ -359,6 +364,7 @@
                   <label for="officeAddressInput">Office Address</label>
                   <input 
                     type="text" 
+                    name="officeAddress"
                     id="officeAddressInput"
                     class="float-field align-self-center"
                     value="{% if not userInfo. == None or userInfo.|length == 0 %}{{userInfo.}}{% endif %}"
@@ -372,6 +378,7 @@
                     <label for="personalMobileNumberInput">Personal</label>
                     <input 
                       type="text" 
+                      name="personalCPNumber"
                       id="personalMobileNumberInput"
                       class="float-field align-self-center"
                       value="{% if not userInfo.personalCPNumber == None or userInfo.personalCPNumber|length == 0 %}{{userInfo.personalCPNumber}}{% endif %}"
@@ -381,6 +388,7 @@
                     <label for="officeMobileNumberInput">Office</label>
                     <input 
                       type="text" 
+                      name="officeCPNumber"
                       id="officeMobileNumberInput"
                       class="float-field align-self-center"
                       value="{% if not userInfo.officeCPNumber == None or userInfo.officeCPNumber|length == 0 %}{{userInfo.officeCPNumber}}{% endif %}"
@@ -395,6 +403,7 @@
                     <label for="homeLandlineNumberInput">Home</label>
                     <input 
                       type="text" 
+                      name="homeLandlineNumber"
                       id="homeLandlineNumberInput"
                       class="float-field align-self-center"
                       value="{% if not userInfo.homeLandlineNumber == None or userInfo.homeLandlineNumber|length == 0 %}{{userInfo.homeLandlineNumber}}{% endif %}"
@@ -404,6 +413,7 @@
                     <label for="officeLandlineNumberInput">Office</label>
                     <input 
                       type="text" 
+                      name="officeLandlineNumber"
                       id="officeLandlineNumberInput"
                       class="float-field align-self-center"
                       value="{% if not userInfo.officeLandlineNumber == None or userInfo.officeLandlineNumber|length == 0 %}{{userInfo.officeLandlineNumber}}{% endif %}"
@@ -418,6 +428,7 @@
                     <label for="personalEmailInput">Personal</label>
                     <input 
                       type="text" 
+                      name="personalEmail"
                       id="personalEmailInput"
                       class="float-field align-self-center"
                       value="{% if not userInfo.personalEmail == None or userInfo.personalEmail|length == 0 %}{{userInfo.personalEmail}}{% endif %}"
@@ -427,6 +438,7 @@
                     <label for="officeEmailInput">Office</label>
                     <input 
                       type="text" 
+                      name="officeEmail"
                       id="officeEmailInput"
                       class="float-field align-self-center"
                       value="{% if not userInfo.officeEmail == None or userInfo.officeEmail|length == 0 %}{{userInfo.officeEmail}}{% endif %}"
@@ -540,6 +552,7 @@
       </div>
     </div>
   </div>
+  <span class="superuser-span d-none">{{request.user.is_superuser}}</span>
 </div>
 <script type="text/javascript" src="{% static 'js/onload.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/customerInfo.js' %}"></script>
