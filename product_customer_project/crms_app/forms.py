@@ -24,11 +24,9 @@ class AuthUserCreationForm(UserCreationForm):
     password2 =  CharField( widget=PasswordInput(attrs=attrs) )
     class Meta:
         model = AuthUser
-        fields = ['first_name', 'last_name', 'username', 'email', 'user_type', 'password1', 'password2']
+        fields = ['username', 'email', 'user_type', 'password1', 'password2']
         widgets = { 
             #insert bootstrap designs here
-            'first_name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter First Name', 'required': True, } ),
-            'last_name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Last Name', 'required': True, } ),
             'username': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput' , 'placeholder':'Enter Username', 'required': True, } ),
             'email': TextInput( attrs={ 'type':'email', 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Email Address', 'required': True, } ),
 
