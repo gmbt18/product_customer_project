@@ -29,12 +29,15 @@
                   id="customerNameField"
                   class="form-control position-absolute"
                 > -->
+                {{customer.name}}
                 <div class="float-container d-flex flex-column">
                   <label for="nameField">Name</label>
                   <input 
                     type="text" 
+                    name="name"
                     id="nameField"
                     class="float-field align-self-center"
+                    value="{{customer.name}}"
                   >
                 </div>
               </div>

@@ -7880,7 +7880,10 @@ def customerInfo(request,pk):
         if(form.is_valid()):
             form.save()
             return redirect("/crms/customerInfo/"+pk)
-    data = {"form": form}
+    data = {
+      "customer": customer,
+      "form": form,
+    }
     return render(request, 'crms_app/pages/customerInfo.html', data)
 
 

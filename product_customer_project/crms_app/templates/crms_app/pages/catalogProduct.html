@@ -516,7 +516,6 @@
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
                 {% endif %}
-
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
                   <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
