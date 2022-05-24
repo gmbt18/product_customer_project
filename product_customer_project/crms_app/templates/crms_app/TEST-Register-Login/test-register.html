@@ -1,6 +1,6 @@
 {% extends "crms_app/main.html" %}
 {% block content %}
-
+{% load static %}
 <br><br><br>
 
 <div class="container-fluid">
@@ -59,7 +59,7 @@
                             <label for="floatingInput">Confirm Password</label>
                         </div> 
 
-                        <div class="form-floating mb-3">
+                        <div class="form-floating d-none mb-3">
                             {{form.user_type}}
                             <label for="floatingInput">Select User Type</label>
                         </div> 
@@ -90,5 +90,5 @@
     </div>
 
 </div>
-
+<script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 {% endblock content %}

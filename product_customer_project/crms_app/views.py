@@ -7882,6 +7882,7 @@ def customerInfo(request,pk):
             return redirect("/crms/customerInfo/"+pk)
     data = {
       "customer": customer,
+      "customerInfo": customerInformation,
       "form": form,
     }
     return render(request, 'crms_app/pages/customerInfo.html', data)
