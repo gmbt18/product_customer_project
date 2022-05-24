@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 # Create your views here.
 login_URL = "/crms/testLogin/"
@@ -7859,7 +7860,7 @@ def register(request):
 #CustomerInformation Page
 @login_required(login_url=login_URL)
 def customerInformation(request,pk):
-    customer = AuthUser.objects.get(id=pk,user_type=2)
+    customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
@@ -7872,7 +7873,7 @@ def customerInformation(request,pk):
 
 @login_required(login_url=login_URL)
 def customerInfo(request,pk):
-    customer = AuthUser.objects.get(id=pk,user_type=2)
+    customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
@@ -7926,7 +7927,7 @@ def productComplaint(request,pk):
 
 @login_required(login_url=login_URL)
 def customerReview(request,pk):
-    customer = AuthUser.objects.get(id=pk, user_type=2)
+    customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerReview, created = CustomerReview.objects.get_or_create(customer=customer)
     data = {
         "customerReview" : customerReview,
@@ -7976,7 +7977,7 @@ def create(request):
     return render(request, 'crms_app/CRUD/create.html', data)
 
 def update(request,pk):
-    customer = AuthUser.objects.get(id=pk,user_type=2)
+    customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
@@ -8021,9 +8022,9 @@ def testLogin_page(request):
         password = request.POST.get('password')
         
         customer = authenticate(request, username=username, password=password)
-        print(customer.user_type)
+        print(customer)
 
-        if customer is not None and customer.user_type == 2:
+        if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
             login(request, customer)
             return redirect('/crms/')
         else:

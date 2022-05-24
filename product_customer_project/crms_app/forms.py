@@ -12,6 +12,12 @@ USER_TYPE_CHOICES = {
         (2, 'Customer')
     }
 
+SEX_CHOICES = {
+    (0, "Male"),
+    (1, "Female"),
+
+}
+
 class AuthUserCreationForm(UserCreationForm):
     attrs = { 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Password' , 'required': True, } 
     password1 =  CharField( widget=PasswordInput(attrs=attrs) )
@@ -25,7 +31,7 @@ class AuthUserCreationForm(UserCreationForm):
             'last_name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Last Name', 'required': True, } ),
             'username': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput' , 'placeholder':'Enter Username', 'required': True, } ),
             'email': TextInput( attrs={ 'type':'email', 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Email Address', 'required': True, } ),
-            'sex' : forms.Select(choices=USER_TYPE_CHOICES),
+
         }
 
 class CustomerInformationUpdateForm(ModelForm):
