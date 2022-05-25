@@ -35,7 +35,10 @@ urlpatterns = [
     path('products/<int:id>/addreview/', views.reviewsAddPage, name='reviewsAddPage'),
     path('products/search-results/', views.searchProduct, name='searchProduct'),
 
+    path('monthly-catalog', views.monthlyCatalogsListPage, name='monthlyCatalogsListPage'),
+    path('monthly-catalog/add', views.monthlyCatalogsAddPage, name='monthlyCatalogsAddPage'),
     path('monthly-catalog/<int:id>', views.monthlyCatalogPage, name='monthlyCatalogPage'),
+    path('monthly-catalog/<int:id>/edit', views.monthlyCatalogsEditPage, name='monthlyCatalogsEditPage'),
     
 
     path('categories/', views.categoriesPage, name='categoriesPage'),
@@ -48,13 +51,13 @@ urlpatterns = [
     path('myreviews', views.myReviewsPage, name='myReviewsPage'),
     path('myreviews/<int:id>/edit', views.reviewsEditPage, name='reviewsEditPage'),
 
-    path('reset_password/', auth_views.PasswordResetView.as_view(), name = 'reset_password'),
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="catalog/password_reset.html"), name = 'reset_password'),
 
-    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name = 'password_reset_done'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="catalog/password_reset_sent.html"), name = 'password_reset_done'),
 
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name = 'password_reset_confirm'),
 
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name = 'password_reset_complete'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="catalog/password_reset_done.html"), name = 'password_reset_complete'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
