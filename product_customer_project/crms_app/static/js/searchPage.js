@@ -11,7 +11,6 @@ window.onload = () => {
 }
 
 changeSearchMode = event => {
-  console.log(event.target)
   if (event.target.textContent === 'Product Search') {
     document.querySelector('.product-right-div').classList.replace('d-none', 'd-flex');
     document.querySelector('.customer-right-div').classList.replace('d-flex', 'd-none');
