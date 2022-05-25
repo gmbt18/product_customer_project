@@ -1,14 +1,14 @@
 {% extends 'crms_app/main.html' %}
 {% block content %}
     <br><br>
-     <div class="container">
+     <!-- <div class="container">
          <h1>
             CRUD TEST
          </h1>
-     </div>
+     </div> -->
 
      <div class="container">
-         <h1>Customer Database</h1>
+         <h1 class = "text-uppercase">Customer Database</h1>
         <a href="{% url 'create' %}" class = "btn btn-outline-success">
             <i class="fas fa-plus"></i>
             Create Customer
@@ -34,7 +34,7 @@
                     <td>{{customerInformation.picture}}</td>
                     <td>{{customerInformation.isSubscribed}}</td>
                     <td>
-                        <a href="{% url 'update' customerInformation.customer.id %}" class = "btn btn-outline-primary">
+                        <a href="{% url 'customerInfo' customerInformation.customer.id %}" class = "btn btn-outline-primary">
                             <i class="fas fa-edit"></i>
                             Update
                         </a>

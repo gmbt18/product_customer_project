@@ -686,9 +686,9 @@
           </div>
           <div class="top-right-controls col-lg-1 d-flex flex-column me-4 p-0">
             <div class="btn-group-vertical container-fluid mb-3 p-0" role="group" aria-label="Basic example">
-              <button type="button" class="profile-btn btn btn-outline-dark container-fluid rounded-0 py-1">Account Info</button>
+              <button type="button" class="profile-btn btn btn-outline-dark container-fluid rounded-0 py-1">Profile</button>
               <button type="button" class="change-password-btn btn btn-outline-dark container-fluid rounded-0 py-1">Change Password</button>
-              <button type="button" class="forgot-password-btn btn btn-outline-dark container-fluid rounded-0 py-1">Forgot Password</button>
+              <!-- <button type="button" class="forgot-password-btn btn btn-outline-dark container-fluid rounded-0 py-1">Forgot Password</button> -->
               <button type="button" class="logout-btn btn btn-outline-dark container-fluid rounded-0 py-1">Logout</button>
             </div>
           </div>
@@ -1084,15 +1084,15 @@
       </div>
     </div>
   </div>
-  <a class="to-login nav-link d-none {% if request.resolver_match.view_name == 'login' %}active{% endif %} text-light" href="{% url 'login' %}">login</a>
+  <a class="to-login nav-link d-none {% if request.resolver_match.view_name == 'login' %}active{% endif %} text-light" href="{% url 'login' %}">Login</a>
   <a class="to-catalog-product nav-link d-none {% if request.resolver_match.view_name == 'catalogProduct' %}active{% endif %}" href="{% url 'catalogProduct' %}">Catalog Product</a>
   <a class="to-catalog-monthly nav-link d-none {% if request.resolver_match.view_name == 'catalogMonthly' %}active{% endif %}" href="{% url 'catalogMonthly' %}">Catalog Monthly</a>
   <a class="to-advanced-search nav-link d-none {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
   {% if request.user.is_authenticated %}
   <a class="to-profile nav-link d-none {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' request.user.id %}">Profile</a>
-  <a class="to-change-password nav-link d-none {% if request.resolver_match.view_name == 'testChangePassword' %}active{% endif %} text-light" href="{% url 'testChangePassword' %}">testChangePassword</a>
-  <a class="to-forgot-password nav-link d-none {% if request.resolver_match.view_name == 'passwordForgot' %}active{% endif %}" href="{% url 'passwordForgot' %}">Password Forgot</a>
-  <a class="to-logout nav-link d-none {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %} text-light" href="{% url 'testLogout' %}">testLogout</a>
+  <a class="to-change-password nav-link d-none {% if request.resolver_match.view_name == 'passwordChange' %}active{% endif %} text-light" href="{% url 'passwordChange' %}">Password Change</a>
+  <!-- <a class="to-forgot-password nav-link d-none {% if request.resolver_match.view_name == 'passwordForgot' %}active{% endif %}" href="{% url 'passwordForgot' %}">Password Forgot</a> -->
+  <a class="to-logout nav-link d-none {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %} text-light" href="{% url 'testLogout' %}">Logout</a>
   {% endif %}
 </div>
 <script type="text/javascript" src="{% static 'js/home.js' %}"></script>

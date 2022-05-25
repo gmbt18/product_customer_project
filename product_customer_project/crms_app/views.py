@@ -174,7 +174,6 @@ def login_page(request):
     if(request.method == "POST"):
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
         customer = authenticate(request, username=username, password=password)
         customerInformation = CustomerInformation.objects.filter(customer=customer)
 
@@ -192,13 +191,38 @@ def login_page(request):
     return render(request, 'crms_app/pages/login.html')
 
 def passwordChange(request):
-    return render(request, 'crms_app/pages/passwordChange.html')
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('/crms/passwordChange')
+        else:
+            messages.error(request, 'Please correct the error above.')
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    data = {
+      "form": form,
+    }
+
+    return render(request, 'crms_app/pages/passwordChange.html', data)
 
 def passwordForgot(request):
     return render(request, 'crms_app/pages/passwordForgot.html')
 
 def register(request):
-    return render(request, 'crms_app/pages/register.html')
+    form = AuthUserCreationForm()
+    if( request.method == "POST"):
+        form = AuthUserCreationForm(request.POST)
+        if( form.is_valid() ):
+            form.save()
+            messages.success(request, "Account was created for "+form.cleaned_data.get("username"))
+            return redirect('/crms/login')
+
+    data = {"form": form}
+    return render(request, 'crms_app/pages/register.html', data)
 
 # Customer Information
 #CustomerInformation Page
@@ -415,7 +439,7 @@ def testLogin_page(request):
         if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
             if len(customerInformation) == 0:
               login(request, customer)
-              return redirect(f"/crms/customerInfo/{customer.id}")
+              return redirect(f"/crms/customerInformation/{customer.id}")
             else:
               login(request, customer)
               return redirect('/crms/')

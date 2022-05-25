@@ -1,15 +1,16 @@
 {% extends 'crms_app/main.html' %}
 {% block content %}
 {% load static %}
-<br><br><br>
+<link rel="stylesheet" href={% static 'css/register.css' %}>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2 col-lg-3"></div>
-        <div class="col-md-8 col-lg-6">
+
+<div class="container-fluid bg-secondary d-flex justify-content-center align-items-start" style="height:100vh">
+    <div class="row mt-5">
+
+        <div class="" style = " width: 900px">
             <div class="card text-center shadow">
                 <div class="card-header">
-                    Welcome! Please Register (This is a test)
+                    Hello Customer! Please fill up the registration form below.
                 </div>
                 <div class="card-body m-4">
                     <form action="" method="post">
@@ -60,17 +61,17 @@
 
                         <center>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-dark btn-md">Register</button>
+                            <button type="submit" class="btn btn-dark btn-md text-uppercase">Register</button>
                         </div>
                         </center>  
                     </form>
 
                     <br>
-                    Have an account? <a href="{% url 'testLogin'  %}" style="text-decoration: none;">testLogin</a>.
+                    Have an account? <a href="{% url 'login'  %}" style="text-decoration: none;">Login</a>.
                 </div>
             </div>
         </div>
-        <div class="col-md-2 col-lg-3"></div>
+
     </div>
 
 </div>

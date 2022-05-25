@@ -64,9 +64,13 @@
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' request.user.id %}">Profile</a>
                 </li>
+                <!-- Logout -->
                 <li class="dropdown-item">
-                  <a class="nav-link {% if request.resolver_match.view_name == 'customerInformation' %}active{% endif %}" href="{% url 'customerInformation' request.user.id %}">customerInformation</a>
+                  <a class="nav-link {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %}" href="{% url 'testLogout' %}">Logout</a>
                 </li>
+                <!-- <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'customerInformation' %}active{% endif %}" href="{% url 'customerInformation' request.user.id %}">customerInformation</a>
+                </li> -->
                 {% endif %}
               </ul>
             </li>
@@ -81,7 +85,7 @@
 
             {% if not request.user.is_authenticated %}
             <!-- TEST -->
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Test1
               </a>
@@ -90,11 +94,11 @@
                   <a class="nav-link {% if request.resolver_match.view_name == 'testRegister' %}active{% endif %}" href="{% url 'testRegister' %}">testRegister</a>
                 </li>
     
-                <!-- <li class="dropdown-item">
+                <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'testLogin' %}active{% endif %}" href="{% url 'testLogin' %}">testLogin</a>
-                </li> -->
+                </li>
               </ul>
-            </li>
+            </li> -->
             
             
 
@@ -122,10 +126,10 @@
 
             <!-- Display user -->
             <li class="nav-link position-absolute end-0 me-2">
-              <a href="" class="text-decoration-none text-light text-uppercase fw-bold"><i class="fas fa-user text-light me-2"></i>{{request.user.first_name}} {{request.user.last_name}}</a>
+              <a href="" class="text-decoration-none text-light text-uppercase fw-bold"><i class="fas fa-user text-light me-2"></i>{{request.user.username}}</a>
             </li>
 
-            <!-- TEST Change Password -->
+            <!-- TEST Change Password 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Test2
@@ -134,13 +138,8 @@
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'testChangePassword' %}active{% endif %}" href="{% url 'testChangePassword' %}">testChangePassword</a>
                 </li>
-    
-                <!-- Logout -->
-                <li class="dropdown-item">
-                  <a class="nav-link {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %}" href="{% url 'testLogout' %}">Logout</a>
-                </li>
               </ul>
-            </li>
+            </li>-->
             
 
 

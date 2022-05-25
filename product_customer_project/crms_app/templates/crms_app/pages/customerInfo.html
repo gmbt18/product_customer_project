@@ -4,9 +4,9 @@
 <link rel="stylesheet" href={% static 'css/customerInfo.css' %}>
 <div class="app position-relative container-fluid d-flex flex-column">
   {% if isNew %}
-  <div class="container mt-4 mb-0">
-    <h1 class="text-white text-center mt-4 mb-2">WELCOME NEW USER!</h1>
-    <p class="text-white text-center fs-5 mb-2">We recommend that you fill out your customer information for the best experience!</p>
+  <div class="container mt-3 mb-0">
+    <h1 class="text-white text-center mb-2">HELLO CUSTOMER!</h1>
+    <p class="text-white text-center fs-5 mb-2">We see that you're new and excited to browse our selection of products! <br> However, we recommend that you complete the registration process first for your convenience.</p>
   </div>
   {% endif %}
   <div class="app-contents container d-flex align-items-center">
@@ -107,6 +107,7 @@
                 <button type="button" class="update-btn d-block btn-lg btn-dark fw-bold">Update</button>
                 {% if request.user.is_superuser %}
                 <button type="button" class="add-btn d-block btn-lg btn-secondary fw-bold">Add</button>
+                <button class="manage-btn d-block btn-lg btn-dark fw-bold"><a class="text-decoration-none text-light"href="{% url 'manageCustomers' %}" style="">Go to Manage</a></button>
                 {% else %}
                 <button type="button" class="subscription-btn d-block btn-lg btn-secondary fw-bold">Subscribe</button>
                 {% endif %}
@@ -576,6 +577,11 @@
   <a class="register-link d-none" href="{% url 'testRegister' %}">testRegister</a>
   <a class="subscribe-link d-none" href="{% url 'subscribeCatalog' %}">SUBSCRIBE TO CATALOG</a>
   <a class="unsubscribe-link d-none" href="{% url 'unsubscribeCatalog' %}">UNSUBSCRIBE TO CATALOG</a>
+
+  {% if request.user.user_type == 3 %}
+  <a href="{% url 'manageCustomers' %}"> GO BACK TO MANAGE</a>
+  {% endif %}
+
   <span class="superuser-span d-none">{{request.user.is_superuser}}</span>
   <span class="is-new-span d-none">{{isNew}}</span>
   <span class="birthday-span d-none">{% if not customerInformation.birthday == None or customerInformation.birthday|length == 0 %}{{customerInformation.birthday}}{% endif %}</span>

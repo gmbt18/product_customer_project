@@ -26,7 +26,7 @@ class AuthUser(AbstractUser):
 # Create your models here.
 class CustomerInformation(models.Model):
     # blank: False = required
-    customer = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
+    customer = models.ForeignKey(AuthUser, on_delete=models.CASCADE, null=True)
     productCatalog = models.ForeignKey("pcims_app.ProductCatalog", on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50, null=True, blank=True)
     birthday = models.DateTimeField(auto_now_add=False, null=True, blank=True)
@@ -59,7 +59,7 @@ class ProductComplaint(models.Model):
         return f"{self.customer}"
 
 class CustomerReview(models.Model):
-    customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE)
+    customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE,null=True)
     product = models.ForeignKey("pcims_app.Product", on_delete=models.CASCADE,null=True)
     rating = models.IntegerField(
         null=True,
