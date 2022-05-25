@@ -90,6 +90,7 @@ class SupplierProduct(models.Model):
 class ProductPhotos(models.Model):
     product=models.ForeignKey(Product, on_delete=models.CASCADE, null = True, related_name='photos')
     photo= models.ImageField(upload_to='images',null=True)
+    filename = models.TextField(max_length=1000, null=True)
 
 # class ProductVideos(models.Model):
 #     product=models.ForeignKey(Product, on_delete=models.CASCADE, null = True, related_name='videos')
@@ -103,6 +104,7 @@ class Review(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
 class ProductCatalog(models.Model):
+    name=models.CharField(max_length=200,null=True)
     details = models.TextField(blank=True)
     products = models.ManyToManyField(Product)
     date = models.DateTimeField(auto_now_add=True, null=True)
