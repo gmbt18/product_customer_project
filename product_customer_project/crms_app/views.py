@@ -25,21 +25,6 @@ def catalogMonthly(request):
 
 def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
-    
-    i = 1
-    for product in products:
-      product['id'] = i
-      for photo in photos:
-        if product['name'] == photo['product']:
-          if not photo['filename'] == 'https://lzd-img-global.slatic.net/g/tps/tfs/TB1oP2bbQvoK1RjSZFNXXcxMVXa-300-200.png':
-            product['photo'] = photo['filename']
-          break
-      if not product.__contains__('photo'):
-        product['photo'] = 'https://wallpaperaccess.com/full/1285952.jpg'
-      i += 1
-    
-    # print(products[0])
-
     context = {
         'products': products
     }
