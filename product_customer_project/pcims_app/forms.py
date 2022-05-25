@@ -100,3 +100,15 @@ class ProductPhotoForm(ModelForm):
     class Meta:
         model = ProductPhotos
         fields = ['photo']
+
+class ProductCatalogForm(ModelForm):
+
+    class Meta:
+        model = ProductCatalog
+        fields = ['name','details','products']
+
+        labels = {
+            'name' : 'Catalog Name',
+            'details' : 'Details',
+            'products' : 'Products',
+        }

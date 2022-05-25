@@ -35,7 +35,10 @@ urlpatterns = [
     path('products/<int:id>/addreview/', views.reviewsAddPage, name='reviewsAddPage'),
     path('products/search-results/', views.searchProduct, name='searchProduct'),
 
+    path('monthly-catalog', views.monthlyCatalogsListPage, name='monthlyCatalogsListPage'),
+    path('monthly-catalog/add', views.monthlyCatalogsAddPage, name='monthlyCatalogsAddPage'),
     path('monthly-catalog/<int:id>', views.monthlyCatalogPage, name='monthlyCatalogPage'),
+    path('monthly-catalog/<int:id>/edit', views.monthlyCatalogsEditPage, name='monthlyCatalogsEditPage'),
     
 
     path('categories/', views.categoriesPage, name='categoriesPage'),

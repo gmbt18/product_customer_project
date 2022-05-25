@@ -103,6 +103,7 @@ class Review(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
 class ProductCatalog(models.Model):
+    name=models.CharField(max_length=200,null=True)
     details = models.TextField(blank=True)
     products = models.ManyToManyField(Product)
     date = models.DateTimeField(auto_now_add=True, null=True)
