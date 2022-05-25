@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_protect
 
+from pcims_app.models import *
+
 # Create your views here.
 login_URL = "/crms/testLogin/"
 
@@ -25,7 +27,7 @@ def catalogMonthly(request):
 
 def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
-    
+    photos = ProductPhotos.objects.all()
     i = 1
     for product in products:
       product['id'] = i
