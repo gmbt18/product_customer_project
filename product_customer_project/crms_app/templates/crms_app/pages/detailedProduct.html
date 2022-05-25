@@ -182,7 +182,7 @@
                       <div class="review-customer-img-div col-lg-2 p-4 pt-0">  
                       {% if customerInformation.picture %}
                       <img
-                        src="{{customerInformation.picture.url}}"
+                        src="{{picture}}"
                         class="review-customer-img"
                         style="width: 120px; height: 120px; object-fit: cover;" 
                       />
@@ -224,7 +224,7 @@
                       </div>
                       <input type="text" name="customer" value="{{customerInformation.name}}" id="customerField" class="d-none">
                       <input type="text" name="product" value="{{product.name}}" id="productField" class="d-none">
-                      <input type="number" name="rating" value="0" id="ratingField" class="d-none">
+                      <input type="text" name="rating" value="0" id="ratingField" class="d-none">
                     </form>
                     {% endif %}
                     <h3>Reviews: ({{reviewNum}})</h3>
@@ -232,9 +232,9 @@
                       {% for review in reviews %}
                       <div class="review-form container-fluid d-flex mb-3">
                         <div class="review-customer-img-div col-lg-2 p-4 pt-0">  
-                        {% if not customerInformation.picture == None or customerInformation.picture|length == 0 %}
+                        {% if review.user.picture %}
                         <img
-                          src="{{customerInformation.picture.url}}"
+                          src="{{review.user.picture.url}}"
                           class="review-customer-img"
                           style="width: 120px; height: 120px; object-fit: cover;" 
                         />

@@ -70,6 +70,7 @@ def searchPage(request):
   return render(request, 'crms_app/pages/searchPage.html', context)
 
 def detailedProduct(request,pk):
+    customer = []
     data = {}
     reviewForm = CustomerReviewForm()
     try:
@@ -79,30 +80,35 @@ def detailedProduct(request,pk):
         data["isRegistered"] = False
     product = Product.objects.get(id=pk)
     print(customer, request.user)
-    customerInformation = CustomerInformation.objects.filter(customer=request.user.id)
+    customerInformation = CustomerInformation.objects.filter(customer=customer)
     reviews = CustomerReview.objects.filter(product=product)
     reviewNum = len(reviews)
     print(reviews)
     print(reviewNum)
     mean_rating = 0
-    if(reviewNum != 0):
-        for review in reviews:
-            mean_rating += review.rating
-        mean_rating = mean_rating/reviewNum
+    # if(reviewNum != 0):
+    #     for review in reviews:
+    #         mean_rating += review.rating
+    #     mean_rating = mean_rating/reviewNum
     data['reviewNum'] = reviewNum
     data['reviews'] = reviews
-    data["mean_rating"] = mean_rating
+    # data["mean_rating"] = mean_rating
 
     if(request.method == "POST" and data.get("isRegistered")):
+        print(list(request.POST.items()))
         review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
         reviewForm = CustomerReviewForm(request.POST, instance=review)
+        print(review)
+        print(list(reviewForm.errors))
         if(reviewForm.is_valid()):
             reviewForm.save()
             messages.success(request, "The review was created on "+ product.name)
             return redirect(f"/crms/detailedProduct/{pk}")
     data['product'] = product
-    print(customerInformation.values())
-    data['customerInformation'] = customerInformation.values()
+    # print(customerInformation.values()[0])
+    # print(customerInformation.first().picture.url)
+    data['picture'] = customerInformation.first().picture.url
+    data['customerInformation'] = customerInformation.values()[0]
     data['reviewForm'] = reviewForm
 
     return render(request, 'crms_app/pages/detailedProduct.html', data)
