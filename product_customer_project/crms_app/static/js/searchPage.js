@@ -6,7 +6,8 @@ window.onload = () => {
   document.querySelectorAll('input[name="categoryRadio"]').forEach(e => {
     e.addEventListener('change', changeCategory);
   });
-  document.querySelector('.search-products-btn').addEventListener('click', submitProductSearchForm);
+  // document.querySelector('.search-products-btn').addEventListener('click', submitProductSearchForm);
+  document.querySelectorAll('.view-btn').forEach(e => e.addEventListener('click', viewProfile));
 }
 
 changeSearchMode = mode => {
@@ -53,4 +54,16 @@ submitProductSearchForm = () => {
   // const MIN_PRICE = document.getElementById('minPriceField').value;
   // const MAX_PRICE = document.getElementById('maxPriceField').value;
   document.querySelector('.product-search-form').submit();
+}
+
+viewProfile = event => {
+  const TARGET_CUSTOMER = event.target.parentElement.parentElement.querySelector('.customer-customer-span').textContent;
+  let targetID = '';
+  event.target.parentElement.parentElement.querySelectorAll('.auth-user-info-div').forEach(e => {
+    console.log(e.querySelector('.auth-user-username').textContent, TARGET_CUSTOMER)
+    if (e.querySelector('.auth-user-username').textContent === TARGET_CUSTOMER) {
+      targetID = e.querySelector('.auth-user-id').textContent;
+    }
+  });
+  window.location.href = window.location.href.split('/').slice(0,-2).join('/') + `/customerInfo/${targetID}`;
 }

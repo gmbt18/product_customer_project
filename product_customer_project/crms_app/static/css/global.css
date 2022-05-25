@@ -5,7 +5,7 @@
 
 .app-contents {
   display: table;
-  height: calc(100vh - 56px);
+  min-height: calc(100vh - 56px);
 }
 
 .default-border {

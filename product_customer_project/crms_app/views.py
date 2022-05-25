@@ -56,10 +56,17 @@ def catalogProduct(request):
 
 
 def searchPage(request):
-    if(request.method == "POST"):
-      print(list(request.POST.items()))
-      print(dict(request.POST.items()))
-    return render(request, 'crms_app/pages/searchPage.html')
+  customers = []
+  if request.user.is_superuser:
+    auth_users = AuthUser.objects.all()
+    customers = CustomerInformation.objects.all()
+  context = {
+    "auth_users": auth_users,
+    "customers": customers
+  }
+  # if(request.method == "POST"):
+  #   print(list(request.POST.items()))
+  return render(request, 'crms_app/pages/searchPage.html', context)
 
 def detailedProduct(request,pk):
     data = {}
