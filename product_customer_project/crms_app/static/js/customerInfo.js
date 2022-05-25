@@ -17,6 +17,11 @@ window.onload = () => {
     });
   }
 
+  if (document.querySelector('.is-new-span').textContent === 'True') {
+    console.log('what')
+    document.querySelector('.update-btn').click();
+  }
+
   switch (document.getElementById('sexField').value) {
     case '0':
       document.getElementById('sexField').value = 'Male';

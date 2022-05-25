@@ -7919,7 +7919,7 @@ def customerInfo(request,pk):
         print(list(form.errors))
         if(form.is_valid()):
             form.save()
-            return redirect("/crms_app/pages/customerInfo/"+pk)
+            return redirect("/crms/customerInfo/"+pk)
     data["customer"] = customer
     data["customerInformation"] = customerInformation
     data["form"] = form
@@ -7935,7 +7935,7 @@ def customerInfoAdd(request):
         form = AuthUserCreationForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return redirect("/crms/pages/customerInfo/")
+            return redirect("/crms/customerInfo/")
 
     data = {"form": form}
     return redirect("/crms/pages/customerInfo.html")
@@ -7950,7 +7950,7 @@ def customerInfoUpdate(request,pk):
       print(list(form.errors))
       if(form.is_valid()):
         form.save()
-        return redirect("/crms/pages/customerInfo/"+pk)
+        return redirect("/crms/customerInfo/"+pk)
     data = {
       "form": form,
       "customerInformation": customerInformation,
@@ -7967,12 +7967,12 @@ def customerInfoSubscribe(request,pk):
     print(list(form.errors))
     if(form.is_valid()):
       form.save()
-      return redirect("/crms/pages/customerInfo/"+pk)
+      return redirect("/crms/customerInfo/"+pk)
   data = {
     "form": form,
     "customerInformation": customerInformation,
   }
-  return redirect("/crms/pages/customerInfo/"+pk)
+  return redirect("/crms/customerInfo/"+pk)
 
 @login_required(login_url=login_URL)
 def productComplaint(request,pk):
@@ -8087,7 +8087,7 @@ def testLogin_page(request):
         if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
             if len(customerInformation) == 0:
               login(request, customer)
-              return redirect(f"/crms/customerInformation/{customer.id}")
+              return redirect(f"/crms/customerInfo/{customer.id}")
             else:
               login(request, customer)
               return redirect('/crms/')
