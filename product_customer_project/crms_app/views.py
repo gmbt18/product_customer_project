@@ -167,7 +167,6 @@ def login_page(request):
     if(request.method == "POST"):
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
         customer = authenticate(request, username=username, password=password)
         customerInformation = CustomerInformation.objects.filter(customer=customer)
 
