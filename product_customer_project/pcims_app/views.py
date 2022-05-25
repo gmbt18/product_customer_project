@@ -44,9 +44,12 @@ def productsPage(request):
     elif ut == 1:
         pr= ProductManager.objects.get(user=user)
     ## -------------------- ##
-
-    products = Product.objects.annotate(reviewCount=Count('review__rating'))
-
+    sort = request.GET.get('flexRadioDefault')
+    valid_sort = ["-id","-rating","sellingprice"]
+    if (sort is not None) and sort in valid_sort:
+        products = Product.objects.order_by(sort).annotate(reviewCount=Count('review__rating'))
+    else:
+        products = Product.objects.annotate(reviewCount=Count('review__rating'))
     filter = ProductFilter(request.GET, queryset=products)
     products = filter.qs
 

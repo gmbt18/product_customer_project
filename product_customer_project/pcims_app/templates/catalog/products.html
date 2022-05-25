@@ -24,7 +24,7 @@
                     <h5>Filter</h5>
                     <br>
 
-                    <form method = "GET" action = "">
+                    <form method = "GET" action = "{% url 'productsPage' %}" value='{{ request.GET.p }}'>
                     {{filter.form | crispy}}
 
                         <br>
@@ -32,21 +32,39 @@
                         <h5>Sort By:</h5>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortdate" checked>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortdate" value="id">
                             <label class="form-check-label" for="sortdate">
-                                Release Date
+                                Release Date <i class="fa fa-arrow-up"></i>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortrating">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortdate" value="-id">
+                            <label class="form-check-label" for="sortdate">
+                                Release Date <i class="fa fa-arrow-down"></i>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortrating" value="rating">
                             <label class="form-check-label" for="sortrating">
-                                Rating
+                                Rating <i class="fa fa-arrow-up"></i>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortprice">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortrating" value="-rating">
+                            <label class="form-check-label" for="sortrating">
+                                Rating <i class="fa fa-arrow-down"></i>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortprice" value="sellingprice">
                             <label class="form-check-label" for="sortprice">
-                                Price
+                                Price <i class="fa fa-arrow-up"></i>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sortprice" value="-sellingprice">
+                            <label class="form-check-label" for="sortprice">
+                                Price <i class="fa fa-arrow-down"></i>
                             </label>
                         </div>
 
