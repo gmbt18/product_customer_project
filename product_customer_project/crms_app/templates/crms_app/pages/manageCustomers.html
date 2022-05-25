@@ -34,7 +34,7 @@
                     <td>{{customerInformation.picture}}</td>
                     <td>{{customerInformation.isSubscribed}}</td>
                     <td>
-                        <a href="{% url 'update' customerInformation.customer.id %}" class = "btn btn-outline-primary">
+                        <a href="{% url 'customerInfo' customerInformation.customer.id %}" class = "btn btn-outline-primary">
                             <i class="fas fa-edit"></i>
                             Update
                         </a>
