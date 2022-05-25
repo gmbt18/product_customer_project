@@ -191,7 +191,16 @@ def passwordForgot(request):
     return render(request, 'crms_app/pages/passwordForgot.html')
 
 def register(request):
-    return render(request, 'crms_app/pages/register.html')
+    form = AuthUserCreationForm()
+    if( request.method == "POST"):
+        form = AuthUserCreationForm(request.POST)
+        if( form.is_valid() ):
+            form.save()
+            messages.success(request, "Account was created for "+form.cleaned_data.get("username"))
+            return redirect('/crms/login')
+
+    data = {"form": form}
+    return render(request, 'crms_app/pages/register.html', data)
 
 # Customer Information
 #CustomerInformation Page
