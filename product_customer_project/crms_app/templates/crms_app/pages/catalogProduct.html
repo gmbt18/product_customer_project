@@ -334,7 +334,7 @@
             </div>
             <div class="audio-cat-products speakers-sub-products products-group container-fluid d-flex flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "speakers" %}
+              {% if product.category == "speakers" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -384,7 +384,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -394,7 +394,7 @@
             </div>
             <div class="audio-cat-products headsets-sub-products products-group container-fluid d-flex flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "headsets" %}
+              {% if product.category == "headsets" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -444,7 +444,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -454,7 +454,7 @@
             </div>
             <div class="audio-cat-products microphones-sub-products products-group container-fluid d-flex flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "microphones" %}
+              {% if product.category == "microphones" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -504,7 +504,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -514,7 +514,7 @@
             </div>
             <div class="clothes-cat-products men-upper-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "menUpper" %}
+              {% if product.category == "menUpper" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -564,7 +564,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -574,7 +574,7 @@
             </div>
             <div class="clothes-cat-products men-lower-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "menLower" %}
+              {% if product.category == "menLower" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -624,7 +624,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -634,7 +634,7 @@
             </div>
             <div class="clothes-cat-products men-underwear-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "menUnderwear" %}
+              {% if product.category == "menUnderwear" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -684,7 +684,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -694,7 +694,7 @@
             </div>
             <div class="clothes-cat-products women-upper-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "womenUpper" %}
+              {% if product.category == "womenUpper" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -744,7 +744,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -754,7 +754,7 @@
             </div>
             <div class="clothes-cat-products women-lower-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "womenLower" %}
+              {% if product.category == "womenLower" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -804,7 +804,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -814,7 +814,7 @@
             </div>
             <div class="clothes-cat-products women-underwear-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "womenUnderwear" %}
+              {% if product.category == "womenUnderwear" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -864,7 +864,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -874,7 +874,7 @@
             </div>
             <div class="shoes-cat-products men-shoes-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "menShoes" %}
+              {% if product.category == "menShoes" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -924,7 +924,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -934,7 +934,7 @@
             </div>
             <div class="shoes-cat-products women-shoes-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "womenShoes" %}
+              {% if product.category == "womenShoes" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -984,7 +984,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -994,7 +994,7 @@
             </div>
             <div class="tech-cat-products smartphones-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "smartphone" %}
+              {% if product.category == "smartphone" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1044,7 +1044,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -1054,7 +1054,7 @@
             </div>
             <div class="tech-cat-products desktops-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "desktop" %}
+              {% if product.category == "desktop" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1104,7 +1104,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -1114,7 +1114,7 @@
             </div>
             <div class="tech-cat-products laptops-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "laptop" %}
+              {% if product.category == "laptop" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1164,7 +1164,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -1174,7 +1174,7 @@
             </div>
             <div class="tech-cat-products cameras-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "camera" %}
+              {% if product.category == "camera" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1224,7 +1224,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -1234,7 +1234,7 @@
             </div>
             <div class="tech-cat-products tvs-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "tv" %}
+              {% if product.category == "tv" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1284,7 +1284,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -1294,7 +1294,7 @@
             </div>
             <div class="accessories-cat-products watches-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "watches" %}
+              {% if product.category == "watches" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1344,7 +1344,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -1354,7 +1354,7 @@
             </div>
             <div class="accessories-cat-products glasses-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "glasses" %}
+              {% if product.category == "glasses" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1404,7 +1404,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -1414,7 +1414,7 @@
             </div>
             <div class="accessories-cat-products bags-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "bags" %}
+              {% if product.category == "bags" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1464,7 +1464,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>
@@ -1474,7 +1474,7 @@
             </div>
             <div class="accessories-cat-products jewelry-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category.name == "jewelry" %}
+              {% if product.category == "jewelry" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1524,7 +1524,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="product-category text-center fs-6 mb-0">{{product.category.name}}</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.ratings}}</span>

@@ -30,11 +30,9 @@ def catalogProduct(request):
     print(products.all())
     photos = ProductPhotos.objects.all()
     productsCpy = [product for product in products.values()]
-    for product in products:
-      print(product.category)
     i = 1
     for product in productsCpy:
-      product['id'] = i
+      product['category'] = products.filter(name=product['name'])[0].category.name
       for photo in photos:
         if product['name'] == photo['product']:
           if not photo['filename'] == 'https://lzd-img-global.slatic.net/g/tps/tfs/TB1oP2bbQvoK1RjSZFNXXcxMVXa-300-200.png':
