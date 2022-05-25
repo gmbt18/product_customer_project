@@ -27,9 +27,13 @@ def catalogMonthly(request):
 
 def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
+    print(products.all())
     photos = ProductPhotos.objects.all()
-    i = 1
+    productsCpy = [product for product in products.values()]
     for product in products:
+      print(product.category)
+    i = 1
+    for product in productsCpy:
       product['id'] = i
       for photo in photos:
         if product['name'] == photo['product']:
@@ -40,10 +44,11 @@ def catalogProduct(request):
         product['photo'] = 'https://wallpaperaccess.com/full/1285952.jpg'
       i += 1
     
+    print(productsCpy[0])
     # print(products[0])
 
     context = {
-        'products': products
+        'products': productsCpy
     }
     return render(request, 'crms_app/pages/catalogProduct.html', context)
 
@@ -387,12 +392,12 @@ def testLogin_page(request):
             messages.error(request, "Incorrect password or username.")
 
 
-    return render(request, 'crms_app/TEST-Register-Login/test-login.html')
+    return render(request, 'crms_app/TEST-image.pngRegister-Login/test-login.html')
 
 
 def testLogout_page(request):
     logout(request)
-    return redirect('/crms/testLogin')
+    return redirect('/crms/login')
 
 @login_required(login_url=login_URL)
 def testChangePassword(request):
