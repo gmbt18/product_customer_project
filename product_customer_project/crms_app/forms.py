@@ -78,3 +78,4 @@ class CustomerReviewForm(ModelForm):
         model = CustomerReview
         fields = "__all__"
 
+
