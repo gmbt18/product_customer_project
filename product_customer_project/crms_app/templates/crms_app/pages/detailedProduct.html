@@ -180,7 +180,7 @@
                     <form class="review-form container-fluid d-flex mb-3" action="" method="POST" onsubmit="return false;">
                       {% csrf_token %}
                       <div class="review-customer-img-div col-lg-2 p-4 pt-0">  
-                      {% if not customerInformation.picture == None or customerInformation.picture|length == 0 %}
+                      {% if customerInformation.picture %}
                       <img
                         src="{{customerInformation.picture.url}}"
                         class="review-customer-img"

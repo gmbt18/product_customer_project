@@ -56,6 +56,7 @@ def catalogProduct(request):
 
 
 def searchPage(request):
+  auth_users = []
   customers = []
   if request.user.is_superuser:
     auth_users = AuthUser.objects.all()
@@ -77,6 +78,8 @@ def detailedProduct(request,pk):
     except AuthUser.DoesNotExist:
         data["isRegistered"] = False
     product = Product.objects.get(id=pk)
+    print(customer, request.user)
+    customerInformation = CustomerInformation.objects.filter(customer=request.user.id)
     reviews = CustomerReview.objects.filter(product=product)
     reviewNum = len(reviews)
     print(reviews)
@@ -98,6 +101,8 @@ def detailedProduct(request,pk):
             messages.success(request, "The review was created on "+ product.name)
             return redirect(f"/crms/detailedProduct/{pk}")
     data['product'] = product
+    print(customerInformation.values())
+    data['customerInformation'] = customerInformation.values()
     data['reviewForm'] = reviewForm
 
     return render(request, 'crms_app/pages/detailedProduct.html', data)
