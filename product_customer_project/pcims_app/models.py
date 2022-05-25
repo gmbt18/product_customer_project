@@ -47,7 +47,7 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name=models.CharField(max_length=200,null=True)
-    rating = models.FloatField(default=True)
+    rating = models.FloatField(default=0)
     description = models.TextField(blank=True, null=True)
     stocks = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     reorderlvl = models.IntegerField(validators=[MinValueValidator(0)])
