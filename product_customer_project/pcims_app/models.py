@@ -47,7 +47,7 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name=models.CharField(max_length=200,null=True)
-    rating = models.FloatField(default=True)
+    rating = models.FloatField(default=0)
     description = models.TextField(blank=True, null=True)
     stocks = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     reorderlvl = models.IntegerField(validators=[MinValueValidator(0)])
@@ -90,6 +90,7 @@ class SupplierProduct(models.Model):
 class ProductPhotos(models.Model):
     product=models.ForeignKey(Product, on_delete=models.CASCADE, null = True, related_name='photos')
     photo= models.ImageField(upload_to='images',null=True)
+    filename = models.TextField(max_length=1000, null=True)
 
 # class ProductVideos(models.Model):
 #     product=models.ForeignKey(Product, on_delete=models.CASCADE, null = True, related_name='videos')
