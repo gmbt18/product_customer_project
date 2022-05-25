@@ -68,9 +68,9 @@
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %}" href="{% url 'testLogout' %}">Logout</a>
                 </li>
-                <li class="dropdown-item">
+                <!-- <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'customerInformation' %}active{% endif %}" href="{% url 'customerInformation' request.user.id %}">customerInformation</a>
-                </li>
+                </li> -->
                 {% endif %}
               </ul>
             </li>

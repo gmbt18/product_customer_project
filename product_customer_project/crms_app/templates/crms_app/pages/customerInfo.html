@@ -107,6 +107,7 @@
                 <button type="button" class="update-btn d-block btn-lg btn-dark fw-bold">Update</button>
                 {% if request.user.is_superuser %}
                 <button type="button" class="add-btn d-block btn-lg btn-secondary fw-bold">Add</button>
+                <button class="manage-btn d-block btn-lg btn-dark fw-bold"><a class="text-decoration-none text-light"href="{% url 'manageCustomers' %}" style="">Go to Manage</a></button>
                 {% else %}
                 <button type="button" class="subscription-btn d-block btn-lg btn-secondary fw-bold">Subscribe</button>
                 {% endif %}
