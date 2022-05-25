@@ -14,7 +14,8 @@ class AuthUser(AbstractUser):
     USER_TYPE_CHOICES = {
         (1, 'Product Manager'),
         (2, 'Customer'),
-        (3, 'Customer Manager')
+        (3, 'Customer Manager'),
+        (4, 'Reviewer'),
     }
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES,null=True)
     def __str__(self):
