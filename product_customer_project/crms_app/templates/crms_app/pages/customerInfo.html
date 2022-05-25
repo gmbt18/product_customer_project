@@ -2,7 +2,13 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href={% static 'css/customerInfo.css' %}>
-<div class="app container-fluid">
+<div class="app position-relative container-fluid d-flex flex-column">
+  {% if isNew %}
+  <div class="container mt-3 mb-0">
+    <h1 class="text-white text-center mb-2">WELCOME NEW USER!</h1>
+    <p class="text-white text-center fs-5 mb-2">We recommend that you fill out your customer information for the best experience!</p>
+  </div>
+  {% endif %}
   <div class="app-contents container d-flex align-items-center">
     {% if request.user.is_superuser %}
     <div class="customer-info-view container-fluid py-2">
@@ -20,7 +26,7 @@
             <div class="col-lg-5 d-flex flex-column justify-content-around">
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
-                  {% if not customerInformation.picture == None or customerInformation.picture|length > 0 %}
+                  {% if customerInformation.picture %}
                   <img
                     src="{{customerInformation.picture.url}}"
                     class="customer-img" 
@@ -243,7 +249,7 @@
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
                   <input type="file" name="picture" id="pictureInput" class="d-none" accept="image/*">
-                  {% if not customerInformation.picture == None or customerInformation.picture|length > 0 %}
+                  {% if customerInformation.picture %}
                   <img
                     src="{{customerInformation.picture.url}}"
                     class="customer-img editing-customer-img" 
@@ -570,6 +576,7 @@
   <a class="subscribe-link d-none" href="{% url 'subscribeCatalog' %}">SUBSCRIBE TO CATALOG</a>
   <a class="unsubscribe-link d-none" href="{% url 'unsubscribeCatalog' %}">UNSUBSCRIBE TO CATALOG</a>
   <span class="superuser-span d-none">{{request.user.is_superuser}}</span>
+  <span class="is-new-span d-none">{{isNew}}</span>
   <span class="birthday-span d-none">{% if not customerInformation.birthday == None or customerInformation.birthday|length == 0 %}{{customerInformation.birthday}}{% endif %}</span>
   <span class="subscription-span d-none">{{customerInformation.isSubscribed}}</span>
 </div>
