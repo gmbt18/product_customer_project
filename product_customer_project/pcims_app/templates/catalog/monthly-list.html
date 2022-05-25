@@ -26,6 +26,7 @@
                 <div class="col-3">
                     <h3>{{catalog.name}}</h3>
                     <p>{{catalog.date}}</p>
+                    <a href="{% url 'sendEmailCatalogs' catalog.id %}" class="btn btn-primary btn-sm"><i class="fa-solid fa-envelope"></i> Send to reviewers</a>
                     <a href="{% url 'monthlyCatalogsEditPage' catalog.id %}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                 </div>
 
@@ -36,7 +37,17 @@
                     {% for product in catalog.products.all %}
                     <div class="row">
                         <div class="col-auto pt-3">
-                            <img src="" height="75" width="75">
+                            {% for photo in product.photos.all %}
+                            {% if forloop.first %}
+                                <img src="{{photo.photo.url}}" class="img-thumbnail mb-2" style="height:100px;object-fit:cover">
+                            {% endif %}
+                            {% empty %}
+                                <div class="d-flex img-thumbnail bg-white mb-2 justify-content-center align-items-center" style="height:100px">
+                                    <div>
+                                        <small class="my-auto">No image available.</small>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                         <div class="col-5 align-self-center">
                             <p class="m-0">

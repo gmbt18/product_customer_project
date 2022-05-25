@@ -9,6 +9,10 @@ from django.db.models import Count, Min, Max, Avg
 from .models import *
 from .forms import *
 from .filters import *
+
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
 # Create your views here.
 # basics
 
@@ -753,3 +757,37 @@ def monthlyCatalogsEditPage(request, id):
 
     context = {'form': form,'profile':pr}
     return render(request, 'catalog/monthly-edit.html', context)
+
+
+def sendEmailCatalogs(request,id):
+    user = request.user
+    catalog = ProductCatalog.objects.get(id=id)
+    products = Product.objects.filter(productcatalog=id)
+    reviewers = Reviewer.objects.all()
+
+    productArray = []
+
+    x = []
+    for product in products:
+        reviews = Review.objects.filter(id=product.id).order_by('-rating')[:3]
+        x = [product,reviews]
+        productArray.append(x)
+
+    # context = {'catalog':catalog, 'products':products, 'user':user}
+
+    msg_html = render_to_string('email-catalog.html', {'catalog':catalog, 'products':products, 'user':user, 'productArray':productArray})
+
+    mailingList = []
+    for reviewer in reviewers:
+        mailingList.append(reviewer.user.email)
+        
+    send_mail(
+    'Catalog from PCIMS',
+    'We have some products you would like to see!',
+    'from@example.com',
+    mailingList,
+    fail_silently=False,
+    html_message=msg_html,
+    )
+
+    return redirect("monthlyCatalogsListPage")
