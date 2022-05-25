@@ -31,6 +31,7 @@ window.onload = () => {
 
   document.getElementById('birthdayField').value = document.getElementById('birthdayField').value.split(',').slice(0,-1).join(',');
   if (document.querySelector('.birthday-span').textContent !== '') {
+    console.log(document.querySelector('.birthday-span')).textContent;
     let birthdayArr = document.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
     switch (birthdayArr[0]) {
       case 'January':

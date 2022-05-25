@@ -7739,6 +7739,9 @@ def detailedProduct(request):
         data["isRegistered"] = True
     except AuthUser.DoesNotExist:
         data["isRegistered"] = False
+    customerInformation = CustomerInformation.objects.get(customer=customer)
+    data["customer"] = customer
+    data["customerInformation"] = customerInformation
     product = {
           "id": 1,
           "category": "speakers",
@@ -7798,14 +7801,24 @@ def detailedProduct(request):
       },
     ]
     
-    reviews = CustomerReview.objects.filter(product=1)
+    reviews = CustomerReview.objects.filter(product=product['id'])
+    print(product)
+    reviews = [
+      {
+        "customer": 'Another User',
+        "product": product['name'],
+        "rating": 3,
+        "reviewDate": "2022-05-24",
+        "productReview": "This is an example review"
+      }
+    ]
     reviewNum = len(reviews)
     print(reviews)
     print(reviewNum)
     mean_rating = 0
     if(reviewNum != 0):
         for review in reviews:
-            mean_rating += review.rating
+          mean_rating += review['rating']
         mean_rating = mean_rating/reviewNum
     data['reviewNum'] = reviewNum
     data['reviews'] = reviews

@@ -120,3 +120,9 @@ transform: translateX(0);
 /* 
   end copied css
 */
+
+.review-customer-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
