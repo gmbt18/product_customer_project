@@ -46,6 +46,12 @@
                                 {% if forloop.first %}
                                     <img style="height:400px;object-fit:cover;" src="{{photo.photo.url}}" class="d-block w-100">
                                 {% endif %}
+                                {% empty %}
+                                    <div class="d-flex img-thumbnail bg-white mb-2 justify-content-center align-items-center" style="height:450px">
+                                        <div>
+                                            <small class="my-auto">No image available.</small>
+                                        </div>
+                                    </div>
                             {% endfor %}    
                             <div class="carousel-caption d-none d-md-block bg-light opacity-75 rounded-3">
                                 <a href="{% url 'productReviewsPage' product.id %}" class="my-0 text-black text-decoration-none"><h5>{{product.name}}</h5></a>

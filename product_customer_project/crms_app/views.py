@@ -184,7 +184,23 @@ def login_page(request):
     return render(request, 'crms_app/pages/login.html')
 
 def passwordChange(request):
-    return render(request, 'crms_app/pages/passwordChange.html')
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('/crms/passwordChange')
+        else:
+            messages.error(request, 'Please correct the error above.')
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    data = {
+      "form": form,
+    }
+
+    return render(request, 'crms_app/pages/passwordChange.html', data)
 
 def passwordForgot(request):
     return render(request, 'crms_app/pages/passwordForgot.html')
