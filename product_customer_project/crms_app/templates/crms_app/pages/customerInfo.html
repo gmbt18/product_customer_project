@@ -575,6 +575,11 @@
   </div>
   <a class="subscribe-link d-none" href="{% url 'subscribeCatalog' %}">SUBSCRIBE TO CATALOG</a>
   <a class="unsubscribe-link d-none" href="{% url 'unsubscribeCatalog' %}">UNSUBSCRIBE TO CATALOG</a>
+
+  {% if request.user.user_type == 3 %}
+  <a href="{% url 'manageCustomers' %}"> GO BACK TO MANAGE</a>
+  {% endif %}
+
   <span class="superuser-span d-none">{{request.user.is_superuser}}</span>
   <span class="is-new-span d-none">{{isNew}}</span>
   <span class="birthday-span d-none">{% if not customerInformation.birthday == None or customerInformation.birthday|length == 0 %}{{customerInformation.birthday}}{% endif %}</span>

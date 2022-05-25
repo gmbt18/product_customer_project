@@ -427,7 +427,7 @@ def testLogin_page(request):
         if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
             if len(customerInformation) == 0:
               login(request, customer)
-              return redirect(f"/crms/customerInfo/{customer.id}")
+              return redirect(f"/crms/customerInformation/{customer.id}")
             else:
               login(request, customer)
               return redirect('/crms/')
