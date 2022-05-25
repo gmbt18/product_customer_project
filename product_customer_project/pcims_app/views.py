@@ -690,3 +690,66 @@ def monthlyCatalogPage(request, id):
 
     context={'catalog':catalog,'products':products,'profile':pr}
     return render(request, 'catalog/monthly.html',context)
+
+def monthlyCatalogsListPage(request):
+    ## for navbar profile pic ## 
+    user = request.user
+    ut = user.user_type
+    if ut == 4:
+        pr= Reviewer.objects.get(user=user)
+    elif ut == 1:
+        pr= ProductManager.objects.get(user=user)
+    ## -------------------- ##
+
+    catalogs = ProductCatalog.objects.all()
+
+    context={'catalogs':catalogs,'profile':pr}
+    return render(request, 'catalog/monthly-list.html',context)
+
+
+@login_required(login_url='loginPage')
+def monthlyCatalogsAddPage(request):
+    ## for navbar profile pic ## 
+    user = request.user
+    ut = user.user_type
+    if ut == 4:
+        pr= Reviewer.objects.get(user=user)
+    elif ut == 1:
+        pr= ProductManager.objects.get(user=user)
+    ## -------------------- ##
+
+    form = ProductCatalogForm()
+
+    if request.method == "POST":
+        form = ProductCatalogForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect("monthlyCatalogsListPage")
+
+    context = {'form': form,'profile':pr}
+    return render(request, 'catalog/monthly-add.html', context)
+
+@login_required(login_url='loginPage')
+def monthlyCatalogsEditPage(request, id):
+    ## for navbar profile pic ## 
+    user = request.user
+    ut = user.user_type
+    if ut == 4:
+        pr= Reviewer.objects.get(user=user)
+    elif ut == 1:
+        pr= ProductManager.objects.get(user=user)
+    ## -------------------- ##
+
+    catalog = ProductCatalog.objects.get(id=id)
+    form = ProductCatalogForm(instance=catalog)
+
+    if request.method == "POST":
+        form = ProductCatalogForm(request.POST, instance=catalog)
+        if form.is_valid():
+            form.save()
+            
+            return redirect("monthlyCatalogsListPage")
+
+    context = {'form': form,'profile':pr}
+    return render(request, 'catalog/monthly-edit.html', context)

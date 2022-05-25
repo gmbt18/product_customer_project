@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms import ImageField
 from django.contrib.auth.models import AbstractUser
-from pcims_app.models import *
+from pcims_app.models import ProductCatalog, Product
 ##modify Cutomer to AUTH_USER???
 #Register them in admins.py
 

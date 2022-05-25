@@ -1,4 +1,5 @@
 from re import I
+from struct import pack
 from django.shortcuts import render, redirect
 from crms_app.models import *
 from crms_app.forms import *
@@ -7733,11 +7734,20 @@ def searchPage(request):
 def detailedProduct(request):
     data = {}
     reviewForm = CustomerReviewForm()
+    customer = []
     try:
         customer = AuthUser.objects.get(id=request.user.id)
         data["isRegistered"] = True
     except AuthUser.DoesNotExist:
         data["isRegistered"] = False
+    customerInformation = {}
+    try:
+      if customer != []:
+        customerInformation = CustomerInformation.objects.get(customer=customer)
+    except CustomerInformation.DoesNotExist:
+      pass
+    data["customer"] = customer
+    data["customerInformation"] = customerInformation
     product = {
           "id": 1,
           "category": "speakers",
@@ -7797,14 +7807,24 @@ def detailedProduct(request):
       },
     ]
     
-    reviews = CustomerReview.objects.filter(product=1)
+    reviews = CustomerReview.objects.filter(product=product['id'])
+    print(product)
+    reviews = [
+      {
+        "customer": 'Another User',
+        "product": product['name'],
+        "rating": 3,
+        "reviewDate": "2022-05-24",
+        "productReview": "This is an example review"
+      }
+    ]
     reviewNum = len(reviews)
     print(reviews)
     print(reviewNum)
     mean_rating = 0
     if(reviewNum != 0):
         for review in reviews:
-            mean_rating += review.rating
+          mean_rating += review['rating']
         mean_rating = mean_rating/reviewNum
     data['reviewNum'] = reviewNum
     data['reviews'] = reviews
@@ -7864,21 +7884,24 @@ def customerInformation(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
+    data = {}
+    data["customerInformation"] = customerInformation
     print(isNew)
     print(customer)
     print(customerInformation.picture)
-
+    print(vars(customerInformation))
     if(request.method == "POST"):
         form = CustomerInformationUpdateForm(request.POST,request.FILES,instance=customerInformation)
+        
         if(form.is_valid()):
             form.save()
             return redirect("/crms/customerInformation/"+pk)
-    data = {
-      "customer": customer,
-      "customerInfo": customerInformation,
-      "form": form,
-      "isNew": isNew,
-    }
+    data["customer"] = customer
+    data["customerInformation"] = customerInformation
+    data["form"] = form
+    data["isNew"] = isNew
+    
+
     return render(request, 'crms_app/Customer Information/customerInformation.html', data)
 
 
@@ -7886,20 +7909,21 @@ def customerInformation(request,pk):
 @login_required(login_url=login_URL)
 def customerInfo(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
-    customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
+    customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
-
+    # print(vars(customerInformation))
+    data = {}
+    data["customerInformation"] = customerInformation
     if(request.method == "POST"):
-        form = CustomerInformationUpdateForm(request.POST, instance=customer)
+        form = CustomerInformationUpdateForm(request.POST, request.FILES, instance=customerInformation)
+        print(list(form.errors))
         if(form.is_valid()):
             form.save()
             return redirect("/crms/customerInfo/"+pk)
-    data = {
-      "customer": customer,
-      "userInfo": customerInformation,
-      "form": form,
-      "created": created,
-    }
+    data["customer"] = customer
+    data["customerInformation"] = customerInformation
+    data["form"] = form
+    data["isNew"] = isNew
 
     return render(request, 'crms_app/pages/customerInfo.html', data)
 
@@ -7911,7 +7935,7 @@ def customerInfoAdd(request):
         form = AuthUserCreationForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return redirect("/crms/pages/customerInfo/")
+            return redirect("/crms/customerInfo/")
 
     data = {"form": form}
     return redirect("/crms/pages/customerInfo.html")
@@ -7926,13 +7950,29 @@ def customerInfoUpdate(request,pk):
       print(list(form.errors))
       if(form.is_valid()):
         form.save()
-        return redirect("/crms/pages/customerInfo/"+pk)
+        return redirect("/crms/customerInfo/"+pk)
     data = {
       "form": form,
       "customerInformation": customerInformation,
     }
-    return redirect("/crms/pages/customerInfo.html")
+    return redirect("/crms/pages/customerInfo/"+pk)
 
+def customerInfoSubscribe(request,pk):
+  customer = AuthUser.objects.get(id=pk,user_type=2)
+  customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
+  form = CustomerInformationUpdateForm(instance=customerInformation)
+  if(request.method == "POST"):
+    form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
+    print(list(request.POST.items()))
+    print(list(form.errors))
+    if(form.is_valid()):
+      form.save()
+      return redirect("/crms/customerInfo/"+pk)
+  data = {
+    "form": form,
+    "customerInformation": customerInformation,
+  }
+  return redirect("/crms/customerInfo/"+pk)
 
 @login_required(login_url=login_URL)
 def productComplaint(request,pk):
@@ -8047,7 +8087,7 @@ def testLogin_page(request):
         if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
             if len(customerInformation) == 0:
               login(request, customer)
-              return redirect(f"/crms/customerInformation/{customer.id}")
+              return redirect(f"/crms/customerInfo/{customer.id}")
             else:
               login(request, customer)
               return redirect('/crms/')
@@ -8082,6 +8122,22 @@ def testChangePassword(request):
     }
 
     return render(request, 'crms_app/TEST-Register-Login/test-changePassword.html', data)
+
+
+@login_required(login_url=login_URL)
+def subscribeCatalog(request):
+  customerInformation = getCustomerInformation(request.user)
+  customerInformation.isSubscribed = True
+  customerInformation.save()
+  return redirect(f"/crms/customerInfo/{request.user.id}")
+
+@login_required(login_url=login_URL)
+def unsubscribeCatalog(request):
+  customerInformation = getCustomerInformation(request.user)
+  customerInformation.isSubscribed = False
+  customerInformation.save()
+  return redirect(f"/crms/customerInfo/{request.user.id}")
+
 
 
 #Auxilliary functions
