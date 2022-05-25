@@ -27,14 +27,17 @@ def catalogMonthly(request):
 
 def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
-    print(products.all())
+    print(products.values())
     photos = ProductPhotos.objects.all()
     productsCpy = [product for product in products.values()]
+    photosCpy = [photo for photo in photos.values()]
+    print(photos.values())
+    print(productsCpy)
     i = 1
     for product in productsCpy:
       product['category'] = products.filter(name=product['name'])[0].category.name
-      for photo in photos:
-        if product['name'] == photo['product']:
+      for photo in photosCpy:
+        if product['id'] == photo['product_id']:
           if not photo['filename'] == 'https://lzd-img-global.slatic.net/g/tps/tfs/TB1oP2bbQvoK1RjSZFNXXcxMVXa-300-200.png':
             product['photo'] = photo['filename']
           break
