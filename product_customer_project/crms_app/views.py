@@ -7734,12 +7734,18 @@ def searchPage(request):
 def detailedProduct(request):
     data = {}
     reviewForm = CustomerReviewForm()
+    customer = []
     try:
         customer = AuthUser.objects.get(id=request.user.id)
         data["isRegistered"] = True
     except AuthUser.DoesNotExist:
         data["isRegistered"] = False
-    customerInformation = CustomerInformation.objects.get(customer=customer)
+    customerInformation = {}
+    try:
+      if customer != []:
+        customerInformation = CustomerInformation.objects.get(customer=customer)
+    except CustomerInformation.DoesNotExist:
+      pass
     data["customer"] = customer
     data["customerInformation"] = customerInformation
     product = {
