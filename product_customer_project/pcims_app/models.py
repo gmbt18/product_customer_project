@@ -88,7 +88,7 @@ class SupplierProduct(models.Model):
         return f"{self.product}"
 
 class ProductPhotos(models.Model):
-    product=models.ForeignKey(Product, on_delete=models.CASCADE, null = True, related_name='photos')
+    product=models.ForeignKey(Product, on_delete=models.CASCADE, null = True, related_name='photos', default='/default_product.png')
     photo= models.ImageField(upload_to='images',null=True)
     filename = models.TextField(max_length=1000, null=True)
 
