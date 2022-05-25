@@ -5,13 +5,14 @@
 <div class="app container-fluid pt-4">
   <div class="app-contents container d-flex flex-column justify-content-center align-items-center">
     {% if request.user.is_superuser %}
-    <div class="btn-group-lg container-fluid d-flex justify-content-center mb-3" role="group" aria-label="Second group">
+    <div class="btn-group-lg container-fluid d-flex justify-content-center mb-3 bg-" role="group" aria-label="Second group">
       <button type="button" class="product-search-view-btn btn btn-dark mx-0" style="border-radius: 5px 0 0 5px; width: 40%;">Product Search</button>
       <button type="button" class="customer-search-view-btn btn btn-secondary mx-0" style="border-radius: 0 5px 5px 0; width: 40%;">Customer Search</button>
     </div>
     {% endif %}
     <div class="search-page-view container-fluid py-2">
       <div class="search-page-view-contents container-fluid p-0">
+        <!-- box -->
         <div class="top-div default-border container-fluid d-flex m-0 p-3">
           <div class="left-div col-lg-2 flex-column justify-content-center">
             <div class="company-brand d-flex flex-column justify-content-between align-items-center px-3">
@@ -483,11 +484,12 @@
           {% endif %}
         </div>
         {% if request.user.is_superuser %}
-        <div class="bottom-divs container-fluid d-flex flex-column m-0 p-0">
+        <div class="bottom-divs container-fluid d-flex flex-column mt-3 p-0 bg-light default-border">
         {% for customer in customers %}
           {% if not request.user.id == customer.id %}
           <div class="search-group container-fluid d-flex mt-4 mb-4">
-            <div class="search-group-left-div col-lg-4 d-flex flex-column justify-content-center p-2 pt-2">
+            <!-- Personal Info -->
+            <div class="search-group-left-div col-lg-4 d-flex flex-column justify-content-center p-2 pt-2 bg-info">
               {% if customer.picture %}
               <img
                 src="{{customer.picture.url}}"
@@ -546,7 +548,8 @@
                 </div>
               </div>
             </div>
-            <div class="search-group-middle-div col-lg-4 d-flex flex-column justify-content-center p-2">
+            <!-- Address -->
+            <div class="search-group-middle-div col-lg-4 d-flex flex-column justify-content-end p-2  bg-secondary">
               <div class="addresses-div default-border bg-white d-flex flex-column align-items-center mb-3">
                 <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Addresses</p>
                 <div class="float-container d-flex flex-column">
@@ -599,7 +602,9 @@
                     disabled
                   >
                 </div>
+                
               </div>
+              
             </div>
             <div class="search-group-right-div col-lg-4 d-flex flex-column justify-content-center p-2">
               <div class="mobile-numbers default-border bg-white d-flex flex-column align-items-center mb-3">
