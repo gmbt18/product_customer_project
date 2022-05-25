@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include 'catalog/head-modules.html' %}
+    <title>Products</title>
+</head>
+<body>
+    {% include 'catalog/header.html' %}
+    <!-- page here -->
+
+    <div class="container w-75">
+
+        <br>
+        <h2 class="py-4 px-4"><i class="fa-solid fa-newspaper fs-2"></i> Catalogs</h2>
+        <div class="container bg-light p-5">
+            
+            <!-- supplier -->
+            <!-- for loop (no limit) -->
+            {% for catalog in catalogs %}
+            <div class="row border bg-white p-4 mb-3">
+
+                <div class="col-3">
+                    <h3>{{catalog.name}}</h3>
+                    <p>{{catalog.date}}</p>
+                    <a href="{% url 'monthlyCatalogsEditPage' catalog.id %}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                </div>
+
+                <div class="col">
+                    <h5 class="mt-4">Details</h5>
+                    <p>{{catalog.details}}</p>
+                    <h5>Products:</h5>
+                    {% for product in catalog.products.all %}
+                    <div class="row">
+                        <div class="col-auto pt-3">
+                            <img src="" height="75" width="75">
+                        </div>
+                        <div class="col-5 align-self-center">
+                            <p class="m-0">
+                                {{product.name}}
+                            </p>
+                        </div>
+                        <div class="col-3 align-self-center">
+                            <p class="m-0">
+                                {{product.category}}
+                            </p>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <p class="m-0">
+                                <i class="fa-solid fa-star text-warning"></i>
+                                {{product.rating}}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- <div class="col-auto align-self-end text-end">
+                    <a href="" class="btn btn-lg px-2"><i class="fa-solid fa-store"></i></a>
+                    <a href="" class="btn btn-lg px-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="" class="btn btn-lg px-2"><i class="fa-solid fa-trash"></i></a>
+                </div> -->
+
+            </div>
+
+            <!-- end of loop -->
+            {% endfor %}
+
+
+            <div class="row justify-content-end mt-5">
+                <div class="col col-sm-auto">
+                    <a href="{% url 'monthlyCatalogsAddPage' %}" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add a catalog</a>
+                </div>
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <br><br><br>
+
+    </div>
+
+
+    <!-- end of page -->
+    {% include 'catalog/footer.html' %}
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
