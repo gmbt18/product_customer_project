@@ -4,8 +4,8 @@
 <link rel="stylesheet" href={% static 'css/customerInfo.css' %}>
 <div class="app position-relative container-fluid d-flex flex-column">
   {% if isNew %}
-  <div class="container mt-3 mb-0">
-    <h1 class="text-white text-center mb-2">WELCOME NEW USER!</h1>
+  <div class="container mt-4 mb-0">
+    <h1 class="text-white text-center mt-4 mb-2">WELCOME NEW USER!</h1>
     <p class="text-white text-center fs-5 mb-2">We recommend that you fill out your customer information for the best experience!</p>
   </div>
   {% endif %}
@@ -573,6 +573,7 @@
       </div>
     </div>
   </div>
+  <a class="register-link d-none" href="{% url 'testRegister' %}">testRegister</a>
   <a class="subscribe-link d-none" href="{% url 'subscribeCatalog' %}">SUBSCRIBE TO CATALOG</a>
   <a class="unsubscribe-link d-none" href="{% url 'unsubscribeCatalog' %}">UNSUBSCRIBE TO CATALOG</a>
   <span class="superuser-span d-none">{{request.user.is_superuser}}</span>

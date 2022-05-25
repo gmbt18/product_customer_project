@@ -128,7 +128,7 @@ editImg = () => {
 }
 
 addMode = () => {
-
+  document.querySelector('.register-link').click();
 }
 
 submitAdd = () => {
