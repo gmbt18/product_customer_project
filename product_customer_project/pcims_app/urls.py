@@ -39,6 +39,7 @@ urlpatterns = [
     path('monthly-catalog/add', views.monthlyCatalogsAddPage, name='monthlyCatalogsAddPage'),
     path('monthly-catalog/<int:id>', views.monthlyCatalogPage, name='monthlyCatalogPage'),
     path('monthly-catalog/<int:id>/edit', views.monthlyCatalogsEditPage, name='monthlyCatalogsEditPage'),
+    path('monthly-catalog/<int:id>/send', views.sendEmailCatalogs, name='sendEmailCatalogs'),
     
 
     path('categories/', views.categoriesPage, name='categoriesPage'),

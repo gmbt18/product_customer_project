@@ -1,22 +1,24 @@
 window.onload = () => {
-  if (document.querySelector('.superuser-auth-span').textContent == true) {
-    document.querySelector('.product-search-view-btn').addEventListener('click', changeSearchMode('productSearch'));
-    document.querySelector('.customer-search-view-btn').addEventListener('click', changeSearchMode('customerSearch'));
+  if (document.querySelector('.superuser-auth-span').textContent === 'True') {
+    document.querySelector('.product-search-view-btn').addEventListener('click', changeSearchMode);
+    document.querySelector('.customer-search-view-btn').addEventListener('click', changeSearchMode);
   }
   document.querySelectorAll('input[name="categoryRadio"]').forEach(e => {
     e.addEventListener('change', changeCategory);
   });
-  document.querySelector('.search-products-btn').addEventListener('click', submitProductSearchForm);
+  // document.querySelector('.search-products-btn').addEventListener('click', submitProductSearchForm);
+  document.querySelectorAll('.view-btn').forEach(e => e.addEventListener('click', viewProfile));
 }
 
-changeSearchMode = mode => {
-  if (mode === 'productSearch') {
+changeSearchMode = event => {
+  console.log(event.target)
+  if (event.target.textContent === 'Product Search') {
     document.querySelector('.product-right-div').classList.replace('d-none', 'd-flex');
     document.querySelector('.customer-right-div').classList.replace('d-flex', 'd-none');
     document.querySelector('.product-search-btn').classList.replace('btn-secondary', 'btn-dark');
     document.querySelector('.customer-search-btn').classList.replace('btn-dark', 'btn-secondary');
   }
-  else if (mode === 'customerSearch') {
+  else if (event.target.textContent === 'Customer Search') {
     document.querySelector('.product-right-div').classList.replace('d-flex', 'd-none');
     document.querySelector('.customer-right-div').classList.replace('d-none', 'd-flex');
     document.querySelector('.product-search-btn').classList.replace('btn-dark', 'btn-secondary');
@@ -53,4 +55,16 @@ submitProductSearchForm = () => {
   // const MIN_PRICE = document.getElementById('minPriceField').value;
   // const MAX_PRICE = document.getElementById('maxPriceField').value;
   document.querySelector('.product-search-form').submit();
+}
+
+viewProfile = event => {
+  const TARGET_CUSTOMER = event.target.parentElement.parentElement.querySelector('.customer-customer-span').textContent;
+  let targetID = '';
+  event.target.parentElement.parentElement.querySelectorAll('.auth-user-info-div').forEach(e => {
+    console.log(e.querySelector('.auth-user-username').textContent, TARGET_CUSTOMER)
+    if (e.querySelector('.auth-user-username').textContent === TARGET_CUSTOMER) {
+      targetID = e.querySelector('.auth-user-id').textContent;
+    }
+  });
+  window.location.href = window.location.href.split('/').slice(0,-2).join('/') + `/customerInfo/${targetID}`;
 }

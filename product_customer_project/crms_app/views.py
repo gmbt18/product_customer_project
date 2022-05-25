@@ -56,10 +56,17 @@ def catalogProduct(request):
 
 
 def searchPage(request):
-    if(request.method == "POST"):
-      print(list(request.POST.items()))
-      print(dict(request.POST.items()))
-    return render(request, 'crms_app/pages/searchPage.html')
+  customers = []
+  if request.user.is_superuser:
+    auth_users = AuthUser.objects.all()
+    customers = CustomerInformation.objects.all()
+  context = {
+    "auth_users": auth_users,
+    "customers": customers
+  }
+  # if(request.method == "POST"):
+  #   print(list(request.POST.items()))
+  return render(request, 'crms_app/pages/searchPage.html', context)
 
 def detailedProduct(request,pk):
     data = {}
@@ -409,7 +416,12 @@ def testRegister_page(request):
         if( form.is_valid() ):
             form.save()
             messages.success(request, "Account was created for "+form.cleaned_data.get("username"))
-            return redirect('/crms/testLogin')
+            # print(form.cleaned_data)
+            # target_username=form.cleaned_data.get("username")
+            # print(AuthUser.objects.filter(username=target_username).id)
+            if request.user.is_superuser:
+              return redirect('/crms/searchPage')
+            return redirect('/crms/login')
 
     data = {"form": form}
     return render(request, 'crms_app/TEST-Register-Login/test-register.html',data)
