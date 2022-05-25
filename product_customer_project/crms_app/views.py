@@ -161,25 +161,25 @@ def submitProductComplaint(request, pk):
 
 @csrf_protect
 def login_page(request):
-    # if(request.method == "POST"):
-    #     username = request.POST.get('username')
-    #     password = request.POST.get('password')
+    if(request.method == "POST"):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         
-    #     customer = authenticate(request, username=username, password=password)
-    #     customerInformation = CustomerInformation.objects.filter(customer=customer)
+        customer = authenticate(request, username=username, password=password)
+        customerInformation = CustomerInformation.objects.filter(customer=customer)
 
-    #     if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
-    #         if len(customerInformation) == 0:
-    #           login(request, customer)
-    #           return redirect(f"/crms/customerInfo/{customer.id}")
-    #         else:
-    #           login(request, customer)
-    #           return redirect('/crms/')
-    #     else:
-    #         print("Login Fail.")
-    #         messages.error(request, "Incorrect password or username.")
+        if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
+            if len(customerInformation) == 0:
+              login(request, customer)
+              return redirect(f"/crms/customerInfo/{customer.id}")
+            else:
+              login(request, customer)
+              return redirect('/crms/')
+        else:
+            print("Login Fail.")
+            messages.error(request, "Incorrect password or username.")
         
-        return render(request, 'crms_app/pages/login.html')
+    return render(request, 'crms_app/pages/login.html')
 
 def passwordChange(request):
     return render(request, 'crms_app/pages/passwordChange.html')
