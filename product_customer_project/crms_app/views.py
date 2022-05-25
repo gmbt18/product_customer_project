@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_protect
 
+from pcims_app.models import *
+
 # Create your views here.
 login_URL = "/crms/testLogin/"
 
@@ -25,6 +27,21 @@ def catalogMonthly(request):
 
 def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
+    photos = ProductPhotos.objects.all()
+    i = 1
+    for product in products:
+      product['id'] = i
+      for photo in photos:
+        if product['name'] == photo['product']:
+          if not photo['filename'] == 'https://lzd-img-global.slatic.net/g/tps/tfs/TB1oP2bbQvoK1RjSZFNXXcxMVXa-300-200.png':
+            product['photo'] = photo['filename']
+          break
+      if not product.__contains__('photo'):
+        product['photo'] = 'https://wallpaperaccess.com/full/1285952.jpg'
+      i += 1
+    
+    # print(products[0])
+
     context = {
         'products': products
     }
@@ -139,8 +156,27 @@ def submitProductComplaint(request, pk):
 
     return render(request, 'crms_app/pages/submitProductComplaint.html',data)
 
+@csrf_protect
 def login_page(request):
-    return render(request, 'crms_app/pages/login.html')
+    # if(request.method == "POST"):
+    #     username = request.POST.get('username')
+    #     password = request.POST.get('password')
+        
+    #     customer = authenticate(request, username=username, password=password)
+    #     customerInformation = CustomerInformation.objects.filter(customer=customer)
+
+    #     if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
+    #         if len(customerInformation) == 0:
+    #           login(request, customer)
+    #           return redirect(f"/crms/customerInfo/{customer.id}")
+    #         else:
+    #           login(request, customer)
+    #           return redirect('/crms/')
+    #     else:
+    #         print("Login Fail.")
+    #         messages.error(request, "Incorrect password or username.")
+        
+        return render(request, 'crms_app/pages/login.html')
 
 def passwordChange(request):
     return render(request, 'crms_app/pages/passwordChange.html')
@@ -375,7 +411,7 @@ def testLogin_page(request):
 
 def testLogout_page(request):
     logout(request)
-    return redirect('/crms/testLogin')
+    return redirect('/crms/login')
 
 @login_required(login_url=login_URL)
 def testChangePassword(request):
