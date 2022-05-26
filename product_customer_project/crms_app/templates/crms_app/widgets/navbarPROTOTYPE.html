@@ -54,12 +54,13 @@
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'register' %}active{% endif %}" href="{% url 'register' %}">Register</a>
                 </li>
-                <!-- <li class="dropdown-item">
-                  <a class="nav-link {% if request.resolver_match.view_name == 'passwordForgot' %}active{% endif %}" href="{% url 'passwordForgot' %}">Forgot Password</a>
-                </li> -->
+
                 {% else %}
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'passwordChange' %}active{% endif %}" href="{% url 'passwordChange' %}">Change Password</a>
+                </li>
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'crms_password_reset' %}active{% endif %}" href="{% url 'crms_password_reset' %}">Forgot Password</a>
                 </li>
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' request.user.id %}">Profile</a>
@@ -129,17 +130,6 @@
               <a href="" class="text-decoration-none text-light text-uppercase fw-bold"><i class="fas fa-user text-light me-2"></i>{{request.user.username}}</a>
             </li>
 
-            <!-- TEST Change Password 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Test2
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li class="dropdown-item">
-                  <a class="nav-link {% if request.resolver_match.view_name == 'testChangePassword' %}active{% endif %}" href="{% url 'testChangePassword' %}">testChangePassword</a>
-                </li>
-              </ul>
-            </li>-->
             
 
 

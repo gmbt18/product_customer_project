@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
-
-
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
 urlpatterns = [
     path('', views.customerHome, name="customerHome"),
     path('catalogCustomer/', views.catalogCustomer, name="catalogCustomer"),
@@ -13,7 +13,6 @@ urlpatterns = [
     path('detailedProduct/<str:pk>', views.detailedProduct, name="detailedProduct"),
     path('login/', views.login_page, name="login"),
     path('passwordChange/', views.passwordChange, name="passwordChange"),
-    path('passwordForgot/', views.passwordForgot, name="passwordForgot"),
     path('register/', views.register, name="register"),
     path('about/', views.about, name="about"),
     
@@ -28,6 +27,10 @@ urlpatterns = [
     path('testLogout/', views.testLogout_page, name="testLogout"),
     path('testChangePassword/', views.testChangePassword, name="testChangePassword"),
 
+    path('password_reset/', views.password_reset_request, name="crms_password_reset"),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='crms_app/TEST-Register-Login/test-passwordForgot-done.html'), name="crms_password_reset_done"),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='crms_app/TEST-Register-Login/test-passwordReset-confirm.html', success_url = reverse_lazy('crms_password_reset_complete')), name="crms_password_reset_confirm"),
+    path('reset_password_complete', auth_views.PasswordResetCompleteView.as_view(template_name='crms_app/TEST-Register-Login/test-passwordReset-complete.html'), name="crms_password_reset_complete"),
     # CustomerInfos
     path('customerInfo/<str:pk>', views.customerInfo, name="customerInfo"),
     path('customerInfoAdd', views.customerInfoAdd, name="customerInfoAdd"),
