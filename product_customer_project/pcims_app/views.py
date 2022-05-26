@@ -185,14 +185,14 @@ def supplierAddPage(request):
         pr= ProductManager.objects.get(user=user)
     ## -------------------- ##
 
-    form = SupplierForm(request.POST, request.FILES)
+    form = SupplierForm()
 
     if request.method == "POST":
-        form = SupplierForm(request.POST)
+        form = SupplierForm(request.POST, request.FILES)
         if form.is_valid:
             form.save()
 
-            return redirect("productsPage")
+            return redirect("supplierPage")
 
     context = {'form': form,'profile':pr}
     return render(request, 'catalog/supplier-add.html', context)
@@ -278,10 +278,10 @@ def supplierEditPage(request, id):
     ## -------------------- ##
 
     supplier = Supplier.objects.get(id=id)
-    form = SupplierForm(request.POST,request.FILES, instance=supplier)
+    form = SupplierForm(instance=supplier)
 
     if request.method == "POST":
-        form = SupplierForm(request.POST, instance=supplier)
+        form = SupplierForm(request.POST,request.FILES,instance=supplier)
         if form.is_valid():
             form.save()
 
@@ -390,7 +390,7 @@ def productsMediaPage(request, id):
     if request.method == "POST":
         form = ProductPhotoForm(request.POST, request.FILES)
         if form.is_valid():
-            instance = form.save()
+            instance = form.save(False)
             instance.product = product
             instance.save()
 
@@ -444,7 +444,7 @@ def reviewsEditPage(request,id):
         review = ReviewForm(request.POST, instance=rev)
         if review.is_valid():
             review.save()
-            UpdateRating(product)
+            UpdateRating(rev.product)
 
             return redirect("myReviewsPage")
     else:

@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, PasswordInput, CharField, HiddenInput, NumberInput
+from django.forms import ChoiceField, ModelForm, Select, TextInput, PasswordInput, CharField, HiddenInput, NumberInput, TypedChoiceField
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import get_user_model
@@ -72,6 +72,9 @@ class ProductComplaintForm(ModelForm):
     class Meta:
         model = ProductComplaint
         fields = "__all__"
+        widgets = { 
+            'complaint': TextInput( attrs={ 'class': 'form-control'} )
+        }
 
 class CustomerReviewForm(ModelForm):
     class Meta:

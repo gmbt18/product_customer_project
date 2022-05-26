@@ -11,17 +11,21 @@ window.onload = () => {
     e.addEventListener('click', changeMainImg);
   });
 
-  const RATING_ARR = document.querySelector('.product-rating').textContent.match(/\d+/g);
-  let avg = 0;
-  let count = 0;
-  for (let i = 0; i < RATING_ARR.length; i++) {
-    avg += RATING_ARR[i] * (i+1);
-    count += Number(RATING_ARR[i]);
-  }
-  avg = shortenDecimal(avg / count);
-  document.querySelector('.product-rating').textContent = `${avg}/5`;
-  document.querySelector('.full-stars').title = `${shortenDecimal(avg)}/5 (${count} ratings)\n1* - ${RATING_ARR[0]} ratings\n2* - ${RATING_ARR[1]} ratings\n3* - ${RATING_ARR[2]} ratings\n4* - ${RATING_ARR[3]} ratings\n5* - ${RATING_ARR[4]} ratings`;
-  document.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
+  // const RATING_ARR = document.querySelector('.product-rating').textContent.match(/\d+/g);
+  // let avg = 0;
+  // let count = 0;
+  // for (let i = 0; i < RATING_ARR.length; i++) {
+  //   avg += RATING_ARR[i] * (i+1);
+  //   count += Number(RATING_ARR[i]);
+  // }
+  // avg = shortenDecimal(avg / count);
+  // document.querySelector('.product-rating').textContent = `${avg}/5`;
+  // document.querySelector('.full-stars').title = `${shortenDecimal(avg)}/5 (${count} ratings)\n1* - ${RATING_ARR[0]} ratings\n2* - ${RATING_ARR[1]} ratings\n3* - ${RATING_ARR[2]} ratings\n4* - ${RATING_ARR[3]} ratings\n5* - ${RATING_ARR[4]} ratings`;
+  // document.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
+
+  const RATING_ARR = document.querySelector('.product-rating').textContent;
+  document.querySelector('.product-rating').textContent = `${RATING_ARR}/5`;
+  document.querySelector('.full-stars').style.width = shortenDecimal(RATING_ARR * 20) + '%';
 
   document.querySelector('.input-empty-stars').querySelectorAll('.fa-star').forEach((e,i) => {
     e.addEventListener('click', () => rate(i+1));
@@ -76,7 +80,7 @@ changeMainImg = event => {
 
 rate = num => {
   document.querySelector('.input-full-stars').style.width = num*20 + '%';
-  document.getElementById('ratingField').value = String(num);
+  document.getElementById('ratingField').value = num;
   console.log(document.getElementById('ratingField').value)
 }
 

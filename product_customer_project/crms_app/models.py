@@ -1,3 +1,5 @@
+from tkinter import Widget
+from django import forms
 from django.db import models
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -59,7 +61,7 @@ class ProductComplaint(models.Model):
         return f"{self.customer}"
 
 class CustomerReview(models.Model):
-    customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE,null=True)
+    customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE,null=True,)
     product = models.ForeignKey("pcims_app.Product", on_delete=models.CASCADE,null=True)
     rating = models.IntegerField(
         null=True,
