@@ -4,12 +4,6 @@
 <link rel="stylesheet" href={% static 'css/searchPage.css' %}>
 <div class="app container-fluid pt-4">
   <div class="app-contents container d-flex flex-column justify-content-center align-items-center">
-    {% if request.user.is_superuser %}
-    <div class="btn-group-lg container-fluid d-flex justify-content-center mb-3 bg-" role="group" aria-label="Second group">
-      <button type="button" class="product-search-view-btn btn btn-dark mx-0" style="border-radius: 5px 0 0 5px; width: 40%;">Product Search</button>
-      <button type="button" class="customer-search-view-btn btn btn-secondary mx-0" style="border-radius: 0 5px 5px 0; width: 40%;">Customer Search</button>
-    </div>
-    {% endif %}
     <div class="search-page-view container-fluid py-2">
       <div class="search-page-view-contents container-fluid p-0">
         <!-- box -->
@@ -37,295 +31,9 @@
               />
             </div>
           </div>
-          <!-- Product Search Mode -->
-          <div class="product-right-div right-div col-lg-10 position-relative d-flex justify-content-end">
-            <div class="vertical-lines-div position-absolute d-flex">
-              <div class="py-2">
-                <div class="vertical-line-lg me-2"></div>
-              </div>
-              <div class="py-4">
-                <div class="vertical-line-sm"></div>
-              </div>
-            </div>
-            <div class="right-div-contents col-lg-11 d-flex justify-content-end">
-              <form class="product-search-form product-search-filter container-fluid d-flex justify-content-between" action="" method="POST" onsubmit="return false;">
-                {% csrf_token %}
-                <div class="product-search-filter-left col-lg-6 d-flex flex-column px-3">
-                  <p class="text-center fs-4 fw-bold mt-2">PRODUCT SEARCH FILTER</p>
-                  <p class="text-start fs-5 fw-bold mb-0">By Name</p>
-                  <div class="filter-product-name d-flex flex-column ms-4">
-                    <div class="mb-2">
-                      <label for="includesAllField" class="form-label">Has all these words</label>
-                      <input type="text" name="includesAll" class="form-control" id="includesAllField" placeholder="ryzen 5, laptop, asus">
-                    </div>
-                    <div class="mb-2">
-                      <label for="excludingAnyField" class="form-label">Excluding these words</label>
-                      <input type="text" name="excludingAny" class="form-control" id="excludingAnyField" placeholder="dell, cheap">
-                    </div>
-                    <div class="mb-2">
-                      <label for="includesAnyField" class="form-label">Has any of these words</label>
-                      <input type="text" name="includesAny" class="form-control" id="inludesAnyField" placeholder="fast delivery, free shipping">
-                    </div>
-                  </div>
-                  <p class="text-start fs-5 fw-bold mb-0">By Category</p>
-                  <div class="filter-categories d-flex flex-column ms-4">
-                    <div class="form-check">
-                      <input class="form-check-input" value="audio" type="radio"  name="categoryRadio" id="audioRadio" checked>
-                      <label class="form-check-label" for="audioRadio">
-                        Audio
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="clothes" type="radio" name="categoryRadio" id="clothesRadio">
-                      <label class="form-check-label" for="clothesRadio">
-                        Clothes
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="shoes" type="radio" name="categoryRadio" id="shoesRadio">
-                      <label class="form-check-label" for="shoesRadio">
-                        Shoes
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="tech" type="radio" name="categoryRadio" id="techRadio">
-                      <label class="form-check-label" for="techRadio">
-                        Tech
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="accessories" type="radio" name="categoryRadio" id="accessoriesRadio">
-                      <label class="form-check-label" for="accessoriesRadio">
-                        Accessories
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-search-filter-right col-lg-6 d-flex flex-column justify-content-center px-3">
-                  <p class="text-start fs-5 fw-bold mb-0">By Subcategory</p>
-                  <div class="audio-filter-subcategories d-flex flex-column ms-4">
-                    <div class="form-check">
-                      <input class="form-check-input" value="speakers" type="checkbox" id="speakersCheck">
-                      <label class="form-check-label" for="speakersCheck">
-                        Speakers
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="headsets" type="checkbox" id="headsetsCheck">
-                      <label class="form-check-label" for="headsetsCheck">
-                        Headsets
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="microphones" type="checkbox" id="microphonesCheck">
-                      <label class="form-check-label" for="microphonesCheck">
-                        Microphones
-                      </label>
-                    </div>
-                  </div>
-                  <div class="clothes-filter-subcategories d-none flex-column ms-4">
-                    <div class="form-check">
-                      <input class="form-check-input" value="menUpper" type="checkbox" id="menUpperCheck">
-                      <label class="form-check-label" for="menUpperCheck">
-                        Men Upper
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="menLower" type="checkbox" id="menLowerCheck">
-                      <label class="form-check-label" for="menLowerCheck">
-                        Men Lower
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="menUnderwear" type="checkbox" id="menUnderwearCheck">
-                      <label class="form-check-label" for="menUnderwearCheck">
-                        Men Underwear
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="womenUpper" type="checkbox" id="womenUpperCheck">
-                      <label class="form-check-label" for="womenUpperCheck">
-                        Women Upper
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="womenLower" type="checkbox" id="womenLowerCheck">
-                      <label class="form-check-label" for="womenLowerCheck">
-                        Women Lower
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="womenUnderwear" type="checkbox" id="womenUnderwearCheck">
-                      <label class="form-check-label" for="womenUnderwearCheck">
-                        Women Underwear
-                      </label>
-                    </div>
-                  </div>
-                  <div class="shoes-filter-subcategories d-none flex-column ms-4">
-                    <div class="form-check">
-                      <input class="form-check-input" value="menShoes" type="checkbox" id="menShoesCheck">
-                      <label class="form-check-label" for="menShoesCheck">
-                        Men Shoes
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="womenShoes" type="checkbox" id="womenShoesCheck">
-                      <label class="form-check-label" for="womenShoesCheck">
-                        Women Shoes
-                      </label>
-                    </div>
-                  </div>
-                  <div class="tech-filter-subcategories d-none flex-column ms-4">
-                    <div class="form-check">
-                      <input class="form-check-input" value="smartphones" type="checkbox" id="smartphonesCheck">
-                      <label class="form-check-label" for="smartphonesCheck">
-                        Smartphones
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="desktops" type="checkbox" id="desktopsCheck">
-                      <label class="form-check-label" for="desktopsCheck">
-                        Desktops
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="laptops" type="checkbox" id="laptopsCheck">
-                      <label class="form-check-label" for="laptopsCheck">
-                        Laptops
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="cameras" type="checkbox" id="camerasCheck">
-                      <label class="form-check-label" for="camerasCheck">
-                        Cameras
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="tvs" type="checkbox" id="tvsCheck">
-                      <label class="form-check-label" for="tvsCheck">
-                        TVs
-                      </label>
-                    </div>
-                  </div>
-                  <div class="accessories-filter-subcategories d-none flex-column ms-4">
-                    <div class="form-check">
-                      <input class="form-check-input" value="watches" type="checkbox" id="watchesCheck">
-                      <label class="form-check-label" for="watchesCheck">
-                        Watches
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="glasses" type="checkbox" id="glassesCheck">
-                      <label class="form-check-label" for="glassesCheck">
-                        Glasses
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="bags" type="checkbox" id="bagsCheck">
-                      <label class="form-check-label" for="bagsCheck">
-                        Bags
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" value="jewelry" type="checkbox" id="jewelryCheck">
-                      <label class="form-check-label" for="jewelryCheck">
-                        Jewelry
-                      </label>
-                    </div>
-                  </div>
-                  <p class="text-start fs-5 fw-bold mb-0">By Ratings</p>
-                  <div class="filter-ratings d-flex flex-column ms-4">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" value="5" name="ratingsRadio" id="fiveStarsRadio">
-                      <label class="form-check-label" for="fiveStarsRadio">
-                        <div class="filter-rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" value="4" name="ratingsRadio" id="fourStarsRadio">
-                      <label class="form-check-label" for="fourStarsRadio">
-                        <div class="filter-rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" value="3" name="ratingsRadio" id="threeStarsRadio">
-                      <label class="form-check-label" for="threeStarsRadio">
-                        <div class="filter-rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" value="2" name="ratingsRadio" id="twoStarsRadio">
-                      <label class="form-check-label" for="twoStarsRadio">
-                        <div class="filter-rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" value="1" name="ratingsRadio" id="oneStarRadio">
-                      <label class="form-check-label" for="oneStarRadio">
-                        <div class="filter-rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" value="0" name="ratingsRadio" id="zeroStarRadio" checked>
-                      <label class="form-check-label" for="oneStarRadio">
-                        <div class="filter-rating d-flex justify-content-center">
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                          <i class="fa-regular fa-star"></i>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                  <p class="text-start fs-5 fw-bold mb-0">By Price</p>
-                  <div class="filter-price d-flex flex-column ms-4">
-                    <div>
-                      <input type="number" class="form-control" id="minPriceField" value="0">
-                    </div>
-                    <p class="fs-6 fw-bold ms-2 mb-0">up to</p>
-                    <div>
-                      <input type="number" class="form-control" id="maxPriceField" value="9999999">
-                    </div>
-                  </div>
-                  <button type="button" class="search-products-btn btn btn-dark mt-2">Search Products</button>
-                </div>
-              </form>
-            </div>
-          </div>
           <!-- Customer Search Mode -->
           {% if request.user.is_superuser %}
-          <div class="customer-right-div right-div col-lg-10 position-relative d-none justify-content-end">
+          <div class="customer-right-div right-div col-lg-10 position-relative d-flex justify-content-end">
             <div class="vertical-lines-div position-absolute d-flex">
               <div class="py-2">
                 <div class="vertical-line-lg me-2"></div>
@@ -351,10 +59,15 @@
                     </div>
                     <div class="row mb-2">
                       <div class="col-4">
-                        <label for="genderField" class="col-form-label">Gender</label>
+                        <label for="sexField" class="col-form-label">Sex</label>
                       </div>
                       <div class="col-8">
-                        <input type="text" id="genderField" class="form-control">
+                        <select id="sexField" class="form-control">
+                          <option value="0">Male</option>
+                          <option value="1">Female</option>
+                          <option value="2">Intersex</option>
+                          <option value="3" selected>Any</option>
+                        </select>
                       </div>
                     </div>
                     <div class="row mb-2">
@@ -484,10 +197,10 @@
           {% endif %}
         </div>
         {% if request.user.is_superuser %}
-        <div class="bottom-divs container-fluid d-flex flex-column mt-3 p-0">
+        <div class="bottom-divs container-fluid bg-white default-border d-flex flex-column mt-3 p-0">
         {% for customer in customers %}
           {% if not request.user.id == customer.id %}
-          <div class="search-group container-fluid d-flex bg-light default-border mt-3 mb-3 py-2">
+          <div class="search-group container-fluid d-flex mt-3 mb-3 py-2">
             <!-- Personal Info -->
             <div class="search-group-left-div col-lg-4 d-flex flex-column justify-content-center p-2 pt-2">
               {% if customer.picture %}
@@ -503,15 +216,14 @@
                 style="width: 120px; height: 120px; object-fit: cover;"
               >
               {% endif %}
-              <input type="text" value="Name: {% if customer.name %}{{customer.name}}{% endif %}" class="form-control default-border bg-white mb-2" disabled>
+              <input type="text" value="Name: {% if customer.name %}{{customer.name}}{% endif %}" class="name-field form-control default-border bg-white mb-2" disabled>
               <div class="personal-info default-border bg-white d-flex flex-column justify-content-center align-items-center">
                 <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Personal Info</p>
                 <div class="float-container d-flex flex-column">
                   <label for="birthdayField">Birthday</label>
                   <input 
                     type="text" 
-                    id="birthdayField"
-                    class="float-field align-self-center"
+                    class="birthday-field float-field align-self-center"
                     value="{% if customer.birthday %}{{customer.birthday}}{% endif %}"
                     disabled
                   >
@@ -520,8 +232,7 @@
                   <label for="sexField">Sex</label>
                   <input 
                     type="text" 
-                    id="sexField"
-                    class="float-field align-self-center"
+                    class="sex-field float-field align-self-center"
                     value="{% if customer.sex %}{{customer.sex}}{% endif %}"
                     disabled
                   >
@@ -530,8 +241,7 @@
                   <label for="nationalityField">Nationality</label>
                   <input 
                     type="text" 
-                    id="nationalityField"
-                    class="float-field align-self-center"
+                    class="nationality-field float-field align-self-center"
                     value="{% if customer.nationality %}{{customer.nationality}}{% endif %}"
                     disabled
                   >
@@ -541,7 +251,7 @@
                   <input 
                     type="text" 
                     id="citizenshipField"
-                    class="float-field align-self-center"
+                    class="citizenship-field float-field align-self-center"
                     value="{% if customer.citizenship %}{{customer.citizenship}}{% endif %}"
                     disabled
                   >
@@ -556,8 +266,7 @@
                   <label for="presentAddressField">Present Address</label>
                   <input 
                     type="text" 
-                    id="presentAddressField"
-                    class="float-field align-self-center  pb-4"
+                    class="present-address-field float-field align-self-center  pb-4"
                     value="{% if customer.presentAddress %}{{customer.presentAddress}}{% endif %}"
                     disabled
                   >
@@ -566,8 +275,7 @@
                   <label for="permanentField">Permanent Address</label>
                   <input 
                     type="text" 
-                    id="permanentField"
-                    class="float-field align-self-center pb-4"
+                    class="permanent-address-field float-field align-self-center pb-4"
                     value="{% if customer.permanentAddress %}{{customer.permanentAddress}}{% endif %}"
                     disabled
                   >
@@ -576,8 +284,7 @@
                   <label for="billingAddressField">Billing Address</label>
                   <input 
                     type="text"
-                    id="billingAddressField"
-                    class="float-field align-self-center pb-4"
+                    class="billing-address-field float-field align-self-center pb-4"
                     value="{% if customer.billingAddress %}{{customer.billingAddress}}{% endif %}"
                     disabled
                   >
@@ -586,8 +293,7 @@
                   <label for="shippingAddressField">Shipping Address</label>
                   <input 
                     type="text" 
-                    id="shippingAddressField"
-                    class="float-field align-self-center pb-4"
+                    class="shipping-address-field float-field align-self-center pb-4"
                     value="{% if customer.shippingAddress %}{{customer.shippingAddress}}{% endif %}"
                     disabled
                   >
@@ -596,8 +302,7 @@
                   <label for="officeAddressField">Office Address</label>
                   <input 
                     type="text" 
-                    id="officeAddressField"
-                    class="float-field align-self-center pb-4"
+                    class="office-address-field float-field align-self-center pb-4"
                     value="{% if customer.officeAddress %}{{customer.officeAddress}}{% endif %}"
                     disabled
                   >
@@ -614,8 +319,7 @@
                     <label for="personalMobileNumberField">Personal</label>
                     <input 
                       type="text" 
-                      id="personalMobileNumberField"
-                      class="float-field align-self-center"
+                      class="personal-mobile-number-field float-field align-self-center"
                       value="{% if customer.personalCPNumber %}{{customer.personalCPNumber}}{% endif %}"
                       disabled
                     >
@@ -624,8 +328,7 @@
                     <label for="officeMobileNumberField">Office</label>
                     <input 
                       type="text" 
-                      id="officeMobileNumberField"
-                      class="float-field align-self-center"
+                      class="office-mobile-number-field float-field align-self-center"
                       value="{% if customer.officeCPNumber %}{{customer.officeCPNumber}}{% endif %}"
                       disabled
                     >
@@ -639,8 +342,7 @@
                     <label for="homeLandlineNumberField">Home</label>
                     <input 
                       type="text" 
-                      id="homeLandlineNumberField"
-                      class="float-field align-self-center"
+                      class="home-landline-number-field float-field align-self-center"
                       value="{% if customer.homeLandlineNumber %}{{customer.homeLandlineNumber}}{% endif %}"
                       disabled
                     >
@@ -649,8 +351,7 @@
                     <label for="officeLandlineNumberField">Office</label>
                     <input 
                       type="text" 
-                      id="officeLandlineNumberField"
-                      class="float-field align-self-center"
+                      class="office-landline-number-field float-field align-self-center"
                       value="{% if customer.officeLandlineNumber %}{{customer.officeLandlineNumber}}{% endif %}"
                       disabled
                     >
@@ -664,8 +365,7 @@
                     <label for="personalEmailField">Personal</label>
                     <input 
                       type="text" 
-                      id="personalEmailField"
-                      class="float-field align-self-center"
+                      class="personal-email-field float-field align-self-center"
                       value="{% if customer.personalEmail %}{{customer.personalEmail}}{% endif %}"
                       disabled
                     >
@@ -674,8 +374,7 @@
                     <label for="officeEmailField">Office</label>
                     <input 
                       type="text" 
-                      id="officeEmailField"
-                      class="float-field align-self-center"
+                      class="office-email-field float-field align-self-center"
                       value="{% if customer.officeEmail %}{{customer.officeEmail}}{% endif %}"
                       disabled
                     >
