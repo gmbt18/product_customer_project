@@ -35,8 +35,8 @@ window.onload = () => {
   }
 
   document.getElementById('birthdayField').value = document.getElementById('birthdayField').value.split(',').slice(0,-1).join(',');
-  if (document.querySelector('.birthday-span').textContent !== '') {
-    console.log(document.querySelector('.birthday-span')).textContent;
+  document.querySelectorAll('.customer-name').forEach(e => e.addEventListener('click', viewProfile));
+  if (document.querySelector('.birthday-span')) {
     let birthdayArr = document.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
     switch (birthdayArr[0]) {
       case 'January':
@@ -142,4 +142,16 @@ addToView = () => {
 handleSubscription = event => {
   if (event.target.textContent === 'Subscribe') document.querySelector('.subscribe-link').click();
   else document.querySelector('.unsubscribe-link').click();
+}
+
+viewProfile = event => {
+  const TARGET_CUSTOMER = event.target.parentElement.parentElement.querySelector('.customer-customer-span').textContent;
+  let targetID = '';
+  event.target.parentElement.parentElement.querySelectorAll('.auth-user-info-div').forEach(e => {
+    console.log(e.querySelector('.auth-user-username').textContent, TARGET_CUSTOMER)
+    if (e.querySelector('.auth-user-username').textContent === TARGET_CUSTOMER) {
+      targetID = e.querySelector('.auth-user-id').textContent;
+    }
+  });
+  window.location.href = window.location.href.split('/').slice(0,-2).join('/') + `/customerInfo/${targetID}`;
 }

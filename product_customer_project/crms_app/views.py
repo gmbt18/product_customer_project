@@ -73,6 +73,7 @@ def searchPage(request):
     "auth_users": auth_users,
     "customers": customers
   }
+  print(customers)
   # if(request.method == "POST"):
   #   print(list(request.POST.items()))
   return render(request, 'crms_app/pages/searchPage.html', context)
@@ -263,6 +264,8 @@ def register(request):
         if( form.is_valid() ):
             form.save()
             messages.success(request, "Account was created for "+form.cleaned_data.get("username"))
+            if request.user.is_superuser:
+              return redirect('/crms/searchPage')
             return redirect('/crms/login')
 
     data = {"form": form}
@@ -274,6 +277,13 @@ def register(request):
 def customerInformation(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
+    # other_users = []
+    # other_customers = []
+    # if request.user.is_superuser:
+    #   other_users = AuthUser.objects.exclude(id=pk)
+    #   other_customers = CustomerInformation.objects.exclude(customer=customer)
+    # data["other_users"] = other_users
+    # data["other_customers"] = other_customers
     form = CustomerInformationUpdateForm(instance=customerInformation)
     data = {}
     data["customerInformation"] = customerInformation
@@ -302,8 +312,14 @@ def customerInfo(request,pk):
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
-    # print(vars(customerInformation))
+    other_users = []
+    other_customers = []
+    if request.user.is_superuser:
+      other_users = AuthUser.objects.exclude(id=pk)
+      other_customers = CustomerInformation.objects.exclude(customer=customer)
     data = {}
+    data["other_users"] = other_users
+    data["other_customers"] = other_customers
     data["customerInformation"] = customerInformation
     if(request.method == "POST"):
         form = CustomerInformationUpdateForm(request.POST, request.FILES, instance=customerInformation)

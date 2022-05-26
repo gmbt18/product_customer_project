@@ -484,10 +484,10 @@
           {% endif %}
         </div>
         {% if request.user.is_superuser %}
-        <div class="bottom-divs container-fluid d-flex flex-column mt-3 p-0 bg-light default-border">
+        <div class="bottom-divs container-fluid d-flex flex-column mt-3 p-0">
         {% for customer in customers %}
           {% if not request.user.id == customer.id %}
-          <div class="search-group container-fluid d-flex mt-4 mb-4">
+          <div class="search-group container-fluid d-flex bg-light default-border mt-3 mb-3 py-2">
             <!-- Personal Info -->
             <div class="search-group-left-div col-lg-4 d-flex flex-column justify-content-center p-2 pt-2">
               {% if customer.picture %}

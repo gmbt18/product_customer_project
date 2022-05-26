@@ -527,46 +527,33 @@
             </div>
             <div class="bottom-right-div default-border container-fluid d-flex flex-column align-items-center mt-3 mb-2 pb-3">
               <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Other Customers</p>
+              {% for customer in other_customers.all|slice:"0:3" %}
               <div class="other-customer-suggestion-div default-border d-flex mb-3 p-3">
+                {% if customer.picture %}
                 <img 
-                  src="{% static 'media/profile-placeholder.png' %}"
+                  src="{{customer.picture.url}}"
                   class="customer-img-sm me-3"
                 />
-                <div class="other-customer-info-div d-flex flex-column justify-content-between">
-                  <p class="fs-6">Customer Name</p>
-                  <p class="fs-6">Customer Nationality</p>
-                </div>
-              </div>
-              <div class="other-customer-suggestion-div default-border d-flex mb-3 p-3">
-                <img 
+                {% else %}
+                <img
                   src="{% static 'media/profile-placeholder.png' %}"
                   class="customer-img-sm me-3"
-                />
+                >
+                {% endif %}
                 <div class="other-customer-info-div d-flex flex-column justify-content-between">
-                  <p class="fs-6">Customer Name</p>
-                  <p class="fs-6">Customer Nationality</p>
+                  <p class="customer-name fs-6">{{customer.name}}</p>
+                  <p class="customer-personal-email fs-6">{{customer.personalEmail}}</p>
                 </div>
-              </div>
-              <div class="other-customer-suggestion-div default-border d-flex mb-3 p-3">
-                <img 
-                  src="{% static 'media/profile-placeholder.png' %}"
-                  class="customer-img-sm me-3"
-                />
-                <div class="other-customer-info-div d-flex flex-column justify-content-between">
-                  <p class="fs-6">Customer Name</p>
-                  <p class="fs-6">Customer Nationality</p>
+                <span class="customer-id-span d-none">{{customer.id}}</span>
+                <span class="customer-customer-span d-none">{{customer.customer}}</span>
+                {% for user in other_users %}
+                <div class="auth-user-info-div d-none">
+                  <span class="auth-user-username">{{user.username}}</span>
+                  <span class="auth-user-id">{{user.id}}</span>
                 </div>
+                {% endfor %}
               </div>
-              <div class="other-customer-suggestion-div default-border d-flex mb-3 p-3">
-                <img 
-                  src="{% static 'media/profile-placeholder.png' %}"
-                  class="customer-img-sm me-3"
-                />
-                <div class="other-customer-info-div d-flex flex-column justify-content-between">
-                  <p class="fs-6">Customer Name</p>
-                  <p class="fs-6">Customer Nationality</p>
-                </div>
-              </div>
+              {% endfor %}
             </div>
           </div>
           {% endif %}
@@ -584,7 +571,7 @@
 
   <span class="superuser-span d-none">{{request.user.is_superuser}}</span>
   <span class="is-new-span d-none">{{isNew}}</span>
-  <span class="birthday-span d-none">{% if not customerInformation.birthday == None or customerInformation.birthday|length == 0 %}{{customerInformation.birthday}}{% endif %}</span>
+  <span class="birthday-span d-none">{{customerInformation.birthday}}</span>
   <span class="subscription-span d-none">{{customerInformation.isSubscribed}}</span>
 </div>
 <script type="text/javascript" src="{% static 'js/onload.js' %}"></script>

@@ -84,4 +84,9 @@ input, select {
 
 .customer-img-sm {
   width: 20%;
+  object-fit: cover;
+}
+
+.other-customer-suggestion-div:hover {
+  cursor: pointer;
 }
