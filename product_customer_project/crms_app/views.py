@@ -73,7 +73,7 @@ def searchPage(request):
     "auth_users": auth_users,
     "customers": customers
   }
-  print(customers)
+  # print(customers)
   # if(request.method == "POST"):
   #   print(list(request.POST.items()))
   return render(request, 'crms_app/pages/searchPage.html', context)
@@ -352,11 +352,14 @@ def customerInfoUpdate(request,pk):
     customerInformation, created = CustomerInformation.objects.get_or_create(customer=customer)
     form = CustomerInformationUpdateForm(instance=customerInformation)
     if(request.method == "POST"):
-      form = CustomerInformationUpdateForm(request.POST, instance=customerInformation)
-      print(list(request.POST.items()))
-      print(list(form.errors))
+      form = CustomerInformationUpdateForm(request.POST, request.FILES, instance=customerInformation)
+    #   print(list(request.POST.items()))
+    #   print(list(form.errors))
       if(form.is_valid()):
         form.save()
+        # print(request.build_absolute_uri())
+        if request.user.is_superuser and 'searchPage' in request.META.get('HTTP_REFERER'):
+            return redirect("/crms/searchPage/")
         return redirect("/crms/customerInfo/"+pk)
     data = {
       "form": form,

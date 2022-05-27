@@ -18,7 +18,6 @@ window.onload = () => {
   }
 
   if (document.querySelector('.is-new-span').textContent === 'True') {
-    console.log('what')
     document.querySelector('.update-btn').click();
   }
 

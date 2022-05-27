@@ -513,7 +513,7 @@
                   <div class="col-lg-5 d-flex flex-column justify-content-around">
                     <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                       <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
-                        <input type="file" name="picture" id="pictureInput" class="d-none" accept="image/*">
+                        <input type="file" name="picture" class="picture-input d-none" accept="image/*">
                         {% if customer.picture %}
                         <img
                           src="{{customer.picture.url}}"
@@ -525,19 +525,13 @@
                           class="customer-img editing-customer-img"
                         >
                         {% endif %}
-                        <!-- <input 
-                          type="text" 
-                          value="Customer Name"
-                          id="customerNameField"
-                          class="form-control position-absolute"
-                        > -->
                         <div class="float-container d-flex flex-column bg-white">
                           <label for="nameInput">Name</label>
                           <input 
                             type="text" 
                             name="name"
                             class="name-input float-field align-self-center"
-                            value="{% if ncustomer.name %}{{customer.name}}{% endif %}"
+                            value="{% if customer.name %}{{customer.name}}{% endif %}"
                           >
                         </div>
                       </div>
@@ -733,6 +727,8 @@
                   </div>
                 </div>
               </div>
+              <span class="target-id-span d-none"></span>
+              <span class="birthday-span d-none">{{customer.birthday}}</span>
             </div>
             {% endif %}
           {% endfor %}
