@@ -122,9 +122,9 @@ filterCustomers = () => {
 }
 
 viewProfile = event => {
-  const TARGET_CUSTOMER = event.target.parentElement.parentElement.querySelector('.customer-customer-span').textContent;
+  const TARGET_CUSTOMER = event.target.parentElement.parentElement.parentElement.parentElement.querySelector('.customer-customer-span').textContent;
   let targetID = '';
-  event.target.parentElement.parentElement.querySelectorAll('.auth-user-info-div').forEach(e => {
+  event.target.parentElement.parentElement.parentElement.parentElement.querySelectorAll('.auth-user-info-div').forEach(e => {
     console.log(e.querySelector('.auth-user-username').textContent, TARGET_CUSTOMER)
     if (e.querySelector('.auth-user-username').textContent === TARGET_CUSTOMER) {
       targetID = e.querySelector('.auth-user-id').textContent;

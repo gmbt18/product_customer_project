@@ -195,9 +195,9 @@
           </div>
           {% endif %}
         </div>
-        <div class="btn-group-lg container-fluid d-flex justify-content-center mt-3" role="group" aria-label="Second group">
-          <button type="button" class="btn btn-dark mx-0" style="border-radius: 5px 0 0 5px; width: 35%;">Search</button>
-          <button type="button" class="btn btn-secondary mx-0" style="border-radius: 0 5px 5px 0; width: 35%;">View All</button>
+        <div class="btn-group-lg container-fluid d-flex justify-content-center my-3" role="group" aria-label="Second group">
+          <button type="button" class="btn btn-dark mx-0" style="border-radius: 5px 0 0 5px; width: 40%;">Product Search</button>
+          <button type="button" class="btn btn-secondary mx-0" style="border-radius: 0 5px 5px 0; width: 40%;">Customer Search</button>
         </div>
         <div class="bottom-divs container-fluid d-flex justify-content-around p-0">
           <div class="bottom-left-div mt-3 col-lg-2">
@@ -713,14 +713,7 @@
                       </div>
                     </div>
                   </div>
-                  <span class="customer-id-span d-none">{{customer.id}}</span>
-                  <span class="customer-customer-span d-none">{{customer.customer}}</span>
-                  {% for user in auth_users %}
-                    <div class="auth-user-info-div d-none">
-                      <span class="auth-user-username">{{user.username}}</span>
-                      <span class="auth-user-id">{{user.id}}</span>
-                    </div>
-                  {% endfor %}
+                  <span class="customer-update-url d-none">{% url 'customerInfoUpdate' request.user.id %}</span>
                 </form>
               </div>
               <div class="col-lg-1 d-flex position-relative">
