@@ -7,7 +7,8 @@ window.onload = () => {
   //   e.addEventListener('change', changeCategory);
   // });
   // document.querySelector('.search-products-btn').addEventListener('click', submitProductSearchForm);
-  document.querySelector('.search-customers-btn').addEventListener('click', filterCustomers);
+  document.querySelector('.search-btn').addEventListener('click', filterCustomers);
+  document.querySelector('.view-all-btn').addEventListener('click', filterCustomers);
 
   document.querySelector('.bottom-left-div').querySelectorAll('input[type="radio"]').forEach(e => {
     e.addEventListener('change', changeSort);
@@ -46,7 +47,6 @@ window.onload = () => {
     e.querySelector('.birthday-field').value = e.querySelector('.birthday-field').value.split(',').slice(0,-1).join(',');
     if (e.querySelector('.birthday-span')) {
       let birthdayArr = e.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
-      console.log(birthdayArr)
       switch (birthdayArr[0]) {
         case 'Jan.':
           birthdayArr[0] = '01';
@@ -108,68 +108,98 @@ function getAge(dateString) {
   return age;
 }
 
-filterCustomers = () => {
-  const QUERY = {
-    name: document.getElementById('nameField').value,
-    sex: document.getElementById('sexField').value,
-    nationality: document.getElementById('nationalityField').value,
-    citizenship: document.getElementById('citizenshipField').value,
-    presentAddress: document.getElementById('presentAddressField').value,
-    permanentAddress: document.getElementById('permanentAddressField').value,
-    billingAddress: document.getElementById('billingAddressField').value,
-    shippingAddress: document.getElementById('shippingAddressField').value,
-    officeAddress: document.getElementById('officeAddressField').value,
-    personalMobileNumber: document.getElementById('personalMobileNumberField').value,
-    officeMobileNumber: document.getElementById('officeMobileNumberField').value,
-    homeLandlineNumber: document.getElementById('homeLandlineNumberField').value,
-    officeLandlineNumber: document.getElementById('officeLandlineNumberField').value,
-    personalEmail: document.getElementById('personalEmailField').value,
-    officeEmail: document.getElementById('officeEmailField').value
+filterCustomers = event => {
+  if (event.target.textContent === 'Search') {
+    const DIV_TYPES = ['all','sex0','sex1','sex2'];
+
+    for (i in DIV_TYPES) {
+      const QUERY = {
+        name: document.getElementById('nameField').value,
+        sex: document.getElementById('sexField').value,
+        nationality: document.getElementById('nationalityField').value,
+        citizenship: document.getElementById('citizenshipField').value,
+        presentAddress: document.getElementById('presentAddressField').value,
+        permanentAddress: document.getElementById('permanentAddressField').value,
+        billingAddress: document.getElementById('billingAddressField').value,
+        shippingAddress: document.getElementById('shippingAddressField').value,
+        officeAddress: document.getElementById('officeAddressField').value,
+        personalMobileNumber: document.getElementById('personalMobileNumberField').value,
+        officeMobileNumber: document.getElementById('officeMobileNumberField').value,
+        homeLandlineNumber: document.getElementById('homeLandlineNumberField').value,
+        officeLandlineNumber: document.getElementById('officeLandlineNumberField').value,
+        personalEmail: document.getElementById('personalEmailField').value,
+        officeEmail: document.getElementById('officeEmailField').value
+      }
+      let customers = [];
+      let filteredIndices = [];
+      document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
+        let customer = {};
+        customer.name = e.querySelector('.name-field').value.replace('Name: ', '');
+        customer.birthday = e.querySelector('.birthday-field').value;
+        customer.sex = e.querySelector('.sex-field').value;
+        customer.nationality = e.querySelector('.nationality-field').value;
+        customer.citizenship = e.querySelector('.citizenship-field').value;
+        customer.presentAddress = e.querySelector('.present-address-field').value;
+        customer.permanentAddress = e.querySelector('.permanent-address-field').value;
+        customer.billingAddress = e.querySelector('.billing-address-field').value;
+        customer.shippingAddress = e.querySelector('.shipping-address-field').value;
+        customer.officeAddress = e.querySelector('.office-address-field').value;
+        customer.personalMobileNumber = e.querySelector('.personal-mobile-number-field').value;
+        customer.officeMobileNumber = e.querySelector('.office-mobile-number-field').value;
+        customer.homeLandlineNumber = e.querySelector('.home-landline-number-field').value;
+        customer.officeLandlineNumber = e.querySelector('.office-landline-number-field').value;
+        customer.personalEmail = e.querySelector('.personal-email-field').value;
+        customer.officeEmail = e.querySelector('.office-email-field').value;
+        customers.push(customer);
+      });
+      customers.forEach((e,i) => {
+        let mismatch = 0;
+        if (!e.name.toLowerCase().includes(QUERY.name.toLowerCase())) mismatch++;
+        if (QUERY.sex !== '3' && e.sex !== QUERY.sex) mismatch++;
+        if (!e.nationality.toLowerCase().includes(QUERY.nationality.toLowerCase())) mismatch++;
+        if (!e.citizenship.toLowerCase().includes(QUERY.citizenship.toLowerCase())) mismatch++;
+        if (!e.presentAddress.toLowerCase().includes(QUERY.presentAddress.toLowerCase())) mismatch++;
+        if (!e.permanentAddress.toLowerCase().includes(QUERY.permanentAddress.toLowerCase())) mismatch++;
+        if (!e.billingAddress.toLowerCase().includes(QUERY.billingAddress.toLowerCase())) mismatch++;
+        if (!e.shippingAddress.toLowerCase().includes(QUERY.shippingAddress.toLowerCase())) mismatch++;
+        if (!e.officeAddress.toLowerCase().includes(QUERY.officeAddress.toLowerCase())) mismatch++;
+        if (e.personalMobileNumber !== QUERY.personalMobileNumber) mismatch++;
+        if (e.officeMobileNumber !== QUERY.officeMobileNumber) mismatch++;
+        if (e.homeLandlineNumber !== QUERY.homeLandlineNumber) mismatch++;
+        if (e.officeLandlineNumber !== QUERY.officeLandlineNumber) mismatch++;
+        if (!e.personalEmail.toLowerCase().includes(QUERY.personalEmail.toLowerCase())) mismatch++;
+        if (!e.officeEmail.toLowerCase().includes(QUERY.officeEmail.toLowerCase())) mismatch++;
+
+        // console.log(e.name)
+        // if (e.name == "Numbers_00") {
+        //   if (!e.name.toLowerCase().includes(QUERY.name.toLowerCase())) console.log(1);
+        //   if (QUERY.sex !== '3' && e.sex !== QUERY.sex) console.log(2);
+        //   if (!e.nationality.toLowerCase().includes(QUERY.nationality.toLowerCase())) console.log(3);
+        //   if (!e.citizenship.toLowerCase().includes(QUERY.citizenship.toLowerCase())) console.log(4);
+        //   if (!e.presentAddress.toLowerCase().includes(QUERY.presentAddress.toLowerCase())) console.log(5);
+        //   if (!e.permanentAddress.toLowerCase().includes(QUERY.permanentAddress.toLowerCase())) console.log(6);
+        //   if (!e.billingAddress.toLowerCase().includes(QUERY.billingAddress.toLowerCase())) console.log(7);
+        //   if (!e.shippingAddress.toLowerCase().includes(QUERY.shippingAddress.toLowerCase())) console.log(8);
+        //   if (!e.officeAddress.toLowerCase().includes(QUERY.officeAddress.toLowerCase())) console.log(9);
+        //   if (e.personalMobileNumber !== QUERY.personalMobileNumber) console.log(10);
+        //   if (e.officeMobileNumber !== QUERY.officeMobileNumber) console.log(11);
+        //   if (e.homeLandlineNumber !== QUERY.homeLandlineNumber) console.log(12);
+        //   if (e.officeLandlineNumber !== QUERY.officeLandlineNumber) console.log(13);
+        //   if (!e.personalEmail.toLowerCase().includes(QUERY.personalEmail.toLowerCase())) console.log(14);
+        //   if (!e.officeEmail.toLowerCase().includes(QUERY.officeEmail.toLowerCase())) console.log(15);
+        //   console.log('what')
+        // }
+        // console.log(mismatch)
+        if (mismatch === 0) filteredIndices.push(i);
+      });
+      // console.log(QUERY)
+      // console.log(customers);
+      // console.log(filteredIndices);
+      document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+        filteredIndices.includes(i) ? e.classList.replace('d-none', 'd-flex') : e.classList.replace('d-flex', 'd-none');
+      });
+    }
   }
-  let customers = [];
-  let filteredIndices = [];
-  document.querySelectorAll('.search-group').forEach(e => {
-    let customer = {};
-    customer.name = e.querySelector('.name-field').value.replace('Name: ', '');
-    customer.birthday = e.querySelector('.birthday-field').value;
-    customer.sex = e.querySelector('.sex-field').value;
-    customer.nationality = e.querySelector('.nationality-field').value;
-    customer.citizenship = e.querySelector('.citizenship-field').value;
-    customer.presentAddress = e.querySelector('.present-address-field').value;
-    customer.permanentAddress = e.querySelector('.permanent-address-field').value;
-    customer.billingAddress = e.querySelector('.billing-address-field').value;
-    customer.shippingAddress = e.querySelector('.shipping-address-field').value;
-    customer.officeAddress = e.querySelector('.office-address-field').value;
-    customer.personalMobileNumber = e.querySelector('.personal-mobile-number-field').value;
-    customer.officeMobileNumber = e.querySelector('.office-mobile-number-field').value;
-    customer.homeLandlineNumber = e.querySelector('.home-landline-number-field').value;
-    customer.officeLandlineNumber = e.querySelector('.office-landline-number-field').value;
-    customer.personalEmail = e.querySelector('.personal-email-field').value;
-    customer.officeEmail = e.querySelector('.office-email-field').value;
-    customers.push(customer);
-  });
-  customers.forEach((e,i) => {
-    let mismatch = 0;
-    if (!e.name.toLowerCase().includes(QUERY.name.toLowerCase())) mismatch++;
-    if (QUERY.sex !== '0' && e.sex !== QUERY.sex) mismatch++;
-    if (!e.nationality.toLowerCase().includes(QUERY.nationality.toLowerCase())) mismatch++;
-    if (!e.citizenship.toLowerCase().includes(QUERY.citizenship.toLowerCase())) mismatch++;
-    if (!e.presentAddress.toLowerCase().includes(QUERY.presentAddress.toLowerCase())) mismatch++;
-    if (!e.permanentAddress.toLowerCase().includes(QUERY.permanentAddress.toLowerCase())) mismatch++;
-    if (!e.billingAddress.toLowerCase().includes(QUERY.billingAddress.toLowerCase())) mismatch++;
-    if (!e.shippingAddress.toLowerCase().includes(QUERY.shippingAddress.toLowerCase())) mismatch++;
-    if (!e.officeAddress.toLowerCase().includes(QUERY.officeAddress.toLowerCase())) mismatch++;
-    if (e.personalMobileNumber !== QUERY.personalMobileNumber) mismatch++;
-    if (e.officeMobileNumber !== QUERY.officeMobileNumber) mismatch++;
-    if (e.homeLandlineNumber !== QUERY.homeLandlineNumber) mismatch++;
-    if (e.officeLandlineNumber !== QUERY.officeLandlineNumber) mismatch++;
-    if (!e.personalEmail.toLowerCase().includes(QUERY.personalEmail.toLowerCase())) mismatch++;
-    if (!e.officeEmail.toLowerCase().includes(QUERY.officeEmail.toLowerCase())) mismatch++;
-    if (mismatch === 0) filteredIndices.push(i);
-  });
-  document.querySelectorAll('.search-group').forEach((e,i) => {
-    filteredIndices.includes(i) ? e.classList.replace('d-none', 'd-flex') : e.classList.replace('d-flex', 'd-none');
-  });
 }
 
 updateMode = event => {
