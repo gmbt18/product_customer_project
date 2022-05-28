@@ -109,11 +109,11 @@ function getAge(dateString) {
 }
 
 filterCustomers = event => {
-  if (event.target.textContent === 'Search') {
-    const DIV_TYPES = ['all','sex0','sex1','sex2'];
-
-    for (i in DIV_TYPES) {
-      const QUERY = {
+  const DIV_TYPES = ['all','sex0','sex1','sex2'];
+  for (i in DIV_TYPES) {
+    let query = {};
+    if (event.target.textContent === 'Search') {
+      query = {
         name: document.getElementById('nameField').value,
         sex: document.getElementById('sexField').value,
         nationality: document.getElementById('nationalityField').value,
@@ -130,75 +130,93 @@ filterCustomers = event => {
         personalEmail: document.getElementById('personalEmailField').value,
         officeEmail: document.getElementById('officeEmailField').value
       }
-      let customers = [];
-      let filteredIndices = [];
-      document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
-        let customer = {};
-        customer.name = e.querySelector('.name-field').value.replace('Name: ', '');
-        customer.birthday = e.querySelector('.birthday-field').value;
-        customer.sex = e.querySelector('.sex-field').value;
-        customer.nationality = e.querySelector('.nationality-field').value;
-        customer.citizenship = e.querySelector('.citizenship-field').value;
-        customer.presentAddress = e.querySelector('.present-address-field').value;
-        customer.permanentAddress = e.querySelector('.permanent-address-field').value;
-        customer.billingAddress = e.querySelector('.billing-address-field').value;
-        customer.shippingAddress = e.querySelector('.shipping-address-field').value;
-        customer.officeAddress = e.querySelector('.office-address-field').value;
-        customer.personalMobileNumber = e.querySelector('.personal-mobile-number-field').value;
-        customer.officeMobileNumber = e.querySelector('.office-mobile-number-field').value;
-        customer.homeLandlineNumber = e.querySelector('.home-landline-number-field').value;
-        customer.officeLandlineNumber = e.querySelector('.office-landline-number-field').value;
-        customer.personalEmail = e.querySelector('.personal-email-field').value;
-        customer.officeEmail = e.querySelector('.office-email-field').value;
-        customers.push(customer);
-      });
-      customers.forEach((e,i) => {
-        let mismatch = 0;
-        if (!e.name.toLowerCase().includes(QUERY.name.toLowerCase())) mismatch++;
-        if (QUERY.sex !== '3' && e.sex !== QUERY.sex) mismatch++;
-        if (!e.nationality.toLowerCase().includes(QUERY.nationality.toLowerCase())) mismatch++;
-        if (!e.citizenship.toLowerCase().includes(QUERY.citizenship.toLowerCase())) mismatch++;
-        if (!e.presentAddress.toLowerCase().includes(QUERY.presentAddress.toLowerCase())) mismatch++;
-        if (!e.permanentAddress.toLowerCase().includes(QUERY.permanentAddress.toLowerCase())) mismatch++;
-        if (!e.billingAddress.toLowerCase().includes(QUERY.billingAddress.toLowerCase())) mismatch++;
-        if (!e.shippingAddress.toLowerCase().includes(QUERY.shippingAddress.toLowerCase())) mismatch++;
-        if (!e.officeAddress.toLowerCase().includes(QUERY.officeAddress.toLowerCase())) mismatch++;
-        if (e.personalMobileNumber !== QUERY.personalMobileNumber) mismatch++;
-        if (e.officeMobileNumber !== QUERY.officeMobileNumber) mismatch++;
-        if (e.homeLandlineNumber !== QUERY.homeLandlineNumber) mismatch++;
-        if (e.officeLandlineNumber !== QUERY.officeLandlineNumber) mismatch++;
-        if (!e.personalEmail.toLowerCase().includes(QUERY.personalEmail.toLowerCase())) mismatch++;
-        if (!e.officeEmail.toLowerCase().includes(QUERY.officeEmail.toLowerCase())) mismatch++;
-
-        // console.log(e.name)
-        // if (e.name == "Numbers_00") {
-        //   if (!e.name.toLowerCase().includes(QUERY.name.toLowerCase())) console.log(1);
-        //   if (QUERY.sex !== '3' && e.sex !== QUERY.sex) console.log(2);
-        //   if (!e.nationality.toLowerCase().includes(QUERY.nationality.toLowerCase())) console.log(3);
-        //   if (!e.citizenship.toLowerCase().includes(QUERY.citizenship.toLowerCase())) console.log(4);
-        //   if (!e.presentAddress.toLowerCase().includes(QUERY.presentAddress.toLowerCase())) console.log(5);
-        //   if (!e.permanentAddress.toLowerCase().includes(QUERY.permanentAddress.toLowerCase())) console.log(6);
-        //   if (!e.billingAddress.toLowerCase().includes(QUERY.billingAddress.toLowerCase())) console.log(7);
-        //   if (!e.shippingAddress.toLowerCase().includes(QUERY.shippingAddress.toLowerCase())) console.log(8);
-        //   if (!e.officeAddress.toLowerCase().includes(QUERY.officeAddress.toLowerCase())) console.log(9);
-        //   if (e.personalMobileNumber !== QUERY.personalMobileNumber) console.log(10);
-        //   if (e.officeMobileNumber !== QUERY.officeMobileNumber) console.log(11);
-        //   if (e.homeLandlineNumber !== QUERY.homeLandlineNumber) console.log(12);
-        //   if (e.officeLandlineNumber !== QUERY.officeLandlineNumber) console.log(13);
-        //   if (!e.personalEmail.toLowerCase().includes(QUERY.personalEmail.toLowerCase())) console.log(14);
-        //   if (!e.officeEmail.toLowerCase().includes(QUERY.officeEmail.toLowerCase())) console.log(15);
-        //   console.log('what')
-        // }
-        // console.log(mismatch)
-        if (mismatch === 0) filteredIndices.push(i);
-      });
-      // console.log(QUERY)
-      // console.log(customers);
-      // console.log(filteredIndices);
-      document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
-        filteredIndices.includes(i) ? e.classList.replace('d-none', 'd-flex') : e.classList.replace('d-flex', 'd-none');
-      });
     }
+    if (event.target.textContent === 'View All') {
+      query = {
+        name: '',
+        sex: '3',
+        nationality: '',
+        citizenship: '',
+        presentAddress: '',
+        permanentAddress: '',
+        billingAddress: '',
+        shippingAddress: '',
+        officeAddress: '',
+        personalMobileNumber: '',
+        officeMobileNumber: '',
+        homeLandlineNumber: '',
+        officeLandlineNumber: '',
+        personalEmail: '',
+        officeEmail: ''
+      }
+    }
+    let customers = [];
+    let filteredIndices = [];
+    document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
+      let customer = {};
+      customer.name = e.querySelector('.name-field').value.replace('Name: ', '');
+      customer.birthday = e.querySelector('.birthday-field').value;
+      customer.sex = e.querySelector('.sex-field').value;
+      customer.nationality = e.querySelector('.nationality-field').value;
+      customer.citizenship = e.querySelector('.citizenship-field').value;
+      customer.presentAddress = e.querySelector('.present-address-field').value;
+      customer.permanentAddress = e.querySelector('.permanent-address-field').value;
+      customer.billingAddress = e.querySelector('.billing-address-field').value;
+      customer.shippingAddress = e.querySelector('.shipping-address-field').value;
+      customer.officeAddress = e.querySelector('.office-address-field').value;
+      customer.personalMobileNumber = e.querySelector('.personal-mobile-number-field').value;
+      customer.officeMobileNumber = e.querySelector('.office-mobile-number-field').value;
+      customer.homeLandlineNumber = e.querySelector('.home-landline-number-field').value;
+      customer.officeLandlineNumber = e.querySelector('.office-landline-number-field').value;
+      customer.personalEmail = e.querySelector('.personal-email-field').value;
+      customer.officeEmail = e.querySelector('.office-email-field').value;
+      customers.push(customer);
+    });
+    customers.forEach((e,i) => {
+      let mismatch = 0;
+      if (!e.name.toLowerCase().includes(query.name.toLowerCase())) mismatch++;
+      if (query.sex !== '3' && e.sex !== query.sex) mismatch++;
+      if (!e.nationality.toLowerCase().includes(query.nationality.toLowerCase())) mismatch++;
+      if (!e.citizenship.toLowerCase().includes(query.citizenship.toLowerCase())) mismatch++;
+      if (!e.presentAddress.toLowerCase().includes(query.presentAddress.toLowerCase())) mismatch++;
+      if (!e.permanentAddress.toLowerCase().includes(query.permanentAddress.toLowerCase())) mismatch++;
+      if (!e.billingAddress.toLowerCase().includes(query.billingAddress.toLowerCase())) mismatch++;
+      if (!e.shippingAddress.toLowerCase().includes(query.shippingAddress.toLowerCase())) mismatch++;
+      if (!e.officeAddress.toLowerCase().includes(query.officeAddress.toLowerCase())) mismatch++;
+      if (!e.personalMobileNumber.includes(query.personalMobileNumber)) mismatch++;
+      if (!e.officeMobileNumber.includes(query.officeMobileNumber)) mismatch++;
+      if (!e.homeLandlineNumber.includes(query.homeLandlineNumber)) mismatch++;
+      if (!e.officeLandlineNumber.includes(query.officeLandlineNumber)) mismatch++;
+      if (!e.personalEmail.toLowerCase().includes(query.personalEmail.toLowerCase())) mismatch++;
+      if (!e.officeEmail.toLowerCase().includes(query.officeEmail.toLowerCase())) mismatch++;
+
+      // if (e.name == "Superuser") {
+      //   if (!e.name.toLowerCase().includes(query.name.toLowerCase())) console.log(1);
+      //   if (query.sex !== '3' && e.sex !== query.sex) console.log(2);
+      //   if (!e.nationality.toLowerCase().includes(query.nationality.toLowerCase())) console.log(3);
+      //   if (!e.citizenship.toLowerCase().includes(query.citizenship.toLowerCase())) console.log(4);
+      //   if (!e.presentAddress.toLowerCase().includes(query.presentAddress.toLowerCase())) console.log(5);
+      //   if (!e.permanentAddress.toLowerCase().includes(query.permanentAddress.toLowerCase())) console.log(6);
+      //   if (!e.billingAddress.toLowerCase().includes(query.billingAddress.toLowerCase())) console.log(7);
+      //   if (!e.shippingAddress.toLowerCase().includes(query.shippingAddress.toLowerCase())) console.log(8);
+      //   if (!e.officeAddress.toLowerCase().includes(query.officeAddress.toLowerCase())) console.log(9);
+      //   if (!e.personalMobileNumber.includes(query.personalMobileNumber)) console.log(10);
+      //   if (!e.officeMobileNumber.includes(query.officeMobileNumber)) console.log(11);
+      //   if (!e.homeLandlineNumber.includes(query.homeLandlineNumber)) console.log(12);
+      //   if (!e.officeLandlineNumber.includes(query.officeLandlineNumber)) console.log(13);
+      //   if (!e.personalEmail.toLowerCase().includes(query.personalEmail.toLowerCase())) console.log(14);
+      //   if (!e.officeEmail.toLowerCase().includes(query.officeEmail.toLowerCase())) console.log(15);
+      //   console.log(query)
+      // }
+
+      if (mismatch === 0) filteredIndices.push(i);
+    });
+    // console.log(query)
+    // console.log(customers);
+    // console.log(filteredIndices);
+    document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+      filteredIndices.includes(i) ? e.classList.replace('d-none', 'd-flex') : e.classList.replace('d-flex', 'd-none');
+    });
   }
 }
 
