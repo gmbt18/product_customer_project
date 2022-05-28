@@ -9,6 +9,10 @@ window.onload = () => {
   // document.querySelector('.search-products-btn').addEventListener('click', submitProductSearchForm);
   document.querySelector('.search-customers-btn').addEventListener('click', filterCustomers);
 
+  document.querySelector('.bottom-left-div').querySelectorAll('input[type="radio"]').forEach(e => {
+    e.addEventListener('change', changeSort);
+  });
+
   document.querySelectorAll('.search-group').forEach(e => {
     e.querySelector('.update-btn').addEventListener('click', updateMode);
     e.querySelector('.finish-update-btn').addEventListener('click', submitUpdate);
@@ -42,17 +46,18 @@ window.onload = () => {
     e.querySelector('.birthday-field').value = e.querySelector('.birthday-field').value.split(',').slice(0,-1).join(',');
     if (e.querySelector('.birthday-span')) {
       let birthdayArr = e.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
+      console.log(birthdayArr)
       switch (birthdayArr[0]) {
-        case 'January':
+        case 'Jan.':
           birthdayArr[0] = '01';
           break;
-        case 'February':
+        case 'Feb.':
           birthdayArr[0] = '02';
           break;
-        case 'March':
+        case 'Mar.':
           birthdayArr[0] = '03';
           break;
-        case 'April':
+        case 'Apr.':
           birthdayArr[0] = '04';
           break;
         case 'May':
@@ -64,27 +69,43 @@ window.onload = () => {
         case 'July':
           birthdayArr[0] = '07';
           break;
-        case 'August':
+        case 'Aug.':
           birthdayArr[0] = '08';
           break;
-        case 'September':
+        case 'Sep.':
           birthdayArr[0] = '09';
           break;
-        case 'October':
+        case 'Oct.':
           birthdayArr[0] = '10';
           break;
-        case 'November':
+        case 'Nov.':
           birthdayArr[0] = '11';
           break;
-        case 'December':
+        case 'Dec.':
           birthdayArr[0] = '12';
           break;
       }
-      birthdayArr[1] = '0' + birthdayArr[1];
+      birthdayArr[1].length === 1 ? birthdayArr[1] = '0' + birthdayArr[1]: '';
       e.querySelector('.birthday-input').value = `${birthdayArr[2]}-${birthdayArr[0]}-${birthdayArr[1]}`;
+      e.querySelector('.age-span').textContent = getAge(`${birthdayArr[2]}/${birthdayArr[0]}/${birthdayArr[1]}`);
+      e.querySelector('.is-curr-month-birthday-span').textContent = (birthdayArr[0].replace('0','') == (new Date()).getMonth());
       // console.log(`${birthdayArr[2]}-${birthdayArr[0]}-${birthdayArr[1]}`);
     }
   });
+}
+
+// code from and credits to
+// https://stackoverflow.com/a/7091965
+// https://jsfiddle.net/codeandcloud/n33RJ/
+function getAge(dateString) {
+  var today = new Date();
+  var birthDate = new Date(dateString);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+  }
+  return age;
 }
 
 filterCustomers = () => {
@@ -192,6 +213,151 @@ readImgFile = event => {
 
 editImg = event => {
   event.target.parentElement.querySelector('.picture-input').click();
+}
+
+let hiddenByBirthday = [];
+changeSort = () => {
+  const AGE_SORT = document.querySelector('input[name="ageRadio"]:checked').value;
+  const SEX_SORT = document.querySelector('input[name="sexRadio"]:checked').value;
+  const NATIONALITY_SORT = document.querySelector('input[name="nationalityRadio"]:checked').value;
+  const BIRTHDAY_SORT = document.querySelector('input[name="birthdayRadio"]:checked').value;
+  const DIV_TYPES = ['all','sex0','sex1','sex2'];
+
+  switch (AGE_SORT) {
+    case 'any':
+      break;
+    case 'ascending':
+      for (i in DIV_TYPES) {
+        let agesArr = [];
+        let maxOrder = 0;
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
+          if (e.querySelector('.age-span').textContent !== '') agesArr.push(e.querySelector('.age-span').textContent);
+        });
+        agesArrSorted = [...agesArr].sort((a,b) => a - b);
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (e.querySelector('.age-span').textContent !== '') {
+            e.style.order = agesArrSorted.indexOf(agesArr[i]);
+            maxOrder++;
+          }
+        });
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (e.querySelector('.age-span').textContent === '') e.style.order = i + maxOrder;
+        });
+      }
+      break;
+    case 'descending':
+      for (i in DIV_TYPES) {
+        let agesArr = [];
+        let maxOrder = 0;
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
+          if (e.querySelector('.age-span').textContent !== '') agesArr.push(e.querySelector('.age-span').textContent);
+        });
+        agesArrSorted = [...agesArr].sort((a,b) => b - a);
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (e.querySelector('.age-span').textContent !== '') {
+            e.style.order = agesArrSorted.indexOf(agesArr[i]);
+            maxOrder++;
+          }
+        });
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (e.querySelector('.age-span').textContent === '') e.style.order = i + maxOrder;
+        });
+      }
+      break;
+  }
+
+  switch (SEX_SORT) {
+    case 'any':
+      document.querySelector('.all-profiles-group').classList.replace('d-none', 'd-flex');
+      document.querySelector('.sex0-profiles-group').classList.replace('d-flex', 'd-none');
+      document.querySelector('.sex1-profiles-group').classList.replace('d-flex', 'd-none');
+      document.querySelector('.sex2-profiles-group').classList.replace('d-flex', 'd-none');
+      break;
+    case 'ascending':
+      document.querySelector('.all-profiles-group').classList.replace('d-flex', 'd-none');
+      document.querySelector('.sex0-profiles-group').classList.replace('d-none', 'd-flex');
+      document.querySelector('.sex1-profiles-group').classList.replace('d-none', 'd-flex');
+      document.querySelector('.sex2-profiles-group').classList.replace('d-none', 'd-flex');
+      document.querySelector('.sex0-profiles-group').style.order = 0;
+      document.querySelector('.sex1-profiles-group').style.order = 1;
+      document.querySelector('.sex2-profiles-group').style.order = 2;
+      break;
+    case 'descending':
+      document.querySelector('.all-profiles-group').classList.replace('d-flex', 'd-none');
+      document.querySelector('.sex0-profiles-group').classList.replace('d-none', 'd-flex');
+      document.querySelector('.sex1-profiles-group').classList.replace('d-none', 'd-flex');
+      document.querySelector('.sex2-profiles-group').classList.replace('d-none', 'd-flex');
+      document.querySelector('.sex0-profiles-group').style.order = 2;
+      document.querySelector('.sex1-profiles-group').style.order = 1;
+      document.querySelector('.sex2-profiles-group').style.order = 0;
+      break;
+  }
+
+  switch (NATIONALITY_SORT) {
+    case 'any':
+      break;
+    case 'ascending':
+      for (i in DIV_TYPES) {
+        let nationalityArr = [];
+        let maxOrder = 0;
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
+          if (e.querySelector('.nationality-field').value !== '') nationalityArr.push(e.querySelector('.age-span').textContent);
+        });
+        nationalityArrSorted = [...nationalityArr].sort((a,b) => a - b);
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (e.querySelector('.nationality-field').value !== '') {
+            e.style.order = nationalityArrSorted.indexOf(nationalityArr[i]);
+            maxOrder++;
+          }
+        });
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+         if (e.querySelector('.nationality-field').value === '')  e.style.order = i + maxOrder;
+        });
+      }
+      break;
+    case 'descending':
+      for (i in DIV_TYPES) {
+        let nationalityArr = [];
+        let maxOrder = 0;
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
+          if (e.querySelector('.nationality-field').value !== '') nationalityArr.push(e.querySelector('.age-span').textContent);
+        });
+        nationalityArrSorted = [...nationalityArr].sort((a,b) => b - a);
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (e.querySelector('.nationality-field').value !== '') {
+            e.style.order = nationalityArrSorted.indexOf(nationalityArr[i]);
+            maxOrder++;
+          }
+        });
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (e.querySelector('.nationality-field').value === '') e.style.order = i + maxOrder;
+        });
+      }
+      break;
+  }
+
+  switch (BIRTHDAY_SORT) {
+    case 'all':
+      for (i in DIV_TYPES) {
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (hiddenByBirthday.includes(i)) {
+            e.classList.replace('d-none', 'd-flex');
+            hiddenByBirthday.splice(hiddenByBirthday.indexOf(i),1);
+          }
+        })
+      }
+      break;
+    case 'currMonth':
+      for (i in DIV_TYPES) {
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+          if (e.querySelector('.is-curr-month-birthday-span').textContent === 'false') {
+            if (e.classList.contains('d-flex')) hiddenByBirthday.push(i);
+            e.classList.replace('d-flex', 'd-none');
+          }
+        });
+      }
+      break;
+  }
 }
 
 

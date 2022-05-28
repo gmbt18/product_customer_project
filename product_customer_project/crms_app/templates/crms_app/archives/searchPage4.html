@@ -280,22 +280,28 @@
                 <p class="text-start fs-5 fw-bold mb-0">By Birthday</p>
                 <div class="birthday-sort-div d-flex flex-column ms-4">
                   <div class="form-check">
-                    <input class="form-check-input" value="all" type="radio" name="birthdayRadio" id="birthdayAllRadio" checked>
+                    <input class="form-check-input" value="any" type="radio" name="birthdayRadio" id="birthdayAnyRadio" checked>
                     <label class="form-check-label" for="birthdayAnyRadio">
-                      See All
+                      Any Order
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" value="currMonth" type="radio" name="birthdayRadio" id="birthdayCurrMonthRadio">
-                    <label class="form-check-label" for="birthdayCurrMonthRadio">
-                      This Month's
+                    <input class="form-check-input" value="ascending" type="radio" name="birthdayRadio" id="birthdayAscendingRadio">
+                    <label class="form-check-label" for="birthdayAscendingRadio">
+                      Ascending
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" value="descending" type="radio" name="birthdayRadio" id="birthdayDescendingRadio">
+                    <label class="form-check-label" for="birthdayDescendingRadio">
+                      Descending
                     </label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="bottom-right-div col-lg-8 d-flex flex-column mt-0">
+          <div class="bottom-right-div mt-0 col-lg-8">
             <div class="all-profiles-group container-fluid d-flex flex-column p-0">
             {% for customer in customers %}
               {% if not request.user.id == customer.id %}
@@ -724,7 +730,6 @@
                 </div>
                 <span class="target-id-span d-none"></span>
                 <span class="birthday-span d-none">{{customer.birthday}}</span>
-                <span class="is-curr-month-birthday-span d-none"></span>
                 <span class="age-span d-none"></span>
               </div>
               {% endif %}
@@ -1159,8 +1164,6 @@
                   </div>
                   <span class="target-id-span d-none"></span>
                   <span class="birthday-span d-none">{{customer.birthday}}</span>
-                  <span class="is-curr-month-birthday-span d-none"></span>
-                  <span class="age-span d-none"></span>
                 </div>
                 {% endif %}
               {% endif %}
@@ -1595,8 +1598,6 @@
                   </div>
                   <span class="target-id-span d-none"></span>
                   <span class="birthday-span d-none">{{customer.birthday}}</span>
-                  <span class="is-curr-month-birthday-span d-none"></span>
-                  <span class="age-span d-none"></span>
                 </div>
                 {% endif %}
               {% endif %}
@@ -2031,10 +2032,440 @@
                   </div>
                   <span class="target-id-span d-none"></span>
                   <span class="birthday-span d-none">{{customer.birthday}}</span>
-                  <span class="is-curr-month-birthday-span d-none"></span>
-                  <span class="age-span d-none"></span>
                 </div>
                 {% endif %}
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="birthday-profiles-group container-fluid d-none flex-column p-0">
+            {% for customer in customers %}
+              {% if not request.user.id == customer.id %}
+              <div class="search-group default-border container-fluid d-flex my-3">
+                <div class="col-lg-11 d-flex justify-content-around ms-3">
+                  <div class="profile-view container-fluid d-flex justify-content-around m-0 p-0">
+                    <div class="col-lg-5 d-flex flex-column justify-content-around">
+                      <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
+                        <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
+                          {% if customer.picture %}
+                          <img
+                            src="{{customer.picture.url}}"
+                            class="customer-img" 
+                          />
+                          {% else %}
+                          <img
+                            src="{% static 'media/profile-placeholder.png' %}"
+                            class="customer-img"
+                          >
+                          {% endif %}
+                          <!-- <input 
+                            type="text" 
+                            value="Customer Name"
+                            id="customerNameField"
+                            class="form-control position-absolute"
+                          > -->
+                          <div class="float-container d-flex flex-column bg-white">
+                            <label for="nameField">Name</label>
+                            <input 
+                              type="text" 
+                              name="name"
+                              class="name-field float-field align-self-center"
+                              value="{% if customer.name %}{{customer.name}}{% endif %}"
+                              disabled
+                            >
+                          </div>
+                        </div>
+                        <img 
+                          src="{% static 'media/image-flag-red.svg' %}" 
+                          class="customer-img-flag"
+                        />
+                      </div>
+                      <div class="personal-info default-border d-flex flex-column align-items-center">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Personal Info</p>
+                        <div class="float-container d-flex flex-column">
+                          <label for="birthdayField">Birthday</label>
+                          <input 
+                            type="text" 
+                            class="birthday-field float-field align-self-center"
+                            value="{% if customer.birthday %}{{customer.birthday}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="sexField">Sex</label>
+                          <input 
+                            type="text" 
+                            class="sex-field float-field align-self-center"
+                            value="{% if customer.sex %}{{customer.sex}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="nationalityField">Nationality</label>
+                          <input 
+                            type="text" 
+                            class="nationality-field float-field align-self-center"
+                            value="{% if customer.nationality %}{{customer.nationality}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="citizenshipField">Citizenship</label>
+                          <input 
+                            type="text" 
+                            class="citizenship-field float-field align-self-center"
+                            value="{% if customer.citizenship %}{{customer.citizenship}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                      </div>
+                      <div class="bottom-left-buttons d-flex justify-content-between">
+                        <button type="button" class="update-btn d-block btn-lg btn-dark fw-bold">Update</button>
+                        <button type="button" class="view-btn d-block btn-lg btn-secondary fw-bold">View</button>
+                      </div>
+                    </div>
+                    <div class="col-lg-7 d-flex flex-column justify-content-around p-3">
+                      <div class="addresses-div default-border d-flex flex-column align-items-center mb-3">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Addresses</p>
+                        <div class="float-container d-flex flex-column">
+                          <label for="presentAddressField">Present Address</label>
+                          <input 
+                            type="text" 
+                            class="present-address-field float-field align-self-center"
+                            value="{% if customer.presentAddress %}{{customer.presentAddress}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="permanentField">Permanent Address</label>
+                          <input 
+                            type="text" 
+                            id="permanentField"
+                            class="permanent-address-field float-field align-self-center"
+                            value="{% if customer.permanentAddress %}{{customer.permanentAddress}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="billingAddressField">Billing Address</label>
+                          <input 
+                            type="text"
+                            class="billing-address-field float-field align-self-center"
+                            value="{% if customer.billingAddress %}{{customer.billingAddress}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="shippingAddressField">Shipping Address</label>
+                          <input 
+                            type="text" 
+                            class="shipping-address-field float-field align-self-center"
+                            value="{% if customer.shippingAddress %}{{customer.shippingAddress}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="officeAddressField">Office Address</label>
+                          <input 
+                            type="text" 
+                            class="office-address-field float-field align-self-center"
+                            value="{% if customer.officeAddress %}{{customer.officeAddress}}{% endif %}"
+                            disabled
+                          >
+                        </div>
+                      </div>
+                      <div class="mobile-numbers default-border d-flex flex-column align-items-center mb-3">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Mobile Numbers</p>
+                        <div class="split-fields-div d-flex justify-content-around">
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="personalMobileNumberField">Personal</label>
+                            <input 
+                              type="text" 
+                              class="personal-mobile-number-field float-field align-self-center"
+                              value="{% if customer.personalCPNumber %}{{customer.personalCPNumber}}{% endif %}"
+                              disabled
+                            >
+                          </div>
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="officeMobileNumberField">Office</label>
+                            <input 
+                              type="text" 
+                              class="office-mobile-number-field float-field align-self-center"
+                              value="{% if customer.officeCPNumber %}{{customer.officeCPNumber}}{% endif %}"
+                              disabled
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="landline-numbers default-border d-flex flex-column align-items-center mb-3">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Landline Numbers</p>
+                        <div class="split-fields-div d-flex justify-content-around">
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="homeLandlineNumberField">Home</label>
+                            <input 
+                              type="text" 
+                              class="home-landline-number-field float-field align-self-center"
+                              value="{% if customer.homeLandlineNumber %}{{customer.homeLandlineNumber}}{% endif %}"
+                              disabled
+                            >
+                          </div>
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="officeLandlineNumberField">Office</label>
+                            <input 
+                              type="text" 
+                              class="office-landline-number-field float-field align-self-center"
+                              value="{% if customer.officeLandlineNumber %}{{customer.officeLandlineNumber}}{% endif %}"
+                              disabled
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="emails default-border d-flex flex-column align-items-center mb-3">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Emails</p>
+                        <div class="split-fields-div d-flex justify-content-around">
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="personalEmailField">Personal</label>
+                            <input 
+                              type="text" 
+                              class="personal-email-field float-field align-self-center"
+                              value="{% if customer.personalEmail %}{{customer.personalEmail}}{% endif %}"
+                              disabled
+                            >
+                          </div>
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="officeEmailField">Office</label>
+                            <input 
+                              type="text" 
+                              class="office-email-field float-field align-self-center"
+                              value="{% if customer.officeEmail %}{{customer.officeEmail}}{% endif %}"
+                              disabled
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <form class="profile-form container-fluid d-none justify-content-around m-0 p-0" action="" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="col-lg-5 d-flex flex-column justify-content-around">
+                      <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
+                        <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
+                          <input type="file" name="picture" class="picture-input d-none" accept="image/*">
+                          {% if customer.picture %}
+                          <img
+                            src="{{customer.picture.url}}"
+                            class="customer-img editing-customer-img" 
+                          />
+                          {% else %}
+                          <img
+                            src="{% static 'media/profile-placeholder.png' %}"
+                            class="customer-img editing-customer-img"
+                          >
+                          {% endif %}
+                          <div class="float-container d-flex flex-column bg-white">
+                            <label for="nameInput">Name</label>
+                            <input 
+                              type="text" 
+                              name="name"
+                              class="name-input float-field align-self-center"
+                              value="{% if customer.name %}{{customer.name}}{% endif %}"
+                            >
+                          </div>
+                        </div>
+                        <img 
+                          src="{% static 'media/image-flag-red.svg' %}" 
+                          class="customer-img-flag"
+                        />
+                      </div>
+                      <div class="personal-info default-border d-flex flex-column align-items-center">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Personal Info</p>
+                        <div class="float-container d-flex flex-column">
+                          <label for="birthdayInput">Birthday</label>
+                          <input 
+                            type="date" 
+                            name="birthday"
+                            class="birthday-input float-field align-self-center"
+                            value="{% if customer.birthday %}{{customer.birthday}}{% endif %}"
+                          >
+                        </div>
+                        <div class="overlapping-container d-flex flex-column">
+                          <label for="sexInput">Sex</label>
+                          <select 
+                            type="text" 
+                            name="sex"
+                            class="sex-input float-field align-self-center text-end"
+                          >
+                            <option {% if not customer.sex == None or customer.sex|length == "0" %}selected{% endif %}>-----</option>
+                            <option value="0" {% if customer.sex == "0" %}selected{% endif %}>Male</option>
+                            <option value="1" {% if customer.sex == "1" %}selected{% endif %}>Female</option>
+                            <option value="2" {% if customer.sex == "2" %}selected{% endif %}>Intersex</option>
+                          </select>
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="nationalityInput">Nationality</label>
+                          <input 
+                            type="text" 
+                            name="nationality"
+                            class="nationality-input float-field align-self-center"
+                            value="{% if customer.nationality %}{{customer.nationality}}{% endif %}"
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="citizenshipInput">Citizenship</label>
+                          <input 
+                            type="text" 
+                            name="citizenship"
+                            class="citizenship-inputfloat-field align-self-center"
+                            value="{% if customer.citizenship %}{{customer.citizenship}}{% endif %}"
+                          >
+                        </div>
+                      </div>
+                      <div class="bottom-left-buttons d-flex justify-content-between">
+                        <button type="button" class="finish-update-btn d-none btn-lg btn-dark fw-bold">Finish Update</button>
+                        <button type="button" class="cancel-update-btn d-none btn-lg btn-secondary fw-bold">Cancel Update</button>
+                      </div>
+                    </div>
+                    <div class="col-lg-7 d-flex flex-column justify-content-around p-3">
+                      <div class="addresses-div default-border d-flex flex-column align-items-center mb-3">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Addresses</p>
+                        <div class="float-container d-flex flex-column">
+                          <label for="presentAddressInput">Present Address</label>
+                          <input 
+                            type="text" 
+                            name="presentAddress"
+                            class="present-address-input float-field align-self-center"
+                            value="{% if customer.presentAddress %}{{customer.presentAddress}}{% endif %}"
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="permanentInput">Permanent Address</label>
+                          <input 
+                            type="text" 
+                            name="permanentAddress"
+                            class="float-field align-self-center"
+                            value="{% if customer.permanentAddress %}{{customer.permanentAddress}}{% endif %}"
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="billingAddressInput">Billing Address</label>
+                          <input 
+                            type="text"
+                            name="billingAddress"
+                            class="float-field align-self-center"
+                            value="{% if customer.billingAddress %}{{customer.billingAddress}}{% endif %}"
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="shippingAddressInput">Shipping Address</label>
+                          <input 
+                            type="text" 
+                            name="shippingAddress"
+                            class="float-field align-self-center"
+                            value="{% if customer.shippingAddress %}{{customer.shippingAddress}}{% endif %}"
+                          >
+                        </div>
+                        <div class="float-container d-flex flex-column">
+                          <label for="officeAddressInput">Office Address</label>
+                          <input 
+                            type="text" 
+                            name="officeAddress"
+                            class="float-field align-self-center"
+                            value="{% if customer.officeAddress %}{{customer.officeAddress}}{% endif %}"
+                          >
+                        </div>
+                      </div>
+                      <div class="mobile-numbers default-border d-flex flex-column align-items-center mb-3">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Mobile Numbers</p>
+                        <div class="split-fields-div d-flex justify-content-around">
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="personalMobileNumberInput">Personal</label>
+                            <input 
+                              type="text" 
+                              name="personalCPNumber"
+                              class="float-field align-self-center"
+                              value="{% if customer.personalCPNumber %}{{customer.personalCPNumber}}{% endif %}"
+                            >
+                          </div>
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="officeMobileNumberInput">Office</label>
+                            <input 
+                              type="text" 
+                              name="officeCPNumber"
+                              class="float-field align-self-center"
+                              value="{% if customer.officeCPNumber %}{{customer.officeCPNumber}}{% endif %}"
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="landline-numbers default-border d-flex flex-column align-items-center mb-3">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Landline Numbers</p>
+                        <div class="split-fields-div d-flex justify-content-around">
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="homeLandlineNumberInput">Home</label>
+                            <input 
+                              type="text" 
+                              name="homeLandlineNumber"
+                              class="float-field align-self-center"
+                              value="{% if customer.homeLandlineNumber %}{{customer.homeLandlineNumber}}{% endif %}"
+                            >
+                          </div>
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="officeLandlineNumberInput">Office</label>
+                            <input 
+                              type="text" 
+                              name="officeLandlineNumber"
+                              class="float-field align-self-center"
+                              value="{% if customer.officeLandlineNumber %}{{customer.officeLandlineNumber}}{% endif %}"
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="emails default-border d-flex flex-column align-items-center mb-3">
+                        <p class="text-center fs-5 fw-bold text-decoration-underline mt-2">Emails</p>
+                        <div class="split-fields-div d-flex justify-content-around">
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="personalEmailInput">Personal</label>
+                            <input 
+                              type="text" 
+                              name="personalEmail"
+                              class="float-field align-self-center"
+                              value="{% if customer.personalEmail %}{{customer.personalEmail}}{% endif %}"
+                            >
+                          </div>
+                          <div class="float-container float-container-split d-flex flex-column">
+                            <label for="officeEmailInput">Office</label>
+                            <input 
+                              type="text" 
+                              name="officeEmail"
+                              class="float-field align-self-center"
+                              value="{% if customer.officeEmail %}{{customer.officeEmail}}{% endif %}"
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="customer-id-span d-none">{{customer.id}}</span>
+                    <span class="customer-customer-span d-none">{{customer.customer}}</span>
+                    {% for user in auth_users %}
+                      <div class="auth-user-info-div d-none">
+                        <span class="auth-user-username">{{user.username}}</span>
+                        <span class="auth-user-id">{{user.id}}</span>
+                      </div>
+                    {% endfor %}
+                  </form>
+                </div>
+                <div class="col-lg-1 d-flex position-relative">
+                  <div class="vertical-lines-div position-absolute d-flex ms-0">
+                    <div class="py-2">
+                      <div class="vertical-line-lg me-2"></div>
+                    </div>
+                    <div class="py-4">
+                      <div class="vertical-line-sm"></div>
+                    </div>
+                  </div>
+                </div>
+                <span class="target-id-span d-none"></span>
+                <span class="birthday-span d-none">{{customer.birthday}}</span>
+              </div>
               {% endif %}
             {% endfor %}
             </div>
