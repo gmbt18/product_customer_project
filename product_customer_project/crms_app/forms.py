@@ -15,7 +15,7 @@ USER_TYPE_CHOICES = {
 SEX_CHOICES = {
     (0, "Male"),
     (1, "Female"),
-
+    (2, "Intersex")
 }
 
 class AuthUserCreationForm(UserCreationForm):

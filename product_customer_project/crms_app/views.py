@@ -20,6 +20,8 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.template.loader import render_to_string
 # for models
 from pcims_app.models import *
+# for hashing bulk_create() authusers
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 login_URL = "/crms/testLogin/"
@@ -69,6 +71,7 @@ def searchPage(request):
   if request.user.is_superuser:
     auth_users = AuthUser.objects.all()
     customers = CustomerInformation.objects.all()
+    # customers = CustomerInformation.objects.all()[:100]
   context = {
     "auth_users": auth_users,
     "customers": customers
@@ -267,7 +270,6 @@ def register(request):
             if request.user.is_superuser:
               return redirect('/crms/searchPage')
             return redirect('/crms/login')
-
     data = {"form": form}
     return render(request, 'crms_app/pages/register.html', data)
 

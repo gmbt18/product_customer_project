@@ -11,14 +11,13 @@ window.onload = () => {
   document.querySelectorAll('input[type="checkbox"]').forEach(e => {
     e.addEventListener('change', changeSubcategory);
   });
+  document.getElementById('noComplaintsCheck')
   document.querySelectorAll('input[name="ratingsRadio"]').forEach(e => {
     e.addEventListener('change', changeMinRating);
   });
   document.querySelector('.apply-pricing-filter-btn').addEventListener('click', changePrice);
-
   document.getElementById('sortSelect').addEventListener('change', changeSort);
   document.querySelector('.search-products-btn').addEventListener('click', searchProducts);
-
   document.querySelectorAll('.product-card').forEach(e => {
     e.querySelector('.product-condition-complaint').addEventListener('click', initializeComplaintModal);
     e.querySelector('.misleading-info-complaint').addEventListener('click', initializeComplaintModal);
@@ -69,7 +68,7 @@ changeCategory = () => {
 changeSubcategory = () => {
   let checkedSubs = [];
   document.querySelectorAll('input[type="checkbox"]:checked').forEach(e => {
-    checkedSubs.push(e.value);
+    if (!e.value.includes('Complaints')) checkedSubs.push(e.value);
   });
   if (checkedSubs.length) {
     checkedSubs = checkedSubs.map(e => {
