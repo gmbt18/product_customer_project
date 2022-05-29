@@ -79,7 +79,7 @@
                     <i class="fa fa-star"></i>
                   </div>
                 </div>
-                <span class="product-rating fs-6">{{product.ratings}}</span>
+                <span class="product-rating fs-6">{{product.getRatings}}</span>
               </div>
               <div class="price d-flex flex-row align-items-center">          
                 {% if product.discount == 0 %}
@@ -251,7 +251,7 @@
                     <h3>Reviews: ({{reviewNum}})</h3>
                     {% if reviewNum != 0 %}
                       {% for review in reviews %}
-                      <div class="review-form container-fluid d-flex mb-3">
+                      <div class="review-div container-fluid d-flex mb-3">
                         <div class="review-customer-img-div col-lg-2 p-4 pt-0">  
                         {% if review.user.picture %}
                         <img
@@ -288,7 +288,7 @@
                                 </div>
                               </div>
                             </div>
-                            <span class="fs-6 fw-bold">{{review.reviewDate}}</span>
+                            <span class="fs-6 fw-bold me-2">{{review.reviewDate}}</span>
                             {% if review.customer == request.user %}
                             <a class="text-danger fs-6 fw-bold" href="{% url 'removeReview' review.id %}">Remove Review?</a>
                             {% endif %}

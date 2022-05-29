@@ -58,20 +58,21 @@ class Product(models.Model):
 
     @property
     def getRatings(self):
-        reviews = list(self.review_set.all().values_list('rating')) + list(self.customerReview_set.all().values_list('rating'))
-        keys = [1, 2, 3, 4, 5]
+        reviews = list(self.review_set.all().values_list('rating')) + list(self.customerreview_set.all().values_list('rating'))
+        keys = ["1", "2", "3", "4", "5"]
+        stars = [1, 2, 3, 4, 5]
         values = []
 
         r = []
         for x in reviews:
             r.append(x[0])
     
-        for key in keys:
-            values.append(r.count(key))
+        for star in stars:
+            values.append(r.count(star))
                 
         ratings = dict(zip(keys, values))
 
-        return ratings
+        return values
 
     def __str__(self):
         return self.name

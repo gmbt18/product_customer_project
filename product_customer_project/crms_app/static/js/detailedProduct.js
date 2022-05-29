@@ -11,21 +11,21 @@ window.onload = () => {
     e.addEventListener('click', changeMainImg);
   });
 
-  // const RATING_ARR = document.querySelector('.product-rating').textContent.match(/\d+/g);
-  // let avg = 0;
-  // let count = 0;
-  // for (let i = 0; i < RATING_ARR.length; i++) {
-  //   avg += RATING_ARR[i] * (i+1);
-  //   count += Number(RATING_ARR[i]);
-  // }
-  // avg = shortenDecimal(avg / count);
-  // document.querySelector('.product-rating').textContent = `${avg}/5`;
-  // document.querySelector('.full-stars').title = `${shortenDecimal(avg)}/5 (${count} ratings)\n1* - ${RATING_ARR[0]} ratings\n2* - ${RATING_ARR[1]} ratings\n3* - ${RATING_ARR[2]} ratings\n4* - ${RATING_ARR[3]} ratings\n5* - ${RATING_ARR[4]} ratings`;
-  // document.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
+  const RATING_ARR = document.querySelector('.product-rating').textContent.match(/\d+/g);
+  let avg = 0;
+  let count = 0;
+  for (let i = 0; i < RATING_ARR.length; i++) {
+    avg += RATING_ARR[i] * (i+1);
+    count += Number(RATING_ARR[i]);
+  }
+  avg = !isNaN(shortenDecimal(avg / count)) ? shortenDecimal(avg / count) : 0;
+  document.querySelector('.product-rating').textContent = `${avg}/5`;
+  document.querySelector('.full-stars').title = `${shortenDecimal(avg)}/5 (${count} ratings)\n1* - ${RATING_ARR[0]} ratings\n2* - ${RATING_ARR[1]} ratings\n3* - ${RATING_ARR[2]} ratings\n4* - ${RATING_ARR[3]} ratings\n5* - ${RATING_ARR[4]} ratings`;
+  document.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
 
-  const RATING_ARR = document.querySelector('.product-rating').textContent;
-  document.querySelector('.product-rating').textContent = `${RATING_ARR}/5`;
-  document.querySelector('.full-stars').style.width = shortenDecimal(RATING_ARR * 20) + '%';
+  // const RATING_ARR = document.querySelector('.product-rating').textContent;
+  // document.querySelector('.product-rating').textContent = `${RATING_ARR}/5`;
+  // document.querySelector('.full-stars').style.width = shortenDecimal(RATING_ARR * 20) + '%';
 
   document.querySelector('.input-empty-stars').querySelectorAll('.fa-star').forEach((e,i) => {
     e.addEventListener('click', () => rate(i+1));
@@ -33,10 +33,13 @@ window.onload = () => {
   document.querySelector('.input-full-stars').querySelectorAll('.fa-star').forEach((e,i) => {
     e.addEventListener('click', () => rate(i+1));
   });
-
   document.querySelector('.date-today').textContent = DATE;
-
   document.querySelector('.submit-review-btn').addEventListener('click', submitReview);
+
+  document.querySelectorAll('.review-div').forEach(e => {
+    console.log(shortenDecimal(e.querySelector('.rating-span').textContent * 20) + '%')
+    e.querySelector('.full-stars').style.width = shortenDecimal(e.querySelector('.rating-span').textContent * 20) + '%';
+  });
 }
 
 formatImgsCarousel = () => {
