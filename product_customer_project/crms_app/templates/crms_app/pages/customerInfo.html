@@ -27,10 +27,17 @@
               <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
                   {% if customerInformation.picture %}
-                  <img
-                    src="{{customerInformation.picture.url}}"
-                    class="customer-img" 
-                  />
+                    {% if 'http' in customerInformation.picture|slugify %}
+                    <img
+                      src="{{customerInformation.picture}}"
+                      class="customer-img" 
+                    />
+                    {% else %}
+                    <img
+                      src="{{customerInformation.picture.url}}"
+                      class="customer-img" 
+                    />
+                    {% endif %}
                   {% else %}
                   <img
                     src="{% static 'media/profile-placeholder.png' %}"
@@ -251,10 +258,17 @@
                 <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
                   <input type="file" name="picture" id="pictureInput" class="d-none" accept="image/*">
                   {% if customerInformation.picture %}
-                  <img
-                    src="{{customerInformation.picture.url}}"
-                    class="customer-img editing-customer-img" 
-                  />
+                    {% if 'http' in customerInformation.picture|slugify %}
+                    <img
+                      src="{{customerInformation.picture}}"
+                      class="customer-img editing-customer-img" 
+                    />
+                    {% else %}
+                    <img
+                      src="{{customerInformation.picture.url}}"
+                      class="customer-img editing-customer-img" 
+                    />
+                    {% endif %}
                   {% else %}
                   <img
                     src="{% static 'media/profile-placeholder.png' %}"
@@ -530,11 +544,18 @@
               {% for customer in other_customers.all|slice:"0:3" %}
               <div class="other-customer-suggestion-div default-border d-flex mb-3 p-3">
                 {% if customer.picture %}
-                <img 
-                  src="{{customer.picture.url}}"
-                  class="customer-img-sm me-3"
-                />
-                {% else %}
+                            {% if 'http' in customer.picture|slugify %}
+                            <img
+                              src="{{customer.picture}}"
+                              class="customer-img-sm me-3" 
+                            />
+                            {% else %}
+                            <img
+                              src="{{customer.picture.url}}"
+                              class="customer-img-sm me-3" 
+                            />
+                            {% endif %}
+                          {% else %}
                 <img
                   src="{% static 'media/profile-placeholder.png' %}"
                   class="customer-img-sm me-3"

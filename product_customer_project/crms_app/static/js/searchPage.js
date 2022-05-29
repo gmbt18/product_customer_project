@@ -351,7 +351,8 @@ changeSort = () => {
         document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
           if (e.querySelector('.nationality-field').value !== '') nationalityArr.push(e.querySelector('.age-span').textContent);
         });
-        nationalityArrSorted = [...nationalityArr].sort((a,b) => a - b);
+        nationalityArrSorted = [...nationalityArr];
+        nationalityArrSorted.sort();
         document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
           if (e.querySelector('.nationality-field').value !== '') {
             e.style.order = nationalityArrSorted.indexOf(nationalityArr[i]);
@@ -370,7 +371,9 @@ changeSort = () => {
         document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
           if (e.querySelector('.nationality-field').value !== '') nationalityArr.push(e.querySelector('.age-span').textContent);
         });
-        nationalityArrSorted = [...nationalityArr].sort((a,b) => b - a);
+        nationalityArrSorted = [...nationalityArr];
+        nationalityArrSorted.sort();
+        nationalityArrSorted.reverse();
         document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
           if (e.querySelector('.nationality-field').value !== '') {
             e.style.order = nationalityArrSorted.indexOf(nationalityArr[i]);
