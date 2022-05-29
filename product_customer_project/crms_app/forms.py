@@ -49,7 +49,7 @@ class CustomerInformationUpdateForm(ModelForm):
             'sex': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter sex', 'required': False, } ),
             'nationality':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter nationality', 'required': False, } ), 
             'citizenship':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter citizenship', 'required': False, } ), 
-            #'picture':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter sex', 'required': False, } ), 
+           'picture': forms.FileInput( attrs={ 'class': 'd-none', 'id':'pictureField', 'accept':'image/*', 'required': False, } ),
             #'isSubscribed':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter sex', 'required': False, } ), 
             'presentAddress':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter presentAddress', 'required': False, } ), 
             'permanentAddress':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter permanentAddress', 'required': False, } ), 
