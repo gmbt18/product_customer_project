@@ -91,7 +91,7 @@ def detailedProduct(request,pk):
     except AuthUser.DoesNotExist:
         data["isRegistered"] = False
     product = Product.objects.get(id=pk)
-    print(customer, request.user)
+    # print(customer, request.user)
     customerInformation, isInfoCreated = CustomerInformation.objects.get_or_create(customer=customer)
     reviews = CustomerReview.objects.filter(product=product)
     reviewNum = len(reviews)
@@ -123,6 +123,9 @@ def detailedProduct(request,pk):
         review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
         print(review)
         reviewForm = CustomerReviewForm(request.POST, instance=review)
+        print('errors')
+        print(reviewForm.errors)
+        print(list(reviewForm.errors))
         if(reviewForm.is_valid()):
             reviewForm.save()
             print("Form is valid")

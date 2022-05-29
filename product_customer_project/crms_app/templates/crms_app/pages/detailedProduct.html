@@ -240,8 +240,8 @@
                           <button type="button" class="submit-review-btn btn btn-dark">Submit Review</button>
                         </div>
                       </div>
-                      <input type="text" name="customer" value="{{request.user}}" id="customerField" class="d-none">
-                      <input type="text" name="product" value="{{product.name}}" id="productField" class="d-none">
+                      <input type="text" name="customer" value="{{request.user.id}}" id="customerField" class="d-none">
+                      <input type="text" name="product" value="{{product.id}}" id="productField" class="d-none">
                       <input type="text" name="rating" value="0" id="ratingField" class="d-none">
                     </form>
                     {% endif %}

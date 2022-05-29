@@ -46,7 +46,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    name=models.CharField(max_length=200,null=True)
+    name=models.CharField(max_length=255,null=True)
     rating = models.FloatField(default=0)
     description = models.TextField(blank=True, null=True)
     stocks = models.IntegerField(default=0, validators=[MinValueValidator(0)])
@@ -58,7 +58,7 @@ class Product(models.Model):
 
     @property
     def getRatings(self):
-        reviews = list(self.review_set.all().values_list('rating'))
+        reviews = list(self.review_set.all().values_list('rating')) + list(self.customerReview_set.all().values_list('rating'))
         keys = [1, 2, 3, 4, 5]
         values = []
 
