@@ -64,14 +64,15 @@ class CustomerReview(models.Model):
     customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE,null=True,)
     product = models.ForeignKey("pcims_app.Product", on_delete=models.CASCADE,null=True)
     rating = models.IntegerField(
-        null=True,
+        null=False,
         validators=[
             MaxValueValidator(5),
             MinValueValidator(0)
-        ]
+        ],
+        default=0,
     )
-    reviewDate = models.DateTimeField(auto_now_add=True, null=True)
-    productReview = models.CharField(max_length=200, null=True, blank=False)
+    reviewDate = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    productReview = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         return f"{self.customer}-{self.product}"

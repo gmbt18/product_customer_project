@@ -180,6 +180,12 @@
                     </div>
                   </div>
                 </div>
+
+
+
+
+
+
                 <div class="tab-pane fade p-4" id="reviewsTab" role="tabpanel" aria-labelledby="reviews-tab">
                   <div class="tab-pane-contents d-flex flex-column p-4">
                     {% if isRegistered %}
@@ -223,16 +229,25 @@
                           </div>
                           <span class="date-today fs-6 fw-bold"></span>
                         </div>
-                        <input type="text" name="productReview" class="form-control mb-2" placeholder="Leave a comment here!">
+
+                         
+                        <!-- <input type="text" name="productReview" class="form-control mb-2" placeholder="Leave a comment here!"> -->
+                        <p class="card-text">
+                          {{reviewForm.productReview}}
+                        </p>
+
                         <div class="d-flex">
                           <button type="button" class="submit-review-btn btn btn-dark">Submit Review</button>
                         </div>
                       </div>
-                      <input type="text" name="customer" value="{{customerInformation.name}}" id="customerField" class="d-none">
+                      <input type="text" name="customer" value="{{request.user}}" id="customerField" class="d-none">
                       <input type="text" name="product" value="{{product.name}}" id="productField" class="d-none">
                       <input type="text" name="rating" value="0" id="ratingField" class="d-none">
                     </form>
                     {% endif %}
+
+
+
                     <h3>Reviews: ({{reviewNum}})</h3>
                     {% if reviewNum != 0 %}
                       {% for review in reviews %}

@@ -1,4 +1,4 @@
-from django.forms import ChoiceField, ModelForm, Select, TextInput, PasswordInput, CharField, HiddenInput, NumberInput, TypedChoiceField
+from django.forms import ChoiceField, DateInput, ModelForm, Select, TextInput, PasswordInput, CharField, HiddenInput, NumberInput, TypedChoiceField
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import get_user_model
@@ -80,5 +80,9 @@ class CustomerReviewForm(ModelForm):
     class Meta:
         model = CustomerReview
         fields = "__all__"
+        widgets = {
+            'productReview': TextInput( attrs={ 'class': 'form-control'} ),
+            'reviewDate': DateInput(),
+        }
 
 

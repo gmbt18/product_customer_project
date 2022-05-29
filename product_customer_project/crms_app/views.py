@@ -82,8 +82,8 @@ def searchPage(request):
   return render(request, 'crms_app/pages/searchPage.html', context)
 
 def detailedProduct(request,pk):
-    customer = []
     data = {}
+    customerReviewers = []
     reviewForm = CustomerReviewForm()
     try:
         customer = AuthUser.objects.get(id=request.user.id)
@@ -92,36 +92,44 @@ def detailedProduct(request,pk):
         data["isRegistered"] = False
     product = Product.objects.get(id=pk)
     print(customer, request.user)
-    customerInformation = CustomerInformation.objects.filter(customer=customer)
+    customerInformation, isInfoCreated = CustomerInformation.objects.get_or_create(customer=customer)
     reviews = CustomerReview.objects.filter(product=product)
     reviewNum = len(reviews)
-    print(reviews)
-    print(reviewNum)
     mean_rating = 0
-    # if(reviewNum != 0):
-    #     for review in reviews:
-    #         mean_rating += review.rating
-    #     mean_rating = mean_rating/reviewNum
+    if(reviewNum != 0):
+        for review in reviews:
+            mean_rating += review.rating
+            customerReviewers.append(getCustomerInformation(review.customer))
+        mean_rating = mean_rating/reviewNum
     data['reviewNum'] = reviewNum
     data['reviews'] = reviews
-    # data["mean_rating"] = mean_rating
+    data["mean_rating"] = mean_rating
+    data["customerReviewers"] = customerReviewers
+    data['reviewForm'] = reviewForm
 
-    if(request.method == "POST" and data.get("isRegistered")):
-        print(list(request.POST.items()))
-        review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
-        reviewForm = CustomerReviewForm(request.POST, instance=review)
-        print(review)
-        print(list(reviewForm.errors))
-        if(reviewForm.is_valid()):
-            reviewForm.save()
-            messages.success(request, "The review was created on "+ product.name)
-            return redirect(f"/crms/detailedProduct/{pk}")
+
     data['product'] = product
     # print(customerInformation.values()[0])
     # print(customerInformation.first().picture.url)
-    data['picture'] = customerInformation.first().picture.url
-    data['customerInformation'] = customerInformation.values()[0]
-    data['reviewForm'] = reviewForm
+    if(customerInformation.picture):
+        data['picture'] = customerInformation.picture.url
+    else:
+        data['picture'] = customerInformation.picture
+    data['customerInformation'] = customerInformation
+
+    if(request.method == "POST" and data.get("isRegistered")):
+        print("post items")
+        print(list(request.POST.items()))
+        review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
+        print(review)
+        reviewForm = CustomerReviewForm(request.POST, instance=review)
+        if(reviewForm.is_valid()):
+            reviewForm.save()
+            print("Form is valid")
+            messages.success(request, "The review was created on "+ product.name)
+            return redirect(f"/crms/detailedProduct/{pk}")
+
+
 
     return render(request, 'crms_app/pages/detailedProduct.html', data)
 
