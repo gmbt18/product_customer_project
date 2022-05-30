@@ -27,7 +27,6 @@ from django.contrib.auth.hashers import make_password
 login_URL = "/crms/login/"
 
 def customerHome(request):
-    print(getProductsWithComplaints())
     return render(request, 'crms_app/pages/home.html')
 
 def catalogCustomer(request):
@@ -87,7 +86,7 @@ def searchPage(request):
 def detailedProduct(request,pk):
     data = {}
     customerReviewers = []
-    
+    reviewForm = CustomerReviewForm()
     try:
         customer = AuthUser.objects.get(id=request.user.id)
         data["isRegistered"] = True
@@ -108,8 +107,8 @@ def detailedProduct(request,pk):
     data['reviews'] = reviews
     data["mean_rating"] = mean_rating
     data["customerReviewers"] = customerReviewers
-    
-    
+    data['reviewForm'] = reviewForm
+
 
     data['product'] = product
     # print(customerInformation.values()[0])
@@ -205,14 +204,9 @@ def submitProductComplaint(request, pk):
     data["product"] = product
     if(request.method == "POST" and data.get("isRegistered")):
         productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer,product=product)
-        post_values = request.POST.copy()
-        post_values['customer'] = request.user
-        post_values['product'] = product
-        productComplaintForm = ProductComplaintForm(post_values, instance=productComplaint)
-
+        productComplaintForm = ProductComplaintForm(request.POST, instance=productComplaint)
         if(productComplaintForm.is_valid()):
             productComplaintForm.save()
-            print("Complaint was sent!")
             messages.success(request, "A complaint was created on "+ product.name)
             return redirect(f"/crms/detailedProduct/{pk}")
 
@@ -414,7 +408,7 @@ def customerInfoSubscribe(request,pk):
 
 @login_required(login_url=login_URL)
 def productComplaint(request,pk):
-    customer = AuthUser.objects.get(id=pk)
+    customer = AuthUser.objects.get(id=pk, user_type=2)
     productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer)
     data = {
         "productComplaint" : productComplaint,
@@ -598,24 +592,3 @@ def getCustomerInformation(authUser):
     return customerInformation
 
 
-def getProductsWithComplaints():
-    # Returns a list of product with complaints: DISTINCT
-    productWithComplaints = []
-    productComplaints = ProductComplaint.objects.all()
-    for productComplaint in productComplaints:
-        if(productComplaint.product not in productWithComplaints):
-            productWithComplaints.append(productComplaint.product)
-    
-    return productWithComplaints
-
-def getProductComplaints(product):
-    # Returns a list of productComplaints type
-    productComplaints = ProductComplaint.objects.filter(product=product)
-    complaints = []
-    for complaint in productComplaints:
-        complaints.append(complaint)
-    return complaints
-
-def getProductComplaintsCount(product):
-    productComplaints = ProductComplaint.objects.filter(product=product)
-    return len(productComplaints)
