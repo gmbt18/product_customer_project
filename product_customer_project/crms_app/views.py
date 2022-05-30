@@ -105,6 +105,7 @@ def detailedProduct(request,pk):
     # print(customer, request.user)
 
     reviews = CustomerReview.objects.filter(product=product)
+    photos = ProductPhotos.objects.all().filter(product=product)
     reviewNum = len(reviews)
     mean_rating = 0
     if(reviewNum != 0):
@@ -116,10 +117,8 @@ def detailedProduct(request,pk):
     data['reviews'] = reviews
     data["mean_rating"] = mean_rating
     data["customerReviewers"] = customerReviewers
-    
-    
-    print("hello")
     data['product'] = product
+    data['photos'] = photos
     # print(customerInformation.values()[0])
     # print(customerInformation.first().picture.url)
     
