@@ -15,10 +15,10 @@
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.view_name == 'customerHome' %}active{% endif %} text-light" aria-current="page" href="{% url 'customerHome' %}">Home</a>
             </li>
+            {% if request.user.is_staff %}
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
             </li>
-            {% if request.user.is_staff %}
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.view_name == 'manageCustomers' %}active{% endif %} text-light" href="{% url 'manageCustomers' %}">Manage Customers</a>
             </li>
