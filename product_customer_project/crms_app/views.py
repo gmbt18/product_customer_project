@@ -110,7 +110,7 @@ def detailedProduct(request,pk):
     data["customerReviewers"] = customerReviewers
     
     
-
+    print("hello")
     data['product'] = product
     # print(customerInformation.values()[0])
     # print(customerInformation.first().picture.url)
