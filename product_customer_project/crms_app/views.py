@@ -606,7 +606,10 @@ def getProductsWithComplaints():
 def getProductComplaints(product):
     # Returns a list of productComplaints type
     productComplaints = ProductComplaint.objects.filter(product=product)
-    return productComplaints
+    complaints = []
+    for complaint in productComplaints:
+        complaints.append(complaint)
+    return complaints
 
 def getProductComplaintsCount(product):
     productComplaints = ProductComplaint.objects.filter(product=product)
