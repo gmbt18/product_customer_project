@@ -601,3 +601,25 @@ def getCustomerInformation(authUser):
     return customerInformation
 
 
+def getProductsWithComplaints():
+    # Returns a list of product with complaints: DISTINCT
+    productWithComplaints = []
+    productComplaints = ProductComplaint.objects.all()
+    for productComplaint in productComplaints:
+        if(productComplaint.product not in productWithComplaints):
+            productWithComplaints.append(productComplaint.product)
+    
+    return productWithComplaints
+
+def getProductComplaints(product):
+    # Returns a list of productComplaints type
+    productComplaints = ProductComplaint.objects.filter(product=product)
+    complaints = []
+    for complaint in productComplaints:
+        complaints.append(complaint)
+    return complaints
+
+def getProductComplaintsCount(product):
+    productComplaints = ProductComplaint.objects.filter(product=product)
+    return len(productComplaints)
+
