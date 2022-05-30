@@ -38,12 +38,12 @@ def catalogMonthly(request):
 
 def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
-    print(products.values())
+    # print(products.values())
     photos = ProductPhotos.objects.all()
     productsCpy = [product for product in products.values()]
     photosCpy = [photo for photo in photos.values()]
-    print(photos.values())
-    print(productsCpy)
+    # print(photos.values())
+    # print(productsCpy)
     i = 0
     for product in productsCpy:
         product['category'] = products.filter(name=product['name'])[0].category.name
@@ -51,7 +51,8 @@ def catalogProduct(request):
             if product['id'] == photo['product_id']:
                 if not photo['filename'] == 'https://lzd-img-global.slatic.net/g/tps/tfs/TB1oP2bbQvoK1RjSZFNXXcxMVXa-300-200.png':
                     product['photo'] = photo['filename']
-            break
+                    continue
+                continue
         if not product.__contains__('photo'):
             product['photo'] = 'https://wallpaperaccess.com/full/1285952.jpg'
         product["getRatings"] = products[i].getRatings
