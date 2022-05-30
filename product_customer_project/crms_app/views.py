@@ -27,6 +27,7 @@ from django.contrib.auth.hashers import make_password
 login_URL = "/crms/testLogin/"
 
 def customerHome(request):
+    print(getProductsWithComplaints())
     return render(request, 'crms_app/pages/home.html')
 
 def catalogCustomer(request):
@@ -199,9 +200,14 @@ def submitProductComplaint(request, pk):
     data["product"] = product
     if(request.method == "POST" and data.get("isRegistered")):
         productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer,product=product)
-        productComplaintForm = ProductComplaintForm(request.POST, instance=productComplaint)
+        post_values = request.POST.copy()
+        post_values['customer'] = request.user
+        post_values['product'] = product
+        productComplaintForm = ProductComplaintForm(post_values, instance=productComplaint)
+
         if(productComplaintForm.is_valid()):
             productComplaintForm.save()
+            print("Complaint was sent!")
             messages.success(request, "A complaint was created on "+ product.name)
             return redirect(f"/crms/detailedProduct/{pk}")
 
@@ -403,7 +409,7 @@ def customerInfoSubscribe(request,pk):
 
 @login_required(login_url=login_URL)
 def productComplaint(request,pk):
-    customer = AuthUser.objects.get(id=pk, user_type=2)
+    customer = AuthUser.objects.get(id=pk)
     productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer)
     data = {
         "productComplaint" : productComplaint,
@@ -587,3 +593,21 @@ def getCustomerInformation(authUser):
     return customerInformation
 
 
+def getProductsWithComplaints():
+    # Returns a list of product with complaints: DISTINCT
+    productWithComplaints = []
+    productComplaints = ProductComplaint.objects.all()
+    for productComplaint in productComplaints:
+        if(productComplaint.product not in productWithComplaints):
+            productWithComplaints.append(productComplaint.product)
+    
+    return productWithComplaints
+
+def getProductComplaints(product):
+    # Returns a list of productComplaints type
+    productComplaints = ProductComplaint.objects.filter(product=product)
+    return productComplaints
+
+def getProductComplaintsCount(product):
+    productComplaints = ProductComplaint.objects.filter(product=product)
+    return len(productComplaints)
