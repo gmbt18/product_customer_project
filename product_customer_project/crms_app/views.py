@@ -24,7 +24,7 @@ from pcims_app.models import *
 from django.contrib.auth.hashers import make_password
 
 # Create your views here.
-login_URL = "/crms/testLogin/"
+login_URL = "/crms/login/"
 
 def customerHome(request):
     print(getProductsWithComplaints())
@@ -94,7 +94,7 @@ def detailedProduct(request,pk):
         data["isRegistered"] = False
     product = Product.objects.get(id=pk)
     # print(customer, request.user)
-    customerInformation, isInfoCreated = CustomerInformation.objects.get_or_create(customer=customer)
+
     reviews = CustomerReview.objects.filter(product=product)
     reviewNum = len(reviews)
     mean_rating = 0
@@ -113,31 +113,34 @@ def detailedProduct(request,pk):
     data['product'] = product
     # print(customerInformation.values()[0])
     # print(customerInformation.first().picture.url)
-    if(customerInformation.picture):
-        data['picture'] = customerInformation.picture.url
-    else:
-        data['picture'] = customerInformation.picture
-    data['customerInformation'] = customerInformation
+    
+    if(data.get("isRegistered")):
+        customerInformation, isInfoCreated = CustomerInformation.objects.get_or_create(customer=customer)
+        if(customerInformation.picture):
+            data['picture'] = customerInformation.picture.url
+        else:
+            data['picture'] = customerInformation.picture
+        data['customerInformation'] = customerInformation
 
-    reviewForm = CustomerReviewForm()
-    if(request.method == "POST" and data.get("isRegistered")):
-        print("post items")
-        files_values = request.FILES.copy()
-        files_values['picture'] = customerInformation.picture
+        reviewForm = CustomerReviewForm()
+        if(request.method == "POST" and data.get("isRegistered")):
+            print("post items")
+            files_values = request.FILES.copy()
+            files_values['picture'] = customerInformation.picture
 
-        review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
-        print(review)
-        reviewForm = CustomerReviewForm(request.POST, files_values, instance=review)
-        print('errors')
-        print(reviewForm.errors)
-        print(list(reviewForm.errors))
-        if(reviewForm.is_valid()):
-            reviewForm.save()
-            print("Form is valid")
-            messages.success(request, "The review was created on "+ product.name)
-            return redirect(f"/crms/detailedProduct/{pk}")
+            review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
+            print(review)
+            reviewForm = CustomerReviewForm(request.POST, files_values, instance=review)
+            print('errors')
+            print(reviewForm.errors)
+            print(list(reviewForm.errors))
+            if(reviewForm.is_valid()):
+                reviewForm.save()
+                print("Form is valid")
+                messages.success(request, "The review was created on "+ product.name)
+                return redirect(f"/crms/detailedProduct/{pk}")
 
-    data['reviewForm'] = reviewForm
+        data['reviewForm'] = reviewForm
 
     return render(request, 'crms_app/pages/detailedProduct.html', data)
 
@@ -186,6 +189,7 @@ def detailedProduct(request,pk):
 
 #     return render(request, 'crms_app/pages/detailedProduct.html', data)
 
+@login_required(login_url=login_URL)
 def submitProductComplaint(request, pk):
     data = {}
     productComplaintForm = ProductComplaintForm()
