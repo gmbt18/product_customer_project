@@ -1,6 +1,7 @@
 {% extends 'crms_app/main.html' %}
 {% block content %}
 {% load static %}
+{% load mathfilters %}
 <link rel="stylesheet" href={% static 'css/catalogMonthly.css' %}>
 <div class="app container-fluid">
   <div class="app-contents container d-flex flex-column justify-content-center">
@@ -50,140 +51,452 @@
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Most Popular</p>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.0.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.0.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.0.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.0.id %}">
+                          {{ products.0.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.0.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.0.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.0.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.0.discount|div:100|sub:1|abs|mul:products.0.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.0.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.0.id}}</span>
+                      <span class="product-rating d-none">{{products.0.getRatings}}</span>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.1.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.1.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.1.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.1.id %}">
+                          {{ products.1.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.1.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.1.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.1.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.1.discount|div:100|sub:1|abs|mul:products.1.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.1.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.1.id}}</span>
+                      <span class="product-rating d-none">{{products.1.getRatings}}</span>
                     </div>
                   </div>
                   <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Most Sales</p>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">laptop(Students Learn Computer Online)Quad-Core Intel N3350</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.3.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.3.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.3.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.3.id %}">
+                          {{ products.3.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.3.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.3.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.3.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.3.discount|div:100|sub:1|abs|mul:products.3.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.3.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.3.id}}</span>
+                      <span class="product-rating d-none">{{products.3.getRatings}}</span>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">laptop(Students Learn Computer Online)Quad-Core Intel N3350</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.4.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.4.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.4.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.4.id %}">
+                          {{ products.4.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.4.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.4.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.4.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.4.discount|div:100|sub:1|abs|mul:products.4.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.4.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.4.id}}</span>
+                      <span class="product-rating d-none">{{products.4.getRatings}}</span>
                     </div>
                   </div>
                   <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Top Rated</p>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">1 Kg Certified High Quality Vermicast - Worm Manure (100% Organic)</h6>
-                        <p class="card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.5.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.5.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.5.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.5.id %}">
+                          {{ products.5.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.5.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.5.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.5.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.5.discount|div:100|sub:1|abs|mul:products.5.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.5.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.5.id}}</span>
+                      <span class="product-rating d-none">{{products.5.getRatings}}</span>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">1 Kg Certified High Quality Vermicast - Worm Manure (100% Organic)</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.6.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.6.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.6.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.6.id %}">
+                          {{ products.6.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.6.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.6.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.6.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.6.discount|div:100|sub:1|abs|mul:products.6.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.6.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.6.id}}</span>
+                      <span class="product-rating d-none">{{products.6.getRatings}}</span>
                     </div>
                   </div>
                   <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Of Note</p>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">Portable folding table for study, laptop desk, mini laptop support tray for sofa bed</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.7.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.7.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.7.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.7.id %}">
+                          {{ products.7.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.7.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.7.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.7.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.7.discount|div:100|sub:1|abs|mul:products.7.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.7.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.7.id}}</span>
+                      <span class="product-rating d-none">{{products.7.getRatings}}</span>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">Portable folding table for study, laptop desk, mini laptop support tray for sofa bed</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.8.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.8.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.8.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.8.id %}">
+                          {{ products.8.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.8.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.8.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.8.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.8.discount|div:100|sub:1|abs|mul:products.8.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.8.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.8.id}}</span>
+                      <span class="product-rating d-none">{{products.8.getRatings}}</span>
                     </div>
                   </div>
                 </div>
@@ -229,140 +542,452 @@
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Most Popular</p>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.0.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.0.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.0.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.0.id %}">
+                          {{ products.0.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.0.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.0.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.0.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.0.discount|div:100|sub:1|abs|mul:products.0.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.0.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.0.id}}</span>
+                      <span class="product-rating d-none">{{products.0.getRatings}}</span>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.1.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.1.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.1.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.1.id %}">
+                          {{ products.1.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.1.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.1.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.1.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.1.discount|div:100|sub:1|abs|mul:products.1.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.1.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.1.id}}</span>
+                      <span class="product-rating d-none">{{products.1.getRatings}}</span>
                     </div>
                   </div>
                   <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Most Sales</p>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">laptop(Students Learn Computer Online)Quad-Core Intel N3350</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.3.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.3.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.3.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.3.id %}">
+                          {{ products.3.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.3.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.3.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.3.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.3.discount|div:100|sub:1|abs|mul:products.3.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.3.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.3.id}}</span>
+                      <span class="product-rating d-none">{{products.3.getRatings}}</span>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">laptop(Students Learn Computer Online)Quad-Core Intel N3350</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.4.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.4.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.4.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.4.id %}">
+                          {{ products.4.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.4.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.4.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.4.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.4.discount|div:100|sub:1|abs|mul:products.4.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.4.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.4.id}}</span>
+                      <span class="product-rating d-none">{{products.4.getRatings}}</span>
                     </div>
                   </div>
                   <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Top Rated</p>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">1 Kg Certified High Quality Vermicast - Worm Manure (100% Organic)</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.5.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.5.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.5.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.5.id %}">
+                          {{ products.5.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.5.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.5.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.5.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.5.discount|div:100|sub:1|abs|mul:products.5.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.5.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.5.id}}</span>
+                      <span class="product-rating d-none">{{products.5.getRatings}}</span>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">1 Kg Certified High Quality Vermicast - Worm Manure (100% Organic)</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.6.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.6.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.6.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.6.id %}">
+                          {{ products.6.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.6.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.6.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.6.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.6.discount|div:100|sub:1|abs|mul:products.6.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.6.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.6.id}}</span>
+                      <span class="product-rating d-none">{{products.6.getRatings}}</span>
                     </div>
                   </div>
                   <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Of Note</p>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">Portable folding table for study, laptop desk, mini laptop support tray for sofa bed</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.7.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.7.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.7.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.7.id %}">
+                          {{ products.7.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.7.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.7.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.7.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.7.discount|div:100|sub:1|abs|mul:products.7.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.7.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.7.id}}</span>
+                      <span class="product-rating d-none">{{products.7.getRatings}}</span>
                     </div>
-                    <div class="product-card card mt-3" style="width: 100%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">Portable folding table for study, laptop desk, mini laptop support tray for sofa bed</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.8.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.8.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.8.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.8.id %}">
+                          {{ products.8.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.8.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.8.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.8.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.8.discount|div:100|sub:1|abs|mul:products.8.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <p class="address card-text text-center">Metro Manila</p>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.8.category}}</p>
                       </div>
+                      <span class="product-id d-none">{{products.8.id}}</span>
+                      <span class="product-rating d-none">{{products.8.getRatings}}</span>
                     </div>
                   </div>
                 </div>
@@ -382,4 +1007,5 @@
     </div>
   </div>
 </div>
+<script type="text/javascript" src="{% static 'js/catalogMonthly.js' %}"></script>
 {% endblock content %}

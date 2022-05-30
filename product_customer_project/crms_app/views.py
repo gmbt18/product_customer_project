@@ -33,7 +33,16 @@ def catalogCustomer(request):
     return render(request, 'crms_app/pages/catalogCustomer.html')
 
 def catalogMonthly(request):
-    return render(request, 'crms_app/pages/catalogMonthly.html')
+    # unique_product_photos = ProductPhotos.objects.all().values('product').distinct()
+    photos = ProductPhotos.objects.all().distinct('product')[:16]
+    products = []
+    for photo in photos:
+        products.append(Product.objects.get(name=photo.product))
+    context = {
+        "products": products,
+        "photos": photos
+    }
+    return render(request, 'crms_app/pages/catalogMonthly.html', context)
 
 def catalogProduct(request):
     products = Product.objects.filter(isarchived=False)
