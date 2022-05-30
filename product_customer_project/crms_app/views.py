@@ -107,9 +107,9 @@ def detailedProduct(request,pk):
     data['reviews'] = reviews
     data["mean_rating"] = mean_rating
     data["customerReviewers"] = customerReviewers
-    data['reviewForm'] = reviewForm
-
-
+    
+    
+    print("hello")
     data['product'] = product
     # print(customerInformation.values()[0])
     # print(customerInformation.first().picture.url)
