@@ -64,6 +64,7 @@ def catalogProduct(request):
         if not product.__contains__('photo'):
             product['photo'] = 'https://wallpaperaccess.com/full/1285952.jpg'
         product["getRatings"] = products[i].getRatings
+        product["complaintsCount"] = getProductComplaintsCount(product['id'])
         i += 1
 
     # print(productsCpy[0])

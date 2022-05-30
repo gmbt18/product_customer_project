@@ -290,13 +290,13 @@
             <p class="text-start fs-5 fw-bold mb-0">By Complaints</p>
             <div class="filter-price d-flex flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" value="noComplaints" type="checkbox" id="noComplaintsCheck">
+                <input class="form-check-input" value="noComplaints" type="checkbox" id="noComplaintsCheck" checked>
                 <label class="form-check-label" for="noComplaintsCheck">
                   No Complaints
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" value="hasComplaints" type="checkbox" id="hasComplaintsCheck">
+                <input class="form-check-input" value="hasComplaints" type="checkbox" id="hasComplaintsCheck" checked>
                 <label class="form-check-label" for="hasComplaintsCheck">
                   Has Complaints
                 </label>
@@ -349,7 +349,7 @@
               {% if product.category == "speakers" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -400,6 +400,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -409,7 +410,7 @@
               {% if product.category == "headsets" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -460,6 +461,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -469,7 +471,7 @@
               {% if product.category == "microphones" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -520,6 +522,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -529,7 +532,7 @@
               {% if product.category == "menUpper" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -580,6 +583,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -589,7 +593,7 @@
               {% if product.category == "menLower" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -640,6 +644,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -649,7 +654,7 @@
               {% if product.category == "menUnderwear" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -700,6 +705,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -709,7 +715,7 @@
               {% if product.category == "womenUpper" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -760,6 +766,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -769,7 +776,7 @@
               {% if product.category == "womenLower" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -820,6 +827,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -829,7 +837,7 @@
               {% if product.category == "womenUnderwear" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -880,6 +888,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -889,7 +898,7 @@
               {% if product.category == "menShoes" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -940,6 +949,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -949,7 +959,7 @@
               {% if product.category == "womenShoes" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1000,6 +1010,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1009,7 +1020,7 @@
               {% if product.category == "smartphones" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1060,6 +1071,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1069,7 +1081,7 @@
               {% if product.category == "desktops" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1120,6 +1132,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1129,7 +1142,7 @@
               {% if product.category == "laptops" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1180,6 +1193,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1189,7 +1203,7 @@
               {% if product.category == "cameras" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1240,6 +1254,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1249,7 +1264,7 @@
               {% if product.category == "tvs" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1300,6 +1315,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1309,7 +1325,7 @@
               {% if product.category == "watches" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1360,6 +1376,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1369,7 +1386,7 @@
               {% if product.category == "glasses" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1420,6 +1437,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1429,7 +1447,7 @@
               {% if product.category == "bags" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1480,6 +1498,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1489,7 +1508,7 @@
               {% if product.category == "jewelry" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
-                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
                 {% endif %}
                 <img src="{{product.photo}}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-end">
@@ -1540,6 +1559,7 @@
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
                 <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
               {% endif %}
             {% endfor %}

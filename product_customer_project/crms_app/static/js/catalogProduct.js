@@ -15,6 +15,8 @@ window.onload = () => {
   document.querySelectorAll('input[name="ratingsRadio"]').forEach(e => {
     e.addEventListener('change', changeMinRating);
   });
+  document.getElementById('noComplaintsCheck').addEventListener('change', changeComplaintsSearch);
+  document.getElementById('hasComplaintsCheck').addEventListener('change', changeComplaintsSearch);
   document.querySelector('.apply-pricing-filter-btn').addEventListener('click', changePrice);
   document.getElementById('sortSelect').addEventListener('change', changeSort);
   document.querySelector('.search-products-btn').addEventListener('click', searchProducts);
@@ -32,7 +34,7 @@ window.onload = () => {
       avg += RATING_ARR[i] * (i+1);
       count += Number(RATING_ARR[i]);
     }
-    avg = shortenDecimal(avg / count);
+    avg = !isNaN(shortenDecimal(avg / count)) ? shortenDecimal(avg / count) : 0;
     e.querySelector('.full-stars').title = `${shortenDecimal(avg)}/5 (${count} ratings)\n1* - ${RATING_ARR[0]} ratings\n2* - ${RATING_ARR[1]} ratings\n3* - ${RATING_ARR[2]} ratings\n4* - ${RATING_ARR[3]} ratings\n5* - ${RATING_ARR[4]} ratings`;
     e.querySelector('.full-stars').style.width = shortenDecimal(avg * 20) + '%';
   });
@@ -91,6 +93,23 @@ changeSubcategory = () => {
 changeMinRating = e => {
   minRating = e.target.value;
   handleRatingPriceChange();
+}
+
+changeComplaintsSearch = () => {
+  document.querySelectorAll('.product-card').forEach(e => {
+    let pass = 0;
+    if (document.getElementById('noComplaintsCheck').checked) {
+      if (e.querySelector('.product-complaints-count').textContent === '0') {
+        pass++;
+      }
+    }
+    if (document.getElementById('hasComplaintsCheck').checked) {
+      if (Number(e.querySelector('.product-complaints-count').textContent) > 0) {
+        pass++;
+      }
+    }
+    pass > 0 ? e.classList.replace('d-none', 'd-flex') : e.classList.replace('d-flex', 'd-none');
+  });
 }
 
 changePrice = () => {
@@ -170,6 +189,8 @@ changeSort = event => {
           } else discountsArr.push(0);
         });
         discountsArrSorted = [...discountsArr].sort((a,b) => b - a);
+        console.log(discountsArr)
+        console.log(discountsArrSorted)
         e.querySelectorAll('.product-card').forEach((f,i) => {
           f.style.order = discountsArrSorted.indexOf(discountsArr[i]);
         });

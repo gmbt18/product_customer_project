@@ -35,11 +35,7 @@ window.onload = () => {
   });
   document.querySelector('.date-today').textContent = DATE;
   document.querySelector('.submit-review-btn').addEventListener('click', submitReview);
-
-  document.querySelectorAll('.review-div').forEach(e => {
-    console.log(shortenDecimal(e.querySelector('.rating-span').textContent * 20) + '%')
-    e.querySelector('.full-stars').style.width = shortenDecimal(e.querySelector('.rating-span').textContent * 20) + '%';
-  });
+  fixReviews();
 }
 
 formatImgsCarousel = () => {
@@ -89,6 +85,14 @@ rate = num => {
 
 submitReview = () => {
   document.querySelector('.review-form').submit();
+}
+
+fixReviews = () => {
+  let dates = [];
+  document.querySelectorAll('.review-div').forEach(e => {
+    e.querySelector('.full-stars').style.width = shortenDecimal(e.querySelector('.rating-span').textContent * 20) + '%';
+    dates.push(e.querySelector('.review-date').textContent);
+  });
 }
 
 shortenDecimal = num => {
