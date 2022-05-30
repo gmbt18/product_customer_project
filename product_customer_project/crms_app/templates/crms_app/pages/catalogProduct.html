@@ -399,7 +399,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -459,7 +459,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -519,7 +519,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -579,7 +579,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -639,7 +639,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -699,7 +699,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -759,7 +759,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -819,7 +819,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -879,7 +879,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -939,7 +939,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -999,14 +999,14 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
             </div>
             <div class="tech-cat-products smartphones-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category == "smartphone" %}
+              {% if product.category == "smartphones" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1059,14 +1059,14 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
             </div>
             <div class="tech-cat-products desktops-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category == "desktop" %}
+              {% if product.category == "desktops" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1119,14 +1119,14 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
             </div>
             <div class="tech-cat-products laptops-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category == "laptop" %}
+              {% if product.category == "laptops" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1179,14 +1179,14 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
             </div>
             <div class="tech-cat-products cameras-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category == "camera" %}
+              {% if product.category == "cameras" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1239,14 +1239,14 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
             </div>
             <div class="tech-cat-products tvs-sub-products products-group container-fluid d-none flex-wrap">
             {% for product in products %}
-              {% if product.category == "tv" %}
+              {% if product.category == "tvs" %}
               <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
                 {% if not product.discount == 0 %}
                 <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount}}%</p>
@@ -1299,7 +1299,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1359,7 +1359,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1419,7 +1419,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1479,7 +1479,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
@@ -1539,7 +1539,7 @@
                   <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
                 <span class="product-id d-none">{{product.id}}</span>
-                <span class="product-rating d-none">{{product.ratings}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
               </div>
               {% endif %}
             {% endfor %}
