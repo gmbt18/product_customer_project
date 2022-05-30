@@ -84,7 +84,7 @@ def searchPage(request):
 def detailedProduct(request,pk):
     data = {}
     customerReviewers = []
-    reviewForm = CustomerReviewForm()
+    
     try:
         customer = AuthUser.objects.get(id=request.user.id)
         data["isRegistered"] = True
@@ -105,8 +105,8 @@ def detailedProduct(request,pk):
     data['reviews'] = reviews
     data["mean_rating"] = mean_rating
     data["customerReviewers"] = customerReviewers
-    data['reviewForm'] = reviewForm
-
+    
+    
 
     data['product'] = product
     # print(customerInformation.values()[0])
@@ -117,12 +117,15 @@ def detailedProduct(request,pk):
         data['picture'] = customerInformation.picture
     data['customerInformation'] = customerInformation
 
+    reviewForm = CustomerReviewForm()
     if(request.method == "POST" and data.get("isRegistered")):
         print("post items")
-        print(list(request.POST.items()))
+        files_values = request.FILES.copy()
+        files_values['picture'] = customerInformation.picture
+
         review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
         print(review)
-        reviewForm = CustomerReviewForm(request.POST, instance=review)
+        reviewForm = CustomerReviewForm(request.POST, files_values, instance=review)
         print('errors')
         print(reviewForm.errors)
         print(list(reviewForm.errors))
@@ -132,7 +135,7 @@ def detailedProduct(request,pk):
             messages.success(request, "The review was created on "+ product.name)
             return redirect(f"/crms/detailedProduct/{pk}")
 
-
+    data['reviewForm'] = reviewForm
 
     return render(request, 'crms_app/pages/detailedProduct.html', data)
 

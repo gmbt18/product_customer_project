@@ -63,6 +63,7 @@ class ProductComplaint(models.Model):
 class CustomerReview(models.Model):
     customer = models.OneToOneField(AuthUser, on_delete=models.CASCADE,null=True,)
     product = models.ForeignKey("pcims_app.Product", on_delete=models.CASCADE,null=True)
+    picture = models.ImageField(null=True, blank=True)
     rating = models.IntegerField(
         null=False,
         validators=[
