@@ -34,6 +34,7 @@ def catalogCustomer(request):
     return render(request, 'crms_app/pages/catalogCustomer.html')
 
 def catalogMonthly(request):
+
     return render(request, 'crms_app/pages/catalogMonthly.html')
 
 def catalogProduct(request):
@@ -619,3 +620,4 @@ def getProductComplaints(product):
 def getProductComplaintsCount(product):
     productComplaints = ProductComplaint.objects.filter(product=product)
     return len(productComplaints)
+
