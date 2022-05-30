@@ -43,20 +43,21 @@ def catalogProduct(request):
     photosCpy = [photo for photo in photos.values()]
     print(photos.values())
     print(productsCpy)
-    i = 1
+    i = 0
     for product in productsCpy:
-      product['category'] = products.filter(name=product['name'])[0].category.name
-      for photo in photosCpy:
-        if product['id'] == photo['product_id']:
-          if not photo['filename'] == 'https://lzd-img-global.slatic.net/g/tps/tfs/TB1oP2bbQvoK1RjSZFNXXcxMVXa-300-200.png':
-            product['photo'] = photo['filename']
-          break
-      if not product.__contains__('photo'):
-        product['photo'] = 'https://wallpaperaccess.com/full/1285952.jpg'
-      i += 1
-    
-    print(productsCpy[0])
-    # print(products[0])
+        product['category'] = products.filter(name=product['name'])[0].category.name
+        for photo in photosCpy:
+            if product['id'] == photo['product_id']:
+                if not photo['filename'] == 'https://lzd-img-global.slatic.net/g/tps/tfs/TB1oP2bbQvoK1RjSZFNXXcxMVXa-300-200.png':
+                    product['photo'] = photo['filename']
+            break
+        if not product.__contains__('photo'):
+            product['photo'] = 'https://wallpaperaccess.com/full/1285952.jpg'
+        product["getRatings"] = products[i].getRatings
+        i += 1
+
+    # print(productsCpy[0])
+    # print(products[0].getRatings)
 
     context = {
         'products': productsCpy
