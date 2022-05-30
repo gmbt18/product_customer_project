@@ -17,7 +17,7 @@
                                 
                                 <div class="form-floating mb-2 d-grid">
                                     <p>Claimant</p>
-                                    <input readonly type="text" value={{request.user.username}} name="customer" style="pointer-events:none;">
+                                    <input readonly type="text" value={{request.user}} name="customer" style="pointer-events:none;">
                                     <!-- {{productComplaintForm.customer}} -->
                                     <!-- <label for="floatingInput">Enter customer: {{request.user}}</label> -->
                                 </div> 
@@ -26,7 +26,7 @@
                                 
                                 <div class="form-floating mb-2 d-grid">
                                     <p>Product</p>
-                                    <input readonly type="text" value={{product.name}} name="product" style="pointer-events:none;">
+                                    <input readonly type="text" value={{product}} name="product" style="pointer-events:none;">
                                     <!-- {{productComplaintForm.product}} -->
                                     <!-- <label for="floatingInput">Enter product {{product.name}}</label> -->
                                 </div> 

@@ -27,6 +27,7 @@ from django.contrib.auth.hashers import make_password
 login_URL = "/crms/testLogin/"
 
 def customerHome(request):
+    print(getProductsWithComplaints())
     return render(request, 'crms_app/pages/home.html')
 
 def catalogCustomer(request):
@@ -86,7 +87,7 @@ def searchPage(request):
 def detailedProduct(request,pk):
     data = {}
     customerReviewers = []
-    reviewForm = CustomerReviewForm()
+    
     try:
         customer = AuthUser.objects.get(id=request.user.id)
         data["isRegistered"] = True
@@ -107,8 +108,8 @@ def detailedProduct(request,pk):
     data['reviews'] = reviews
     data["mean_rating"] = mean_rating
     data["customerReviewers"] = customerReviewers
-    data['reviewForm'] = reviewForm
-
+    
+    
 
     data['product'] = product
     # print(customerInformation.values()[0])
@@ -119,12 +120,15 @@ def detailedProduct(request,pk):
         data['picture'] = customerInformation.picture
     data['customerInformation'] = customerInformation
 
+    reviewForm = CustomerReviewForm()
     if(request.method == "POST" and data.get("isRegistered")):
         print("post items")
-        print(list(request.POST.items()))
+        files_values = request.FILES.copy()
+        files_values['picture'] = customerInformation.picture
+
         review, created = CustomerReview.objects.get_or_create(customer=customer,product=product)
         print(review)
-        reviewForm = CustomerReviewForm(request.POST, instance=review)
+        reviewForm = CustomerReviewForm(request.POST, files_values, instance=review)
         print('errors')
         print(reviewForm.errors)
         print(list(reviewForm.errors))
@@ -134,7 +138,7 @@ def detailedProduct(request,pk):
             messages.success(request, "The review was created on "+ product.name)
             return redirect(f"/crms/detailedProduct/{pk}")
 
-
+    data['reviewForm'] = reviewForm
 
     return render(request, 'crms_app/pages/detailedProduct.html', data)
 
@@ -197,9 +201,14 @@ def submitProductComplaint(request, pk):
     data["product"] = product
     if(request.method == "POST" and data.get("isRegistered")):
         productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer,product=product)
-        productComplaintForm = ProductComplaintForm(request.POST, instance=productComplaint)
+        post_values = request.POST.copy()
+        post_values['customer'] = request.user
+        post_values['product'] = product
+        productComplaintForm = ProductComplaintForm(post_values, instance=productComplaint)
+
         if(productComplaintForm.is_valid()):
             productComplaintForm.save()
+            print("Complaint was sent!")
             messages.success(request, "A complaint was created on "+ product.name)
             return redirect(f"/crms/detailedProduct/{pk}")
 
@@ -401,7 +410,7 @@ def customerInfoSubscribe(request,pk):
 
 @login_required(login_url=login_URL)
 def productComplaint(request,pk):
-    customer = AuthUser.objects.get(id=pk, user_type=2)
+    customer = AuthUser.objects.get(id=pk)
     productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer)
     data = {
         "productComplaint" : productComplaint,
@@ -585,3 +594,24 @@ def getCustomerInformation(authUser):
     return customerInformation
 
 
+def getProductsWithComplaints():
+    # Returns a list of product with complaints: DISTINCT
+    productWithComplaints = []
+    productComplaints = ProductComplaint.objects.all()
+    for productComplaint in productComplaints:
+        if(productComplaint.product not in productWithComplaints):
+            productWithComplaints.append(productComplaint.product)
+    
+    return productWithComplaints
+
+def getProductComplaints(product):
+    # Returns a list of productComplaints type
+    productComplaints = ProductComplaint.objects.filter(product=product)
+    complaints = []
+    for complaint in productComplaints:
+        complaints.append(complaint)
+    return complaints
+
+def getProductComplaintsCount(product):
+    productComplaints = ProductComplaint.objects.filter(product=product)
+    return len(productComplaints)

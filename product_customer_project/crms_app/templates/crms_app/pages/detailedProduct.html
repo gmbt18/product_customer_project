@@ -198,6 +198,7 @@
                         class="review-customer-img"
                         style="width: 120px; height: 120px; object-fit: cover;" 
                       />
+
                       {% else %}
                       <img
                         src="{% static 'media/profile-placeholder.png' %}"
@@ -208,7 +209,7 @@
                       </div>
                       <div class="review-right-div col-lg-10 d-flex flex-column">
                         <div class="review-top-input d-flex">
-                          <span class="fs-6 fw-bold me-2 mb-2">{{customerInformation.name}}</span>
+                          <span class="fs-6 fw-bold me-2 mb-2">{{request.user}}</span>
                           <div class="ratings-div d-flex">
                             <div class="ratings me-2">
                               <div class="empty-stars input-empty-stars">
@@ -232,7 +233,7 @@
 
                          
                         <!-- <input type="text" name="productReview" class="form-control mb-2" placeholder="Leave a comment here!"> -->
-                        <p class="card-text">
+                        <p class="card-text" > 
                           {{reviewForm.productReview}}
                         </p>
 
@@ -249,13 +250,14 @@
 
 
                     <h3>Reviews: ({{reviewNum}})</h3>
+                    <h2>Average Rating: {{mean_rating}}</h2>
                     {% if reviewNum != 0 %}
                       {% for review in reviews %}
                       <div class="review-div container-fluid d-flex mb-3">
-                        <div class="review-customer-img-div col-lg-2 p-4 pt-0">  
-                        {% if review.user.picture %}
+                        <div class="review-customer-img-div col-lg-2 p-4 pt-0"> 
+                        {% if review.picture %}
                         <img
-                          src="{{review.user.picture.url}}"
+                          src={{review.picture.url}}
                           class="review-customer-img"
                           style="width: 120px; height: 120px; object-fit: cover;" 
                         />
@@ -305,23 +307,27 @@
             </div> 
           </div>
         </div>
+        <div class="position-absolute">
+          {% for message in messages %}
+          {% if 'success' == message.tags %}
+            <!-- Alert Box -->
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> {{message | striptags}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endif %}
+          {% endfor %}
+        </div>
       </div>  
+
     </div>
+
+
   </div>
 
 
 
-  <div class="position-absolute">
-    {% for message in messages %}
-    {% if 'success' == message.tags %}
-      <!-- Alert Box -->
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Success!</strong> {{message | striptags}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endif %}
-    {% endfor %}
-  </div>
+
 <div>
 <script type="text/javascript" src="{% static 'js/detailedProduct.js' %}"></script>
 {% endblock content %}
