@@ -641,7 +641,11 @@ def getProductComplaintsCount(product):
 
 def sendSubscribeCatalog(request):
     associated_users = AuthUser.objects.filter(Q(email=request.user.email))
-    products = Product.objects.all()
+    # photos = ProductPhotos.objects.all().distinct('product')[:16]
+    # products = []
+    # for photo in photos:
+    #     products.append(Product.objects.get(name=photo.product))
+    products = Product.objects.all()[:16]
     if associated_users.exists():
         for user in associated_users:
             subject = "Our Monthly Catalog"
