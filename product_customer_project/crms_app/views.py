@@ -227,15 +227,20 @@ def login_page(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         customer = authenticate(request, username=username, password=password)
+        print(customer)
         customerInformation = CustomerInformation.objects.filter(customer=customer)
 
         if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
             if len(customerInformation) == 0:
-              login(request, customer)
-              return redirect(f"/crms/customerInfo/{customer.id}")
+                print((CustomerInformation.objects.last()).name)
+                print(CustomerInformation.objects.latest('id'))
+                print((CustomerInformation.objects.last()).id)
+                print('test', customer.id)
+                login(request, customer)
+                return redirect(f"/crms/customerInfo/{customer.id}")
             else:
-              login(request, customer)
-              return redirect('/crms/')
+                login(request, customer)
+                return redirect('/crms/')
         else:
             print("Login Fail.")
             messages.error(request, "Incorrect password or username.")
@@ -306,8 +311,11 @@ def register(request):
 #CustomerInformation Page
 @login_required(login_url=login_URL)
 def customerInformation(request,pk):
+    print('custInfo: ', CustomerInformation.objects.latest('id'))
+    print('test')
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
-    customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
+    print(customer, pk, customer.id)
+    customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer, id=(CustomerInformation.objects.last()).id+1)
     # other_users = []
     # other_customers = []
     # if request.user.is_superuser:
@@ -340,8 +348,11 @@ def customerInformation(request,pk):
 
 @login_required(login_url=login_URL)
 def customerInfo(request,pk):
+    if not request.user.is_superuser:
+        pk = request.user.id
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
-    customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer)
+    print(request.user.id, customer.id)
+    customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer, defaults={'customer': customer ,'id': (CustomerInformation.objects.last()).id+1})
     form = CustomerInformationUpdateForm(instance=customerInformation)
     other_users = []
     other_customers = []
@@ -354,6 +365,8 @@ def customerInfo(request,pk):
     data["customerInformation"] = customerInformation
     if(request.method == "POST"):
         form = CustomerInformationUpdateForm(request.POST, request.FILES, instance=customerInformation)
+        print(list(request.POST.items()))
+        print(request.POST.getlist('[]'))
         print(list(form.errors))
         if(form.is_valid()):
             form.save()
