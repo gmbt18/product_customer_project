@@ -12,7 +12,11 @@
             <div class="d-flex flex-wrap">
               <div class="product-img mt-3 me-3 bg-secondary p-4 pb-0">
                 <div class="text-center"> 
-                  <img class="main-image mb-3" src="{{photos.0.filename}}" /> 
+                  {% if photos %}
+                  <img class="main-image mb-3" src="{{photos.0.filename}}"> 
+                  {% else %}
+                  <img class="main-image mb-3" src="https://wallpaperaccess.com/full/1285952.jpg">
+                  {% endif %}
                 </div>
                 <div class="thumbnail text-center"> 
                   <!-- JavaScript still not added -->
@@ -22,14 +26,22 @@
                     <div class="carousel-inner" role="listbox">
                       <div class="carousel-item active" data-bs-interval="10000">
                         <div class="col-lg-3 m-0 p-0" style="height: 75px;">
+                          {% if photos %}
                           <img src="{{photos.0.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                          {% else %}
+                          <img src="https://wallpaperaccess.com/full/1285952.jpg" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                          {% endif %}
                         </div>
                       </div>
                       {% for photo in photos %}
                         {% if not forloop.first %}
                         <div class="carousel-item" data-bs-interval="10000">
                           <div class="col-lg-3 m-0 p-0" style="height: 75px;">
-                          <img src="{{photo.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                            {% if photos %}
+                            <img src="{{photo.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                            {% else %}
+                            <img src="https://wallpaperaccess.com/full/1285952.jpg" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                            {% endif %}
                           </div>
                         </div>
                         {% endif %}
@@ -152,18 +164,27 @@
                       <li>Phasellus id purus posuere, cursus mi sed, ullamcorper libero</li>
                     </ul>
                     <h3 class="mb-3">Product Photos:</h3>
+                    {% if photos %}
                     <div id="largeImgsCarousel" class="carousel slide" data-bs-ride="carousel">
                       <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active" data-bs-interval="10000">
                           <div class="col-lg-3 m-0 p-0" style="height: 250px;">
+                            {% if photos %}
                             <img src="{{photos.0.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                            {% else %}
+                            <img src="https://wallpaperaccess.com/full/1285952.jpg" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                            {% endif %}
                           </div>
                         </div>
                         {% for photo in photos %}
                           {% if not forloop.first %}
                           <div class="carousel-item" data-bs-interval="10000">
                             <div class="col-lg-3 m-0 p-0" style="height: 250px;">
-                            <img src="{{photo.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                              {% if photos %}
+                              <img src="{{photo.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                              {% else %}
+                              <img src="https://wallpaperaccess.com/full/1285952.jpg" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                              {% endif %}
                             </div>
                           </div>
                           {% endif %}
@@ -178,6 +199,7 @@
                         <span class="visually-hidden">Next</span>
                       </button>
                     </div>
+                    {% endif %}
                   </div>
                 </div>
 
