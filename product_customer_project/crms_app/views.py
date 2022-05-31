@@ -682,6 +682,7 @@ def sendAllSubscribeCatalog(request):
     for user in associated_users:
         if(user.email):
             mailing_list.append(user.email)
+    print(mailing_list)
     products = Product.objects.all()
     if len(associated_users) > 0:
         subject = "Our Monthly Catalog"
