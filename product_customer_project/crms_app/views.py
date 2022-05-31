@@ -343,6 +343,7 @@ def customerInformation(request,pk):
     data["customerInformation"] = customerInformation
     data["form"] = form
     data["isNew"] = isNew
+    data["isCustomer"] = request.user.user_type == 2
     
 
     return render(request, 'crms_app/Customer Information/customerInformation.html', data)
