@@ -45,7 +45,7 @@ window.onload = () => {
     }
   
     e.querySelector('.birthday-field').value = e.querySelector('.birthday-field').value.split(',').slice(0,-1).join(',');
-    if (e.querySelector('.birthday-span').textContent.length > 0) {
+    if (e.querySelector('.birthday-span').textContent !== "None") {
       const TODAY = new Date();
       let birthdayArr = e.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
       switch (birthdayArr[0]) {
@@ -153,6 +153,17 @@ filterCustomers = event => {
         officeEmail: ''
       }
     }
+    switch (query.sex) {
+      case '0':
+        query.sex = 'Male';
+        break;
+      case '1':
+        query.sex = 'Female';
+        break;
+      case '2':
+        query.sex = 'Intersex';
+        break;
+    }
     let customers = [];
     let filteredIndices = [];
     document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
@@ -175,6 +186,7 @@ filterCustomers = event => {
       customer.officeEmail = e.querySelector('.office-email-field').value;
       customers.push(customer);
     });
+    console.log(customers)
     customers.forEach((e,i) => {
       let mismatch = 0;
       if (!e.name.toLowerCase().includes(query.name.toLowerCase())) mismatch++;
@@ -329,18 +341,18 @@ changeSort = () => {
       document.querySelector('.sex0-profiles-group').classList.replace('d-none', 'd-flex');
       document.querySelector('.sex1-profiles-group').classList.replace('d-none', 'd-flex');
       document.querySelector('.sex2-profiles-group').classList.replace('d-none', 'd-flex');
-      document.querySelector('.sex0-profiles-group').style.order = 0;
-      document.querySelector('.sex1-profiles-group').style.order = 1;
-      document.querySelector('.sex2-profiles-group').style.order = 2;
+      document.querySelector('.sex0-profiles-group').style.order = 2;
+      document.querySelector('.sex1-profiles-group').style.order = 0;
+      document.querySelector('.sex2-profiles-group').style.order = 1;
       break;
     case 'descending':
       document.querySelector('.all-profiles-group').classList.replace('d-flex', 'd-none');
       document.querySelector('.sex0-profiles-group').classList.replace('d-none', 'd-flex');
       document.querySelector('.sex1-profiles-group').classList.replace('d-none', 'd-flex');
       document.querySelector('.sex2-profiles-group').classList.replace('d-none', 'd-flex');
-      document.querySelector('.sex0-profiles-group').style.order = 2;
-      document.querySelector('.sex1-profiles-group').style.order = 1;
-      document.querySelector('.sex2-profiles-group').style.order = 0;
+      document.querySelector('.sex0-profiles-group').style.order = 0;
+      document.querySelector('.sex1-profiles-group').style.order = 2;
+      document.querySelector('.sex2-profiles-group').style.order = 1;
       break;
   }
 
