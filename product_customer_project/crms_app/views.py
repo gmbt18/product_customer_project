@@ -227,15 +227,14 @@ def login_page(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         customer = authenticate(request, username=username, password=password)
-        print(customer)
         customerInformation = CustomerInformation.objects.filter(customer=customer)
 
         if customer is not None and (customer.user_type == 2 or customer.user_type == 3):
             if len(customerInformation) == 0:
-                print((CustomerInformation.objects.last()).name)
-                print(CustomerInformation.objects.latest('id'))
-                print((CustomerInformation.objects.last()).id)
-                print('test', customer.id)
+                # print((CustomerInformation.objects.last()).name)
+                # print(CustomerInformation.objects.latest('id'))
+                # print((CustomerInformation.objects.last()).id)
+                # print('test', customer.id)
                 login(request, customer)
                 return redirect(f"/crms/customerInfo/{customer.id}")
             else:
@@ -302,7 +301,8 @@ def register(request):
             form.save()
             messages.success(request, "Account was created for "+form.cleaned_data.get("username"))
             if request.user.is_superuser:
-              return redirect('/crms/searchPage')
+                customer = AuthUser.objects.last()
+                return redirect(f"/crms/customerInfo/{customer.id}")
             return redirect('/crms/login')
     data = {"form": form}
     return render(request, 'crms_app/pages/register.html', data)
