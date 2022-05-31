@@ -37,11 +37,12 @@ window.onload = () => {
   document.querySelectorAll('.customer-name').forEach(e => e.addEventListener('click', viewProfile));
   if (document.querySelector('.birthday-span')) {
     let birthdayArr = document.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
+    console.log(birthdayArr)
     switch (birthdayArr[0]) {
-      case 'January':
+      case 'Jan.':
         birthdayArr[0] = '01';
         break;
-      case 'February':
+      case 'Feb.':
         birthdayArr[0] = '02';
         break;
       case 'March':
@@ -59,23 +60,23 @@ window.onload = () => {
       case 'July':
         birthdayArr[0] = '07';
         break;
-      case 'August':
+      case 'Aug.':
         birthdayArr[0] = '08';
         break;
-      case 'September':
+      case 'Sep.':
         birthdayArr[0] = '09';
         break;
-      case 'October':
+      case 'Oct.':
         birthdayArr[0] = '10';
         break;
-      case 'November':
+      case 'Nov.':
         birthdayArr[0] = '11';
         break;
-      case 'December':
+      case 'Dec.':
         birthdayArr[0] = '12';
         break;
     }
-    birthdayArr[1] = '0' + birthdayArr[1];
+    birthdayArr[1].length === 1 ? birthdayArr[1] = '0' + birthdayArr[1]: '';
     document.getElementById('birthdayInput').value = `${birthdayArr[2]}-${birthdayArr[0]}-${birthdayArr[1]}`;
   }
 }

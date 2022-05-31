@@ -45,7 +45,8 @@ window.onload = () => {
     }
   
     e.querySelector('.birthday-field').value = e.querySelector('.birthday-field').value.split(',').slice(0,-1).join(',');
-    if (e.querySelector('.birthday-span')) {
+    if (e.querySelector('.birthday-span').textContent.length > 0) {
+      const TODAY = new Date();
       let birthdayArr = e.querySelector('.birthday-span').textContent.split(',').slice(0,-1).join('').split(' ');
       switch (birthdayArr[0]) {
         case 'Jan.':
@@ -54,10 +55,10 @@ window.onload = () => {
         case 'Feb.':
           birthdayArr[0] = '02';
           break;
-        case 'Mar.':
+        case 'March':
           birthdayArr[0] = '03';
           break;
-        case 'Apr.':
+        case 'April':
           birthdayArr[0] = '04';
           break;
         case 'May':
@@ -72,7 +73,7 @@ window.onload = () => {
         case 'Aug.':
           birthdayArr[0] = '08';
           break;
-        case 'Sep.':
+        case 'Sept.':
           birthdayArr[0] = '09';
           break;
         case 'Oct.':
@@ -88,7 +89,9 @@ window.onload = () => {
       birthdayArr[1].length === 1 ? birthdayArr[1] = '0' + birthdayArr[1]: '';
       e.querySelector('.birthday-input').value = `${birthdayArr[2]}-${birthdayArr[0]}-${birthdayArr[1]}`;
       e.querySelector('.age-span').textContent = getAge(`${birthdayArr[2]}/${birthdayArr[0]}/${birthdayArr[1]}`);
-      e.querySelector('.is-curr-month-birthday-span').textContent = (birthdayArr[0].replace('0','') == (new Date()).getMonth());
+      e.querySelector('.is-curr-month-birthday-span').textContent = (birthdayArr[0].replace('0','') == (TODAY.getMonth()+1));
+      // console.log('test')
+      // console.log(birthdayArr[0].replace('0',''), (TODAY.getMonth()+1), (birthdayArr[0].replace('0','') == (TODAY.getMonth()+1)))
       // console.log(`${birthdayArr[2]}-${birthdayArr[0]}-${birthdayArr[1]}`);
     }
   });
