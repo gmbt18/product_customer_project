@@ -589,7 +589,7 @@ def subscribeCatalog(request):
   customerInformation = getCustomerInformation(request.user)
   customerInformation.isSubscribed = True
   customerInformation.save()
-  sendEmailCatalog(request)
+  sendSubscribeCatalog(request)
   return redirect(f"/crms/customerInfo/{request.user.id}")
 
 @login_required(login_url=login_URL)
@@ -639,13 +639,13 @@ def getProductComplaintsCount(product):
     return len(productComplaints)
 
 
-def sendEmailCatalog(request):
+def sendSubscribeCatalog(request):
     associated_users = AuthUser.objects.filter(Q(email=request.user.email))
     products = Product.objects.all()
     if associated_users.exists():
         for user in associated_users:
             subject = "Our Monthly Catalog"
-            email_template_name = "crms_app/TEST-Register-Login/catalog-email.html"
+            email_template_name = "crms_app/TEST-Register-Login/subscribe-catalog-email.html"
             c = {
             "email":user.email,
             'domain':'127.0.0.1:8000',
@@ -661,3 +661,32 @@ def sendEmailCatalog(request):
                 send_mail(subject, "Review our monthly catalog", 'customer-relationship@gmail.com' , [user.email], fail_silently=False, html_message=email)
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
+
+def sendAllSubscribeCatalog(request):
+    customerInformations = CustomerInformation.objects.filter(Q(isSubscribed=True))
+    associated_users = []
+    for customerInformation in customerInformations:
+        associated_users.append(customerInformation.customer)
+    mailing_list = []
+    for user in associated_users:
+        if(user.email):
+            mailing_list.append(user.email)
+    products = Product.objects.all()
+    if len(associated_users) > 0:
+        subject = "Our Monthly Catalog"
+        email_template_name = "crms_app/TEST-Register-Login/monthly-catalog-email.html"
+        c = {
+        "email":user.email,
+        'domain':'127.0.0.1:8000',
+        'site_name': 'Website',
+        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+        "user": user,
+        'token': default_token_generator.make_token(user),
+        'protocol': 'http',
+        "products": products,
+        }
+        email = render_to_string(email_template_name, c)
+        try:
+            send_mail(subject, "Review our monthly catalog", 'customer-relationship@gmail.com' ,mailing_list, fail_silently=False, html_message=email)
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
