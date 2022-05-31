@@ -287,6 +287,10 @@
                 </label>
               </div>
               <div class="form-check">
+                <input class="form-check-input" type="radio" value="0-1" name="ratingsRadio" id="lowStarsRadio">
+                <label class="form-check-label" for="lowStarsRadio">0-1 Stars</label>
+              </div>
+              <div class="form-check">
                 <input class="form-check-input" type="radio" value="no" name="ratingsRadio" id="noStarsRadio">
                 <label class="form-check-label" for="oneStarRadio">No Ratings</label>
               </div>
@@ -294,7 +298,7 @@
             <p class="text-start fs-5 fw-bold mb-0">By Complaints</p>
             <div class="filter-price d-flex flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" value="noComplaints" type="checkbox" id="noComplaintsCheck" checked>
+                <input class="form-check-input" value="noComplaints" type="checkbox" id="noComplaintsCheck">
                 <label class="form-check-label" for="noComplaintsCheck">
                   No Complaints
                 </label>
@@ -332,8 +336,8 @@
             <div class="d-inline-flex mt-4 ms-0 ps-0">
               <span class="fs-5 fw-bold me-3">Sort By</span>
               <select id="sortSelect" class="form-select btn btn-dark dropdown-toggle text-start" style="width: auto;">
-                <option value="dateAddedDescending" selected>Date Added - Latest to Oldest</option>
-                <option value="dateAddedAscending">Date Added - Oldest to Latest</option>
+                <option value="dateAddedDescending">Date Added - Latest to Oldest</option>
+                <option value="dateAddedAscending" selected>Date Added - Oldest to Latest</option>
                 <option value="popularityDescending">Popularity - Highest to Lowest</option>
                 <option value="popularityAscending">Popularity - Lowest to Highest</option>
                 <option value="discountDescending">Discount - Highest to Lowest</option>

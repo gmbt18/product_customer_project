@@ -349,7 +349,7 @@ def customerInformation(request,pk):
 @login_required(login_url=login_URL)
 def customerInfo(request,pk):
     if not request.user.is_superuser:
-        pk = request.user.id
+        pk = str(request.user.id)
     customer = AuthUser.objects.get( Q(id=pk,user_type=2) | Q(id=pk,user_type=3) )
     print(request.user.id, customer.id)
     customerInformation, isNew = CustomerInformation.objects.get_or_create(customer=customer, defaults={'customer': customer ,'id': (CustomerInformation.objects.last()).id+1})

@@ -92,7 +92,6 @@ changeSubcategory = () => {
 
 changeMinRating = e => {
   minRating = e.target.value;
-  console.log(minRating)
   handleRatingPriceChange();
 }
 
@@ -130,8 +129,13 @@ handleRatingPriceChange = () => {
     }
     
     if (minRating === 'no') {
-      console.log(RATING)
       if (RATING == 0 && price >= minPrice && price <= maxPrice) {
+        setTimeout(e.classList.replace('d-none', 'd-flex'), 300)
+      } else {
+        setTimeout(e.classList.replace('d-flex', 'd-none'), 300)
+      }
+    } else if (minRating === '0-1') {
+      if (RATING >= 0 && RATING <= 1 && price >= minPrice && price <= maxPrice) {
         setTimeout(e.classList.replace('d-none', 'd-flex'), 300)
       } else {
         setTimeout(e.classList.replace('d-flex', 'd-none'), 300)

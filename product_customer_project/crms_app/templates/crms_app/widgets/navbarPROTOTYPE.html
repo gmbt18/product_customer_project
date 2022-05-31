@@ -54,6 +54,9 @@
                 <li class="dropdown-item">
                   <a class="nav-link {% if request.resolver_match.view_name == 'register' %}active{% endif %}" href="{% url 'register' %}">Register</a>
                 </li>
+                <li class="dropdown-item">
+                  <a class="nav-link {% if request.resolver_match.view_name == 'crms_password_reset' %}active{% endif %}" href="{% url 'crms_password_reset' %}">Forgot Password</a>
+                </li>
 
                 {% else %}
                 <li class="dropdown-item">
