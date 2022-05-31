@@ -658,6 +658,6 @@ def sendEmailCatalog(request):
             }
             email = render_to_string(email_template_name, c)
             try:
-                send_mail(subject, email, 'customer-relationship@gmail.com' , [user.email], fail_silently=False)
+                send_mail(subject, "Review our monthly catalog", 'customer-relationship@gmail.com' , [user.email], fail_silently=False, html_message=email)
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
