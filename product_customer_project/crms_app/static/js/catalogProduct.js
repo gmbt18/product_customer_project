@@ -92,6 +92,7 @@ changeSubcategory = () => {
 
 changeMinRating = e => {
   minRating = e.target.value;
+  console.log(minRating)
   handleRatingPriceChange();
 }
 
@@ -128,10 +129,19 @@ handleRatingPriceChange = () => {
       price = Number(e.querySelector('.original-price').textContent.replace('₱',''));
     }
     
-    if (RATING >= minRating && price >= minPrice && price <= maxPrice) {
-      setTimeout(e.classList.replace('d-none', 'd-flex'), 300)
+    if (minRating === 'no') {
+      console.log(RATING)
+      if (RATING == 0 && price >= minPrice && price <= maxPrice) {
+        setTimeout(e.classList.replace('d-none', 'd-flex'), 300)
+      } else {
+        setTimeout(e.classList.replace('d-flex', 'd-none'), 300)
+      }
     } else {
-      setTimeout(e.classList.replace('d-flex', 'd-none'), 300)
+      if (RATING >= minRating && price >= minPrice && price <= maxPrice) {
+        setTimeout(e.classList.replace('d-none', 'd-flex'), 300)
+      } else {
+        setTimeout(e.classList.replace('d-flex', 'd-none'), 300)
+      }
     }
   });
 }
