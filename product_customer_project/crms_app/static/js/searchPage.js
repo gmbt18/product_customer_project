@@ -349,18 +349,25 @@ changeSort = () => {
         let nationalityArr = [];
         let maxOrder = 0;
         document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
-          if (e.querySelector('.nationality-field').value !== '') nationalityArr.push(e.querySelector('.age-span').textContent);
+          if (e.querySelector('.nationality-field').value !== '') nationalityArr.push(e.querySelector('.nationality-field').value);
         });
-        nationalityArrSorted = [...nationalityArr];
+        let nationalityArrSorted = [...nationalityArr];
         nationalityArrSorted.sort();
-        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+        let iter = 0;
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
           if (e.querySelector('.nationality-field').value !== '') {
-            e.style.order = nationalityArrSorted.indexOf(nationalityArr[i]);
+            e.style.order = nationalityArrSorted.indexOf(nationalityArr[iter]);
+            // console.log(nationalityArrSorted.indexOf(nationalityArr[iter]), nationalityArr[iter], nationalityArrSorted[nationalityArrSorted.indexOf(nationalityArr[iter])])
+            nationalityArr[iter] = '';
+            iter++;
             maxOrder++;
           }
         });
-        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
-         if (e.querySelector('.nationality-field').value === '')  e.style.order = i + maxOrder;
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
+          if (e.querySelector('.nationality-field').value === '') {
+            e.style.order = iter + maxOrder;
+            iter++;
+          }
         });
       }
       break;
@@ -369,19 +376,25 @@ changeSort = () => {
         let nationalityArr = [];
         let maxOrder = 0;
         document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
-          if (e.querySelector('.nationality-field').value !== '') nationalityArr.push(e.querySelector('.age-span').textContent);
+          if (e.querySelector('.nationality-field').value !== '') nationalityArr.push(e.querySelector('.nationality-field').value);
         });
-        nationalityArrSorted = [...nationalityArr];
-        nationalityArrSorted.sort();
-        nationalityArrSorted.reverse();
-        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
+        let nationalityArrSorted = [...nationalityArr];
+        nationalityArrSorted.sort().reverse();
+        let iter = 0;
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
           if (e.querySelector('.nationality-field').value !== '') {
-            e.style.order = nationalityArrSorted.indexOf(nationalityArr[i]);
+            e.style.order = nationalityArrSorted.indexOf(nationalityArr[iter]);
+            // console.log(nationalityArrSorted.indexOf(nationalityArr[iter]), nationalityArr[iter], nationalityArrSorted[nationalityArrSorted.indexOf(nationalityArr[iter])])
+            nationalityArr[iter] = '';
+            iter++;
             maxOrder++;
           }
         });
-        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach((e,i) => {
-          if (e.querySelector('.nationality-field').value === '') e.style.order = i + maxOrder;
+        document.querySelector(`.${DIV_TYPES[i]}-profiles-group`).querySelectorAll('.search-group').forEach(e => {
+          if (e.querySelector('.nationality-field').value === '') {
+            e.style.order = iter + maxOrder;
+            iter++;
+          }
         });
       }
       break;
