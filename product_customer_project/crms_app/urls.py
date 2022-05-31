@@ -42,6 +42,7 @@ urlpatterns = [
     path('submitProductComplaint/<str:pk>', views.submitProductComplaint, name="submitProductComplaint"),
     path('subscribeCatalog/', views.subscribeCatalog, name="subscribeCatalog"),
     path('unsubscribeCatalog/', views.unsubscribeCatalog, name="unsubscribeCatalog"),
+    path('sendMonthlyCatalog/', views.sendMonthlyCatalog, name="sendMonthlyCatalog"),
 
 ]
 

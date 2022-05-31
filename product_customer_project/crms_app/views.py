@@ -666,6 +666,13 @@ def sendSubscribeCatalog(request):
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
 
+
+
+
+def sendMonthlyCatalog(request):
+    sendAllSubscribeCatalog(request)
+    return redirect("/crms/searchPage/")
+
 def sendAllSubscribeCatalog(request):
     customerInformations = CustomerInformation.objects.filter(Q(isSubscribed=True))
     associated_users = []
