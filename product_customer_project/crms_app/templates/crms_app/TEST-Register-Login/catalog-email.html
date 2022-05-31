@@ -1,0 +1,21 @@
+{% autoescape off %}
+Hello,
+
+Thank you for subscribing to the monthly catalog!
+
+Here is our product catalog for the month:
+
+{% for product in products %}
+
+   {{product.category}}  {{product.name}} {{product.sellingprice}} {{product.discount}}
+    
+
+{% endfor %}
+
+
+If you did not make this request, you can simply ignore this email.
+
+Sincerely,
+The Website Team
+
+{% endautoescape %}

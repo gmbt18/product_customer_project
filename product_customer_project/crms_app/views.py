@@ -293,6 +293,7 @@ def password_reset_request(request):
 	password_reset_form = PasswordResetForm()
 	return render(request=request, template_name="crms_app/TEST-Register-Login/test-forgotPassword-form.html", context={"password_reset_form":password_reset_form})
 
+
 def register(request):
     form = AuthUserCreationForm()
     if( request.method == "POST"):
@@ -588,6 +589,7 @@ def subscribeCatalog(request):
   customerInformation = getCustomerInformation(request.user)
   customerInformation.isSubscribed = True
   customerInformation.save()
+  sendEmailCatalog(request)
   return redirect(f"/crms/customerInfo/{request.user.id}")
 
 @login_required(login_url=login_URL)
@@ -636,3 +638,26 @@ def getProductComplaintsCount(product):
     productComplaints = ProductComplaint.objects.filter(product=product)
     return len(productComplaints)
 
+
+def sendEmailCatalog(request):
+    associated_users = AuthUser.objects.filter(Q(email=request.user.email))
+    products = Product.objects.all()
+    if associated_users.exists():
+        for user in associated_users:
+            subject = "Our Monthly Catalog"
+            email_template_name = "crms_app/TEST-Register-Login/catalog-email.html"
+            c = {
+            "email":user.email,
+            'domain':'127.0.0.1:8000',
+            'site_name': 'Website',
+            "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+            "user": user,
+            'token': default_token_generator.make_token(user),
+            'protocol': 'http',
+            "products": products,
+            }
+            email = render_to_string(email_template_name, c)
+            try:
+                send_mail(subject, email, 'customer-relationship@gmail.com' , [user.email], fail_silently=False)
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
