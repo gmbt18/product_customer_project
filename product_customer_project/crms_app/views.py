@@ -116,6 +116,8 @@ def detailedProduct(request,pk):
             mean_rating += review.rating
             customerReviewers.append(getCustomerInformation(review.customer))
         mean_rating = mean_rating/reviewNum
+
+    data["isCustomer"] = request.user.user_type == 2
     data['reviewNum'] = reviewNum
     data['reviews'] = reviews
     data["mean_rating"] = mean_rating
@@ -343,6 +345,7 @@ def customerInformation(request,pk):
     data["customerInformation"] = customerInformation
     data["form"] = form
     data["isNew"] = isNew
+    data["isCustomer"] = request.user.user_type == 2
     
 
     return render(request, 'crms_app/Customer Information/customerInformation.html', data)
