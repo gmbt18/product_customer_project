@@ -33,8 +33,10 @@ window.onload = () => {
   document.querySelector('.input-full-stars').querySelectorAll('.fa-star').forEach((e,i) => {
     e.addEventListener('click', () => rate(i+1));
   });
-  document.querySelector('.date-today').textContent = DATE;
-  document.querySelector('.submit-review-btn').addEventListener('click', submitReview);
+  if (document.querySelector('.is-superuser-span').textContent !== 'True') {
+    document.querySelector('.date-today').textContent = DATE;
+    document.querySelector('.submit-review-btn').addEventListener('click', submitReview);
+  }
   fixReviews();
 }
 

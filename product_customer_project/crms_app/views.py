@@ -116,6 +116,9 @@ def detailedProduct(request,pk):
     # print(customer, request.user)
 
     reviews = CustomerReview.objects.filter(product=product)
+    otherCustInfos = []
+    for review in reviews:
+        otherCustInfos.append(CustomerInformation.objects.get(customer=review.customer))
     photos = ProductPhotos.objects.all().filter(product=product)
     reviewNum = len(reviews)
     mean_rating = 0
@@ -127,7 +130,7 @@ def detailedProduct(request,pk):
 
 
     data['reviewNum'] = reviewNum
-    data['reviews'] = reviews
+    data['reviews'] = zip(reviews, otherCustInfos)
     data["mean_rating"] = mean_rating
     data["customerReviewers"] = customerReviewers
     data['product'] = product

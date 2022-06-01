@@ -279,15 +279,23 @@
                     <h3>Average Rating: {{mean_rating}}</h3>
                     {% if reviewNum != 0 %}
                     <div class="reviews-div d-flex flex-column">
-                      {% for review in reviews %}
+                      {% for review, otherCustInfo in reviews %}
                       <div class="review-div container-fluid d-flex mb-3">
                         <div class="review-customer-img-div col-lg-2 p-4 pt-0">  
-                        {% if review.picture %}
-                        <img
-                          src="{{review.picture.url}}"
-                          class="review-customer-img"
-                          style="width: 120px; height: 120px; object-fit: cover;" 
-                        />
+                        {% if otherCustInfo.picture %}
+                          {% if 'http' in otherCustInfo.picture|slugify %}
+                          <img
+                            src="{{otherCustInfo.picture}}"
+                            class="review-customer-img"
+                            style="width: 120px; height: 120px; object-fit: cover;" 
+                          />
+                          {% else %}
+                          <img
+                            src="{{otherCustInfo.picture.url}}"
+                            class="review-customer-img"
+                            style="width: 120px; height: 120px; object-fit: cover;" 
+                          />
+                          {% endif %}
                         {% else %}
                         <img
                           src="{% static 'media/profile-placeholder.png' %}"
@@ -298,7 +306,11 @@
                         </div>
                         <div class="review-right-div col-lg-10 d-flex flex-column">
                           <div class="review-top-input d-flex">
-                            <span class="fs-6 fw-bold me-2 mb-2">{{review.customer}}</span>
+                            {% if review.customer == request.user.id %}
+                            <span cass="fs-6 fw-bold me-2 mb-2">{{customerInformation.name}}</span>
+                            {% else %}
+                            <span class="fs-6 fw-bold me-2 mb-2">{{otherCustInfo.name}}</span>
+                            {% endif %}
                             <div class="ratings-div d-flex">
                               <div class="ratings me-2">
                                 <div class="empty-stars input-empty-stars">
@@ -349,6 +361,7 @@
       {% endfor %}
     </div>
   </div>
+  <span class="is-superuser-span">{{request.user.is_superuser}}</span>
 <div>
 <script type="text/javascript" src="{% static 'js/detailedProduct.js' %}"></script>
 {% endblock content %}
