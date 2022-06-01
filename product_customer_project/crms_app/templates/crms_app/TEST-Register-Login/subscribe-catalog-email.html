@@ -5,7 +5,6 @@
     <table>
         <thead>
             <th style="width:35%">Name</th>
-            <th style="width:auto">Ratings</th>
             <th style="width:auto">Category</th>
             <th style="width:auto">Selling price</th>
         </thead>
@@ -13,7 +12,6 @@
             {% for product in products %}
             <tr>
                 <td>{{product.name}}</td>
-                <td>{{product.rating}}</td>
                 <td>{{product.category}}</td>
                 <td>{{product.sellingprice}}</td>
             </tr>
