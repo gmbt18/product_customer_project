@@ -276,7 +276,7 @@
                     {% endif %}
                     
                     <h3>Reviews: ({{reviewNum}})</h3>
-                    <h3>Average Rating: {{mean_rating}}</h3>
+                    <h3>Average Rating: {{mean_rating|floatformat:2}}</h3>
                     {% if reviewNum != 0 %}
                     <div class="reviews-div d-flex flex-column">
                       {% for review, otherCustInfo in reviews %}

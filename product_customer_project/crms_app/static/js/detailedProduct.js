@@ -90,10 +90,20 @@ submitReview = () => {
 }
 
 fixReviews = () => {
-  let dates = [];
+  let datesArr = [];
+  let maxOrder = 0;
   document.querySelectorAll('.review-div').forEach(e => {
     e.querySelector('.full-stars').style.width = shortenDecimal(e.querySelector('.rating-span').textContent * 20) + '%';
-    dates.push(e.querySelector('.review-date').textContent);
+    if (e.querySelector('.review-date').textContent !== '') datesArr.push(e.querySelector('.review-date').textContent);
+  });
+  let datesArrSorted = datesArr.sort((a,b) => new Date(b.date) - new Date(a.date));
+  console.log(datesArrSorted)
+  document.querySelectorAll('.review-div').forEach(e => {
+    if (e.querySelector('.review-date').textContent !== '') e.style.order = datesArrSorted.indexOf(datesArr);
+    maxOrder++;
+  });
+  document.querySelectorAll('.review-div').forEach((e,i) => {
+    if (e.querySelector('.review-date').textContent === '') e.style.order = i + maxOrder;
   });
 }
 
