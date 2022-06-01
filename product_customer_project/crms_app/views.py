@@ -38,6 +38,8 @@ def catalogMonthly(request):
     products = []
     for photo in photos:
         products.append(Product.objects.get(name=photo.product))
+    for product in products:
+        print(product.rating)
     context = {
         "products": products,
         "photos": photos
