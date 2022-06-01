@@ -91,7 +91,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.0.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.0|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -145,7 +145,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.1.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.1|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -163,6 +163,60 @@
                   <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Most Sales</p>
+                    </div>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.2.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.2.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.2.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.2.id %}">
+                          {{ products.2.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.2.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.2.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.2.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.2.discount|div:100|sub:1|abs|mul:products.2.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars" style="width: {{ratings.2|mul:20|floatformat:2}}%">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.2.category}}</p>
+                      </div>
+                      <span class="product-id d-none">{{products.2.id}}</span>
+                      <span class="product-rating d-none">{{products.2.getRatings}}</span>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.3.discount == 0 %}
@@ -204,7 +258,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.3.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.3|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -217,6 +271,11 @@
                       </div>
                       <span class="product-id d-none">{{products.3.id}}</span>
                       <span class="product-rating d-none">{{products.3.getRatings}}</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Top Rated</p>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.4.discount == 0 %}
@@ -258,7 +317,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.4.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.4|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -271,11 +330,6 @@
                       </div>
                       <span class="product-id d-none">{{products.4.id}}</span>
                       <span class="product-rating d-none">{{products.4.getRatings}}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
-                    <div class="top-products-label-div mt-3 container-fluid">
-                      <p class="fs-4 fw-bold text-center mt-3">Top Rated</p>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.5.discount == 0 %}
@@ -317,7 +371,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.5.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.5|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -330,6 +384,11 @@
                       </div>
                       <span class="product-id d-none">{{products.5.id}}</span>
                       <span class="product-rating d-none">{{products.5.getRatings}}</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Of Note</p>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.6.discount == 0 %}
@@ -371,7 +430,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.6.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.6|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -384,11 +443,6 @@
                       </div>
                       <span class="product-id d-none">{{products.6.id}}</span>
                       <span class="product-rating d-none">{{products.6.getRatings}}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
-                    <div class="top-products-label-div mt-3 container-fluid">
-                      <p class="fs-4 fw-bold text-center mt-3">Of Note</p>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.7.discount == 0 %}
@@ -430,7 +484,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.7.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.7|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -443,60 +497,6 @@
                       </div>
                       <span class="product-id d-none">{{products.7.id}}</span>
                       <span class="product-rating d-none">{{products.7.getRatings}}</span>
-                    </div>
-                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
-                      {% if not products.8.discount == 0 %}
-                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.8.discount}}%</p>
-                      {% endif %}
-                      <img src="{{photos.8.filename}}" class="card-img-top">
-                      <div class="card-body d-flex flex-column justify-content-end">
-                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.8.id %}">
-                          {{ products.8.name }}
-                        </a>
-                        <div class="price-complaints-div d-flex justify-content-between py-0">
-                          <div class="price-div d-flex">
-                            {% if products.8.discount == 0 %}
-                            <p class="original-price card-text mb-0">₱{{ products.8.sellingprice }}</p>
-                            {% else %}
-                            <p class="original-price card-text mb-0"><s>₱{{ products.8.sellingprice }}</s></p>
-                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.8.discount|div:100|sub:1|abs|mul:products.8.sellingprice|floatformat:2 }}</p>
-                            {% endif %}
-                          </div>
-                          <div class="dropdown">
-                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
-                              <i class="fa-solid fa-ellipsis"></i>
-                            </a>
-                            <ul class="complaints-dropdown dropdown-menu">
-                              <li class="text-center fw-bold">Report Product</li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="ratings-div d-flex justify-content-center">
-                          <div class="ratings">
-                            <div class="empty-stars">
-                              <i class="fa-regular fa-star"></i>
-                              <i class="fa-regular fa-star"></i>
-                              <i class="fa-regular fa-star"></i>
-                              <i class="fa-regular fa-star"></i>
-                              <i class="fa-regular fa-star"></i>
-                            </div>
-                            <div class="full-stars" style="width: {{products.8.rating|mul:20}}%">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </div>
-                          </div>
-                        </div>
-                        <p class="product-category text-center fs-6 mb-0">{{products.8.category}}</p>
-                      </div>
-                      <span class="product-id d-none">{{products.8.id}}</span>
-                      <span class="product-rating d-none">{{products.8.getRatings}}</span>
                     </div>
                   </div>
                 </div>
@@ -582,7 +582,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.0.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.0|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -636,7 +636,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.1.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.1|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -654,6 +654,60 @@
                   <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
                     <div class="top-products-label-div mt-3 container-fluid">
                       <p class="fs-4 fw-bold text-center mt-3">Most Sales</p>
+                    </div>
+                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
+                      {% if not products.2.discount == 0 %}
+                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.2.discount}}%</p>
+                      {% endif %}
+                      <img src="{{photos.2.filename}}" class="card-img-top">
+                      <div class="card-body d-flex flex-column justify-content-end">
+                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.2.id %}">
+                          {{ products.2.name }}
+                        </a>
+                        <div class="price-complaints-div d-flex justify-content-between py-0">
+                          <div class="price-div d-flex">
+                            {% if products.2.discount == 0 %}
+                            <p class="original-price card-text mb-0">₱{{ products.2.sellingprice }}</p>
+                            {% else %}
+                            <p class="original-price card-text mb-0"><s>₱{{ products.2.sellingprice }}</s></p>
+                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.2.discount|div:100|sub:1|abs|mul:products.2.sellingprice|floatformat:2 }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="dropdown">
+                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </a>
+                            <ul class="complaints-dropdown dropdown-menu">
+                              <li class="text-center fw-bold">Report Product</li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="ratings-div d-flex justify-content-center">
+                          <div class="ratings">
+                            <div class="empty-stars">
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                              <i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="full-stars" style="width: {{ratings.2|mul:20|floatformat:2}}%">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-category text-center fs-6 mb-0">{{products.2.category}}</p>
+                      </div>
+                      <span class="product-id d-none">{{products.2.id}}</span>
+                      <span class="product-rating d-none">{{products.2.getRatings}}</span>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.3.discount == 0 %}
@@ -695,7 +749,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.3.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.3|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -708,6 +762,11 @@
                       </div>
                       <span class="product-id d-none">{{products.3.id}}</span>
                       <span class="product-rating d-none">{{products.3.getRatings}}</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Top Rated</p>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.4.discount == 0 %}
@@ -749,7 +808,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.4.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.4|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -762,11 +821,6 @@
                       </div>
                       <span class="product-id d-none">{{products.4.id}}</span>
                       <span class="product-rating d-none">{{products.4.getRatings}}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
-                    <div class="top-products-label-div mt-3 container-fluid">
-                      <p class="fs-4 fw-bold text-center mt-3">Top Rated</p>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.5.discount == 0 %}
@@ -808,7 +862,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.5.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.5|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -821,6 +875,11 @@
                       </div>
                       <span class="product-id d-none">{{products.5.id}}</span>
                       <span class="product-rating d-none">{{products.5.getRatings}}</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
+                    <div class="top-products-label-div mt-3 container-fluid">
+                      <p class="fs-4 fw-bold text-center mt-3">Of Note</p>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.6.discount == 0 %}
@@ -862,7 +921,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.6.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.6|mul:20|floatformat:2}}">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -875,11 +934,6 @@
                       </div>
                       <span class="product-id d-none">{{products.6.id}}</span>
                       <span class="product-rating d-none">{{products.6.getRatings}}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 d-flex flex-column justify-content-around px-3">
-                    <div class="top-products-label-div mt-3 container-fluid">
-                      <p class="fs-4 fw-bold text-center mt-3">Of Note</p>
                     </div>
                     <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
                       {% if not products.7.discount == 0 %}
@@ -921,7 +975,7 @@
                               <i class="fa-regular fa-star"></i>
                               <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="full-stars" style="width: {{products.7.rating|mul:20}}%">
+                            <div class="full-stars" style="width: {{ratings.7|mul:20|floatformat:2}}%">
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -934,60 +988,6 @@
                       </div>
                       <span class="product-id d-none">{{products.7.id}}</span>
                       <span class="product-rating d-none">{{products.7.getRatings}}</span>
-                    </div>
-                    <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 100%;">
-                      {% if not products.8.discount == 0 %}
-                      <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{products.8.discount}}%</p>
-                      {% endif %}
-                      <img src="{{photos.8.filename}}" class="card-img-top">
-                      <div class="card-body d-flex flex-column justify-content-end">
-                        <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' products.8.id %}">
-                          {{ products.8.name }}
-                        </a>
-                        <div class="price-complaints-div d-flex justify-content-between py-0">
-                          <div class="price-div d-flex">
-                            {% if products.8.discount == 0 %}
-                            <p class="original-price card-text mb-0">₱{{ products.8.sellingprice }}</p>
-                            {% else %}
-                            <p class="original-price card-text mb-0"><s>₱{{ products.8.sellingprice }}</s></p>
-                            <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ products.8.discount|div:100|sub:1|abs|mul:products.8.sellingprice|floatformat:2 }}</p>
-                            {% endif %}
-                          </div>
-                          <div class="dropdown">
-                            <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
-                              <i class="fa-solid fa-ellipsis"></i>
-                            </a>
-                            <ul class="complaints-dropdown dropdown-menu">
-                              <li class="text-center fw-bold">Report Product</li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                              <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                              <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="ratings-div d-flex justify-content-center">
-                          <div class="ratings">
-                            <div class="empty-stars">
-                              <i class="fa-regular fa-star"></i>
-                              <i class="fa-regular fa-star"></i>
-                              <i class="fa-regular fa-star"></i>
-                              <i class="fa-regular fa-star"></i>
-                              <i class="fa-regular fa-star"></i>
-                            </div>
-                            <div class="full-stars" style="width: {{products.8.rating|mul:20}}%">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </div>
-                          </div>
-                        </div>
-                        <p class="product-category text-center fs-6 mb-0">{{products.8.category}}</p>
-                      </div>
-                      <span class="product-id d-none">{{products.8.id}}</span>
-                      <span class="product-rating d-none">{{products.8.getRatings}}</span>
                     </div>
                   </div>
                 </div>
