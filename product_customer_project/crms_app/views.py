@@ -44,12 +44,28 @@ def catalogMonthly(request):
     # unique_product_photos = ProductPhotos.objects.all().values('product').distinct()
     photos = ProductPhotos.objects.all().distinct('product')[:16]
     products = []
+    ratingsArrs = []
+    ratings = []
     for photo in photos:
         products.append(Product.objects.get(name=photo.product))
     for product in products:
-        print(product.rating)
+        ratingsArrs.append(Product.objects.get(name=product.name).getRatings)
+    i = 0
+    for ratingsArr in ratingsArrs:
+        ratings.append(0)
+        count = 0
+        j = 0
+        for elem in ratingsArr:
+            ratings[i] += elem*(j+1)
+            count += elem
+            j += 1
+        if count != 0:
+            ratings[i] /= count
+        i += 1
+    print(ratings)
     context = {
         "products": products,
+        "ratings": ratings,
         "photos": photos
     }
     return render(request, 'crms_app/pages/catalogMonthly.html', context)
