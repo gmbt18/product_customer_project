@@ -27,7 +27,15 @@ from django.contrib.auth.hashers import make_password
 login_URL = "/crms/login/"
 
 def customerHome(request):
-    return render(request, 'crms_app/pages/home.html')
+    reviews = [review for review in CustomerReview.objects.values()]
+    customerInfo = CustomerInformation.objects.all()
+    print(reviews[0])
+    for review in reviews:
+        review['name'] = CustomerInformation.objects.filter(customer=review['customer_id']).values('name')[0]['name']
+    context = {
+        'reviews': reviews
+    }
+    return render(request, 'crms_app/pages/home.html', context)
 
 def catalogCustomer(request):
     return render(request, 'crms_app/pages/catalogCustomer.html')
