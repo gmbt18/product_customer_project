@@ -214,8 +214,12 @@ def submitProductComplaint(request, pk):
     product = Product.objects.get(id=pk)
     data["product"] = product
     if(request.method == "POST" and data.get("isRegistered")):
+        post_values = request.POST.copy()
+        post_values['customer'] = request.user
+        post_values['product'] = product
         productComplaint, created = ProductComplaint.objects.get_or_create(customer=customer,product=product)
-        productComplaintForm = ProductComplaintForm(request.POST, instance=productComplaint)
+        productComplaintForm = ProductComplaintForm(post_values, instance=productComplaint)
+
         if(productComplaintForm.is_valid()):
             productComplaintForm.save()
             messages.success(request, "A complaint was created on "+ product.name)
