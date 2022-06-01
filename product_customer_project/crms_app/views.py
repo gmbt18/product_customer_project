@@ -125,7 +125,7 @@ def detailedProduct(request,pk):
             customerReviewers.append(getCustomerInformation(review.customer))
         mean_rating = mean_rating/reviewNum
 
-    data["isCustomer"] = request.user.user_type == 2
+
     data['reviewNum'] = reviewNum
     data['reviews'] = reviews
     data["mean_rating"] = mean_rating
@@ -136,6 +136,7 @@ def detailedProduct(request,pk):
     # print(customerInformation.first().picture.url)
     
     if(data.get("isRegistered")):
+        data["isCustomer"] = request.user.user_type == 2
         customerInformation, isInfoCreated = CustomerInformation.objects.get_or_create(customer=customer)
         if(customerInformation.picture):
             data['picture'] = customerInformation.picture.url
