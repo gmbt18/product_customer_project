@@ -58,7 +58,7 @@ class ProductComplaint(models.Model):
     product = models.ForeignKey("pcims_app.Product", on_delete=models.CASCADE,null=True)
     complaint = models.CharField(max_length=200, null=True, blank=False)
     def __str__(self):
-        return f"{self.customer}"
+        return f"{self.customer}-{self.product}"
 
 class CustomerReview(models.Model):
     customer = models.ForeignKey(AuthUser, on_delete=models.CASCADE,null=True,)
