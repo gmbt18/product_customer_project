@@ -1,358 +1,60 @@
 {% extends 'crms_app/main.html' %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href={% static 'css/login.css' %}>
+    <div class="container-fluid bg-secondary d-flex justify-content-center align-items-start" style = "height:100vh;">
+        <div class="row mt-5">
+            <div class="" style = " width: 700px">
+                <div class="card text-center shadow">
+                    <div class="card-header">
+                        Welcome!
+                    </div>
+                    <div class="card-body m-4">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="form-floating mb-3">
+                                <input type="text" name="username" class="form-control" id="floatingInput" required>
+                                <label for="floatingInput">Enter Username</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="password" name="password" class="form-control" id="floatingPassword"
+                                    required>
+                                <label for="floatingPassword">Enter Password</label>
+                            </div>
 
-<head>
-    <title>Login Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        .background1 {
-            height: 500px;
-            width: 100%;
-            min-width: 1000px;
-            background-image: -webkit-linear-gradient(35deg, #ffffa7 50%, #98ff98 50%);
-        }
+                            <br>
+                            {% for message in messages %}
+                            {% if 'success' == message.tags %}
+                            <!-- Alert Box -->
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Success!</strong> {{message | striptags}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            {% else %}
+                            <!-- Alert Box -->
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Error!</strong> {{message | striptags}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
 
-        .background2 {
-            height: 500px;
-            width: 100%;
-            min-width: 1000px;
-            background-image: -webkit-linear-gradient(-35deg, #ffffa7 50%, #98ff98 50%);
-        }
-
-        .logo {
-            height: 150px;
-            width: 150px;
-            background-color: #bbb;
-            border-radius: 50%;
-            margin-right: 200px;
-            margin-top: 100px;
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            border: black solid 2px;
-        }
-
-        .name {
-            height: 50px;
-            width: 200px;
-            background-color: #bbb;
-            margin-right: 175px;
-            margin-top: 275px;
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            border: black solid 2px;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-            padding-top: 10px;
-        }
-
-        .l1 {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            margin-right: 338px;
-            margin-top: 390px;
-        }
-
-        .email {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            height: 30px;
-            width: 230px;
-            border: black solid 2px;
-            margin-right: 155px;
-            margin-top: 420px;
-        }
-
-        .l2 {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            margin-right: 300px;
-            margin-top: 470px;
-        }
-
-        .password {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            height: 30px;
-            width: 230px;
-            border: black solid 2px;
-            margin-right: 155px;
-            margin-top: 500px;
-        }
-
-        .login {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            margin-right: 173px;
-            margin-top: 570px;
-            height: 30px;
-            width: 200px;
-            border: white solid 1px;
-            background: black;
-            color: white;
-        }
-
-        .b1 {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            margin-right: 178px;
-            margin-top: 630px;
-            font-size: 20px;
-            background-color: transparent;
-            border: none;
-        }
-
-        .hl {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            border-bottom: black solid 3px;
-            width: 500px;
-            margin-right: 70px;
-            margin-top: 690px;
-        }
-
-        .l3 {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            margin-right: 465px;
-            margin-top: 730px;
-        }
-
-        .b2 {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            margin-right: 370px;
-            margin-top: 770px;
-            height: 30px;
-            width: 200px;
-            border: white solid 2px;
-            background: #4169e1;
-            color: white;
-        }
-
-        .b3 {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            margin-right: 370px;
-            margin-top: 820px;
-            height: 30px;
-            width: 200px;
-            border: white solid 2px;
-            background: #ff6347;
-            color: white;
-        }
-
-        .b4 {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            margin-right: 70px;
-            margin-top: 770px;
-            height: 80px;
-            width: 200px;
-            border: black solid 2px;
-            border-radius: 10px;
-            background: wheat;
-            font-size: 20px;
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        body {
-            font-family: Verdana, sans-serif;
-            margin: 0
-        }
-
-        .mySlides {
-            display: none
-        }
-
-        img {
-            vertical-align: middle;
-        }
-
-        .slideshow-container {
-            max-width: 500px;
-            position: absolute;
-            margin: auto;
-            top: 0px;
-            left: 0px;
-            margin-left: 70px;
-            margin-top: 150px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
-        }
-
-        .prev,
-        .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: lightgray;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-        }
-
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .text {
-            color: black;
-            font-weight: bold;
-            font-size: 15px;
-            padding: 8px 12px;
-            position: absolute;
-            bottom: -55px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .text1 {
-            color: black;
-            font-weight: bold;
-            font-size: 15px;
-            padding: 8px 12px;
-            position: absolute;
-            bottom: -135px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .fade {
-            animation-name: fade;
-            animation-duration: 1.5s;
-        }
-
-        @keyframes fade {
-            from {
-                opacity: .4
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-
-        @media only screen and (max-width: 500px) {
-
-            .prev,
-            .next,
-            .text {
-                font-size: 11px
-            }
-        }
-
-        .l4 {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            margin-left: 245px;
-            margin-top: 800px;
-            font-weight: bold;
-            text-align: center;
-            border: black solid 3px;
-            border-radius: 20px;
-            background: lightgray;
-            height: 30px;
-            width: 170px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="background1"></div>
-    <div class="background2"></div>
-    <div class="logo"></div>
-    <div class="name">SellPoint</div>
-
-    <form action="/action_page.php">
-        <p span class="l1" style="font-weight: bold;">Email</span></p>
-        <input type="text" class="email" name="email">
-        <p span class="l2" style="font-weight: bold;">Password</span></p>
-        <input type="password" class="password" name="password">
-        <button class="login" name="login"><span style="font-weight: bold;">LOGIN</span></button>
-        <button span class="b1" style="font-weight: bold;">Forgot Password?</span></button>
-        <div class="hl"></div>
-        <p span class="l3" style="font-weight: bold;">Login with:</p>
-        <button class="b2" name="facebook"><span style="font-weight: bold;">FACEBOOK</span></button>
-        <button class="b3" name="google"><span style="font-weight: bold;">GOOGLE</span></button>
-        <button class="b4" name="new"><span style="font-weight: bold;">CREATE <br>NEW ACCOUNT</span></button>
-    </form>
-
-    <div class="slideshow-container">
-        <div class="mySlides fade">
-            <img src="https://www.paldesk.com/wp-content/uploads/2019/06/customer-service-management.png"
-                style="width:100%">
-            <div class="text">Contact Management</div>
-            <div class="text1">Stores contact information such as names, addresses, etc. in a
-                searchable database.</div>
-        </div>
-        <div class="mySlides fade">
-            <img src="https://static.vecteezy.com/system/resources/previews/000/401/252/original/vector-business-people-following-the-leader-to-find-a-new-market.jpg"
-                style="width:100%">
-            <div class="text">Lead Management</div>
-            <div class="text1">Manage the process of converting prospects into potential customers (leads) by
-                identifying, scoring, and moving leads through the sales pipeline.
+                            <center>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-dark btn-md text-uppercase">login</button>
+                                </div>
+                            </center>
+                        </form>
+                        <br>
+                        <br>
+                        Dont have an account? <a href="{% url 'register'  %}" style="text-decoration: none;">Register here.</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mySlides fade">
-            <img src="https://static.vecteezy.com/system/resources/previews/000/401/713/original/vector-colleagues-connecting-jigsaw-pieces-together.jpg"
-                style="width:100%">
-            <div class="text">Interaction Tracking</div>
-            <div class="text1">Add notes and track interaction history to document conversations with specific contacts.
-            </div>
-        </div>
-        <a class="prev" onclick="plusSlides(-1)">❮</a>
-        <a class="next" onclick="plusSlides(1)">❯</a>
     </div>
 
-    <script>
-        let slideIndex = 1;
-        showSlides(slideIndex);
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-        function showSlides(n) {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            if (n > slides.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slides.length }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slides[slideIndex - 1].style.display = "block";
-        }
-    </script>
 
-    <div class="l4">Learn More</div>
-</body>
 {% endblock content %}

@@ -1,4 +1,79 @@
 {% extends 'crms_app/main.html' %}
 {% block content %}
-     
+{% load static %}
+<link rel="stylesheet" href={% static 'css/register.css' %}>
+
+
+<div class="container-fluid bg-secondary d-flex justify-content-center align-items-start" style="height:100vh">
+    <div class="row mt-5">
+
+        <div class="" style = " width: 900px">
+            <div class="card text-center shadow">
+                <div class="card-header">
+                    Hello Customer! Please fill up the registration form below.
+                </div>
+                <div class="card-body m-4">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                    
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    {{form.username}}
+                                    <label for="floatingInput">Enter Username</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    {{form.email}}
+                                    <label for="floatingInput">Enter Email Address</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+        
+                        <div class="form-floating mb-3">
+                            {{form.password1}}
+                            <label for="floatingInput">Enter Password</label>
+                        </div> 
+
+                        <div class="form-floating mb-3">
+                            {{form.password2}}
+                            <label for="floatingInput">Confirm Password</label>
+                        </div> 
+
+                        <div class="form-floating d-none mb-3">
+                            {{form.user_type}}
+                            <label for="floatingInput">Select User Type</label>
+                        </div> 
+                        <br>
+                        {% if form.errors %}
+                            {% for key, value in form.errors.items %}
+                            <!-- Alert -->
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Error!</strong> {{value | striptags}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <center>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-dark btn-md text-uppercase">Register</button>
+                        </div>
+                        </center>  
+                    </form>
+
+                    <br>
+                    Have an account? <a href="{% url 'login'  %}" style="text-decoration: none;">Login</a>.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 {% endblock content %}

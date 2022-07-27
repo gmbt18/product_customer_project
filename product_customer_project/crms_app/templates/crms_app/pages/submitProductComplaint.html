@@ -1,0 +1,59 @@
+{% extends 'crms_app/main.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href={% static 'css/submitProductComplaint.css' %}>
+<div class="container-fluid bg-secondary d-flex justify-content-center align-items-start" style = "height:100vh;">
+    <div class="row mt-5">
+        <div class="" style = " width: 700px">
+            <div class="card text-center shadow">
+                <div class="card-header">
+                    Submit A Complaint Report
+                </div>
+                <div class="card-body m-4">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col">
+                                
+                                <div class="form-floating mb-2 d-grid">
+                                    <p>Claimant</p>
+                                    <input readonly type="text" value={{request.user}} name="customer" style="pointer-events:none;">
+                                    <!-- {{productComplaintForm.customer}} -->
+                                    <!-- <label for="floatingInput">Enter customer: {{request.user}}</label> -->
+                                </div> 
+                            </div>
+                            <div class="col">
+                                
+                                <div class="form-floating mb-2 d-grid">
+                                    <p>Product</p>
+                                    <input readonly type="text" value={{product}} name="product" style="pointer-events:none;">
+                                    <!-- {{productComplaintForm.product}} -->
+                                    <!-- <label for="floatingInput">Enter product {{product.name}}</label> -->
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p>Write a Complaint</p>
+                            <div class="form-floating mb-3">
+                                {{productComplaintForm.complaint}}
+                            </div> 
+                        </div>
+
+                
+                        <center>
+                                <!-- DYNAMICALLY CHANGE URL -->
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-dark btn-md text-uppercase">
+                                    Submit Product Complaint
+                                </button>
+                            </div>
+                        </center>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

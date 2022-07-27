@@ -1,0 +1,27 @@
+<html lang="en">
+<body>
+    <h1>Thank you for subscribing to the monthly catalog!</h1>
+    <h2>Here is our product catalog for the month:</h2>
+    <table>
+        <thead>
+            <th style="width:35%">Name</th>
+            <th style="width:auto">Category</th>
+            <th style="width:auto">Selling price</th>
+        </thead>
+
+            {% for product in products %}
+            <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.sellingprice}}</td>
+            </tr>
+            <br>
+            {% endfor %}
+
+
+
+    </table>
+    
+    <p>If you did not make this request, you can simply ignore this email.</p>
+</body>
+</html>

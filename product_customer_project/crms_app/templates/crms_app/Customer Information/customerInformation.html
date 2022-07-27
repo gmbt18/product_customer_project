@@ -5,10 +5,38 @@
     <br><br>
 
     <div class="container">
+
+
+        {% if customerInformation.picture %}
+        <h1>PICTURE EXISTS</h1>
+        <img class="img-fluid" src={{customerInformation.picture.url}}>
+        <h1>
+            {{customerInformation.picture.url}}
+        </h1>
+        {% else %}
+        <h1>NO PICTURE</h1>
+        {% endif %}
          <h1>
             customer Information Page
          </h1>
     </div>
+
+
+    <div class="container">
+        <a href="{% url 'subscribeCatalog' %}">SUBSCRIBE TO CATALOG</a>
+        <br>
+        <a href="{% url 'unsubscribeCatalog' %}">UNSUBSCRIBE TO CATALOG</a>
+    </div>
+
+
+  
+        {% if isNew %}
+      <div class="container">
+        <h1>WELCOME NEW USER!</h1>
+        <p>We recommend that you fill out your customer information for the best experience!</p>
+      </div>
+      {% endif %}
+  
 
     <br><br>
 
@@ -21,7 +49,7 @@
                 Update Customer Form
             </div>
             <div class="card-body">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <!-- Input fields -->
                     {% csrf_token %}
                     {{form|crispy}}

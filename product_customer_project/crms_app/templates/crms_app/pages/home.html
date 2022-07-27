@@ -1,13 +1,14 @@
 {% extends 'crms_app/main.html' %}
 {% block content %}
 {% load static %}
+{% load mathfilters %}
 <!-- {{request.user.id}} -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Home Page (Guest)</title>
     <link rel="stylesheet" href={% static 'css/home.css' %}>
-    <style>
+    <!-- <style>
       /* body {
         background-color: #98ff98;
         width: 95vw;
@@ -545,7 +546,7 @@
         margin-right: 400px;
         position: absolute;
       } */
-    </style>
+    </style> -->
 </head>
 <div class="app container-fluid">
   <div class="app-contents container">
@@ -566,7 +567,7 @@
           </div>
           <div class="top-right-controls col-lg-7 d-flex flex-column">
             <div class="container-fluid d-flex justify-content-end mb-3">
-              <div class="dropdown">
+              <!-- <div class="dropdown">
                 <a class="btn btn-outline-secondary dropdown-toggle rounded-0" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                   Sort By
                 </a>
@@ -598,17 +599,17 @@
                   <input class="form-control me-0 ps-4" type="search" placeholder="Search Products" aria-label="Search">
                   <button class="btn btn-dark rounded-0" type="submit" style="background-color: gray; width: 140px;">SEARCH</button>
                 </form>
-              </div>
+              </div> -->
               <div class="position-relative d-flex align-items-center">
                 <i class="fa fa-user position-absolute left-0 ms-4" style="color: white;"></i>
-                <button class="btn btn-dark rounded-0" type="button" style="width: 140px;">&nbsp;&nbsp;&nbsp;&nbsp;LOGIN</button>
+                <button class="login-btn btn btn-dark rounded-0" type="button" style="width: 140px;">&nbsp;&nbsp;&nbsp;&nbsp;LOGIN</button>
               </div>
             </div>
             <div class="btn-group container-fluid mb-3" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-dark col-3 rounded-0 py-3">Home</button>
-              <button type="button" class="btn btn-secondary col-3 rounded-0 py-3">Products Catalog</button>
-              <button type="button" class="btn btn-secondary col-3 rounded-0 py-3">Monthly Catalog</button>
-              <button type="button" class="btn btn-secondary col-3 rounded-0 py-3">Advanced Search</button>
+              <button type="button" class="home-btn btn btn-dark col-3 rounded-0 py-3">Home</button>
+              <button type="button" class="products-catalog-btn btn btn-secondary col-3 rounded-0 py-3">Products Catalog</button>
+              <button type="button" class="monthly-catalog-btn btn btn-secondary col-3 rounded-0 py-3">Monthly Catalog</button>
+              <button type="button" class="advanced-search-btn btn btn-secondary col-3 rounded-0 py-3">Advanced Search</button>
             </div>
             <div class="container-fluid d-flex justify-content-end">
               <div 
@@ -634,7 +635,7 @@
             </div>
           </div>
           <div class="top-controls col-lg-6 d-flex flex-column">
-            <div class="container-fluid d-flex justify-content-end mb-3">
+            <!-- <div class="container-fluid d-flex justify-content-end mb-3">
               <div class="dropdown">
                 <a class="btn btn-outline-secondary dropdown-toggle rounded-0" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                   Sort By
@@ -668,12 +669,12 @@
                   <button class="btn btn-dark rounded-0" type="submit" style="background-color: gray; width: 140px;">SEARCH</button>
                 </form>
               </div>
-            </div>
+            </div> -->
             <div class="btn-group container-fluid mb-3" role="group" aria-label="Basic example">
               <button type="button" class="btn btn-dark col-3 rounded-0 py-2">Home</button>
-              <button type="button" class="btn btn-secondary col-3 rounded-0 py-2">Products Catalog</button>
-              <button type="button" class="btn btn-secondary col-3 rounded-0 py-2">Monthly Catalog</button>
-              <button type="button" class="btn btn-secondary col-3 rounded-0 py-2">Advanced Search</button>
+              <button type="button" class="products-catalog-btn btn btn-secondary col-3 rounded-0 py-2">Products Catalog</button>
+              <button type="button" class="monthly-catalog-btn btn btn-secondary col-3 rounded-0 py-2">Monthly Catalog</button>
+              <button type="button" class="advanced-search-btn btn btn-secondary col-3 rounded-0 py-2">Advanced Search</button>
             </div>
             <div class="container-fluid d-flex justify-content-end">
               <div 
@@ -686,153 +687,17 @@
           </div>
           <div class="top-right-controls col-lg-1 d-flex flex-column me-4 p-0">
             <div class="btn-group-vertical container-fluid mb-3 p-0" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-outline-dark container-fluid rounded-0 py-1">Account Info</button>
-              <button type="button" class="btn btn-outline-dark container-fluid rounded-0 py-1">Change Password</button>
-              <button type="button" class="btn btn-outline-dark container-fluid rounded-0 py-1">Forgot Password</button>
-              <button type="button" class="btn btn-outline-dark container-fluid rounded-0 py-1">Logout</button>
+              <button type="button" class="profile-btn btn btn-outline-dark container-fluid rounded-0 py-1">Profile</button>
+              <button type="button" class="change-password-btn btn btn-outline-dark container-fluid rounded-0 py-1">Change Password</button>
+              <!-- <button type="button" class="forgot-password-btn btn btn-outline-dark container-fluid rounded-0 py-1">Forgot Password</button> -->
+              <button type="button" class="logout-btn btn btn-outline-dark container-fluid rounded-0 py-1">Logout</button>
             </div>
           </div>
         </div>
         {% endif %}
-        <div class="middle-div position-relative row d-flex align-items-end mb-4 mx-2">
-          <div class="featured-products-div col-lg-6 d-flex flex-column align-items-center">
-            <div class="company-name-div col-lg-8 mb-0">
-              <p class="fs-4 fw-bold text-center mt-3">Our Featured Products</p>
-            </div>
-            <div id="featuredProductsCarousel" class="carousel carousel-dark slide container-fluid px-0" data-bs-ride="carousel">
-              <div class="carousel-indicators position-absolute" style="bottom: -40px;">
-                <button type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              </div>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="container-fluid d-flex justify-content-around">
-                    <div class="product-card card mt-3 me-3" style="width: 40%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                        <p class="address card-text text-center">Metro Manila</p>
-                      </div>
-                    </div>
-                    <div class="product-card card mt-3" style="width: 40%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                        <p class="address card-text text-center">Metro Manila</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="container-fluid d-flex justify-content-around">
-                    <div class="product-card card mt-3 me-3" style="width: 40%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                        <p class="address card-text text-center">Metro Manila</p>
-                      </div>
-                    </div>
-                    <div class="product-card card mt-3" style="width: 40%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                        <p class="address card-text text-center">Metro Manila</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="container-fluid d-flex justify-content-around">
-                    <div class="product-card card mt-3 me-3" style="width: 40%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                        <p class="address card-text text-center">Metro Manila</p>
-                      </div>
-                    </div>
-                    <div class="product-card card mt-3" style="width: 40%;">
-                      <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">【Fast delivery】Speaker Soundbar Bluetooth Version</h6>
-                        <p class="price card-text">P377</p>
-                        <div class="rating d-flex justify-content-center">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                        <p class="address card-text text-center">Metro Manila</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button 
-                class="carousel-control-prev position-absolute" 
-                type="button" 
-                style="left: -12px;"
-                data-bs-target="#featuredProductsCarousel" 
-                data-bs-slide="prev"
-              >
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button 
-                class="carousel-control-next position-absolute" 
-                type="button" 
-                style="right: -12px;"
-                data-bs-target="#featuredProductsCarousel" 
-                data-bs-slide="next"
-              >
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
-          </div>
+        <div class="middle-div position-relative row d-flex justify-content-center align-items-end mb-4 mx-2">
           <div class="monthly-catalog-showcase-div col-lg-6 d-flex flex-column justify-content-between align-items-center">
-            <button type="button" class="btn btn-secondary col-lg-8 rounded-0 mb-2 py-3 fs-5">Our Monthly Catalogs</button>
+            <button type="button" class="monthly-catalog-btn btn btn-secondary col-lg-8 rounded-0 mb-2 py-3 fs-5">Our Monthly Catalogs</button>
             <div id="monthlyCatalogShowcaseCarousel" class="carousel carousel-dark carousel-fade slide container-fluid px-0" data-bs-ride="carousel">
               <div class="carousel-indicators position-absolute" style="bottom: -40px;">
                 <button type="button" data-bs-target="#monthlyCatalogShowcaseCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -842,7 +707,7 @@
                 <div class="carousel-item active">
                   <div class="container-fluid d-flex justify-content-center">
                     <img 
-                      src="{% static 'media/april-2022-monthly-catalog.jpg' %}" 
+                      src="{% static 'images/april_2022_monthly_catalog.jpg' %}" 
                       class="img-fluid m-0 p-0"
                       style="object-fit: contain; width: 490px; height: 320px;"
                     />
@@ -851,7 +716,7 @@
                 <div class="carousel-item">
                   <div class="container-fluid d-flex justify-content-center">
                     <img 
-                      src="{% static 'media/march-2022-monthly-catalog.jpg' %}" 
+                      src="{% static 'images/march_2022_monthly_catalog.jpg' %}" 
                       class="img-fluid m-0 p-0"
                       style="object-fit: contain; width: 490px; height: 320px;"
                     />
@@ -887,55 +752,64 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
+                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center" style="height: 185px !important;">
                       <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
+                        <p class="lead fw-bold text-center mx-2">{{reviews.0.name}}'s Review:</p>
+                        <p class="fs-6 text-center">{{reviews.0.productReview}}</p>
                       </div>
                     </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
+                    <div class="ratings-div d-flex justify-content-center">
+                      <div class="ratings">
+                        <div class="empty-stars">
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                        </div>
+                        <div class="full-stars" style="width: {{reviews.0.rating|mul:20}}%">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="carousel-item">
-                  <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
-                      <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
+                {% for review in reviews %}
+                  {% if forloop.counter|divisibleby:3 %}
+                  <div class="carousel-item">
+                    <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+                      <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center" style="height: 185px !important;">
+                        <div class="d-flex flex-column justify-content-start align-items-center ms-2">
+                          <p class="lead fw-bold text-center mx-2">{{review.name}}'s Review:</p>
+                          <p class="fs-6 text-center">{{review.productReview}}</p>
+                        </div>
+                      </div>
+                      <div class="ratings-div d-flex justify-content-center">
+                        <div class="ratings">
+                          <div class="empty-stars">
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                          </div>
+                          <div class="full-stars" style="width: {{review.rating|mul:20}}%">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
                   </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
-                      <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
-                      </div>
-                    </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                </div>
+                  {% endif %}
+                {% endfor %}
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#productReviewsShowcaseCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -952,55 +826,64 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
+                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center" style="height: 185px !important;">
                       <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
+                        <p class="lead fw-bold text-center mx-2">{{reviews.1.name}}'s Review:</p>
+                        <p class="fs-6 text-center">{{reviews.1.productReview}}</p>
                       </div>
                     </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
+                    <div class="ratings-div d-flex justify-content-center">
+                      <div class="ratings">
+                        <div class="empty-stars">
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                        </div>
+                        <div class="full-stars" style="width: {{reviews.1.rating|mul:20}}%">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="carousel-item">
-                  <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
-                      <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
+                {% for review in reviews %}
+                  {% if forloop.counter|add:1|divisibleby:3 %}
+                  <div class="carousel-item">
+                    <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+                      <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center" style="height: 185px !important;">
+                        <div class="d-flex flex-column justify-content-start align-items-center ms-2">
+                          <p class="lead fw-bold text-center mx-2">{{review.name}}'s Review:</p>
+                          <p class="fs-6 text-center">{{review.productReview}}</p>
+                        </div>
+                      </div>
+                      <div class="ratings-div d-flex justify-content-center">
+                        <div class="ratings">
+                          <div class="empty-stars">
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                          </div>
+                          <div class="full-stars" style="width: {{review.rating|mul:20}}%">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
                   </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
-                      <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
-                      </div>
-                    </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                </div>
+                  {% endif %}
+                {% endfor %}
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#productReviewsShowcase2Carousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -1017,55 +900,64 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
+                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center" style="height: 185px !important;">
                       <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
+                        <p class="lead fw-bold text-center mx-2">{{reviews.2.name}}'s Review:</p>
+                        <p class="fs-6 text-center">{{reviews.2.productReview}}</p>
                       </div>
                     </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
+                    <div class="ratings-div d-flex justify-content-center">
+                      <div class="ratings">
+                        <div class="empty-stars">
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                          <i class="fa-regular fa-star"></i>
+                        </div>
+                        <div class="full-stars" style="width: {{reviews.2.rating|mul:20}}%">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="carousel-item">
-                  <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
-                      <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
+                {% for review in reviews %}
+                  {% if forloop.counter|add:2|divisibleby:3 %}
+                  <div class="carousel-item">
+                    <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+                      <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center" style="height: 185px !important;">
+                        <div class="d-flex flex-column justify-content-start align-items-center ms-2">
+                          <p class="lead fw-bold text-center mx-2">{{review.name}}'s Review:</p>
+                          <p class="fs-6 text-center">{{review.productReview}}</p>
+                        </div>
+                      </div>
+                      <div class="ratings-div d-flex justify-content-center">
+                        <div class="ratings">
+                          <div class="empty-stars">
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                          </div>
+                          <div class="full-stars" style="width: {{review.rating|mul:20}}%">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
                   </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="col-lg-10 card d-flex flex-column justify-content-center align-items-center">
-                      <div class="d-flex flex-column justify-content-start align-items-center ms-2">
-                        <p class="lead fw-bold">Denver's Review:</p>
-                        <p class="fs-6 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum bibendum enim, quis sodales nulla accumsan eu!</p>
-                      </div>
-                    </div>
-                    <div class="rating d-flex justify-content-center mt-2">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                </div>
+                  {% endif %}
+                {% endfor %}
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#productReviewsShowcase3Carousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -1084,8 +976,18 @@
       </div>
     </div>
   </div>
+  <a class="to-login nav-link d-none {% if request.resolver_match.view_name == 'login' %}active{% endif %} text-light" href="{% url 'login' %}">Login</a>
+  <a class="to-catalog-product nav-link d-none {% if request.resolver_match.view_name == 'catalogProduct' %}active{% endif %}" href="{% url 'catalogProduct' %}">Catalog Product</a>
+  <a class="to-catalog-monthly nav-link d-none {% if request.resolver_match.view_name == 'catalogMonthly' %}active{% endif %}" href="{% url 'catalogMonthly' %}">Catalog Monthly</a>
+  <a class="to-advanced-search nav-link d-none {% if request.resolver_match.view_name == 'searchPage' %}active{% endif %} text-light" href="{% url 'searchPage' %}">Search</a>
+  {% if request.user.is_authenticated %}
+  <a class="to-profile nav-link d-none {% if request.resolver_match.view_name == 'customerInfo' %}active{% endif %}" href="{% url 'customerInfo' request.user.id %}">Profile</a>
+  <a class="to-change-password nav-link d-none {% if request.resolver_match.view_name == 'passwordChange' %}active{% endif %} text-light" href="{% url 'passwordChange' %}">Password Change</a>
+  <a class="to-forgot-password nav-link d-none {% if request.resolver_match.view_name == 'crms_password_reset' %}active{% endif %}" href="{% url 'crms_password_reset' %}">Password Forgot</a>
+  <a class="to-logout nav-link d-none {% if request.resolver_match.view_name == 'testLogout' %}active{% endif %} text-light" href="{% url 'testLogout' %}">Logout</a>
+  {% endif %}
 </div>
-
+<script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 <script>
   // function myFunction() {
   //     var popup = document.getElementById("myPopup");

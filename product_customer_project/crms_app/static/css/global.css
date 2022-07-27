@@ -5,7 +5,7 @@
 
 .app-contents {
   display: table;
-  height: calc(100vh - 56px);
+  min-height: calc(100vh - 56px);
 }
 
 .default-border {
@@ -64,7 +64,10 @@
 }
 
 .overlapping-container select {
-  padding-bottom: 2px;
+  font-size: 16px;
+  outline: 0;
+  padding: 16px 6px 10px;   
+  width: 96%;
 }
 
 .overlapping-container label {
@@ -72,7 +75,7 @@
   font-weight: bold;
   position: absolute;
   transform-origin: top left;
-  transform: translate(16px, 8px) scale(1); 
+  transform: translate(16px, 16px) scale(1); 
   transition: all .1s ease-in-out;  /* speed */
 }
 
@@ -93,3 +96,7 @@
 /* 
   end copied css
 */
+
+.float-container label[for=birthdayInput] {
+  transform: translate(12px, 4px) scale(.75);
+}

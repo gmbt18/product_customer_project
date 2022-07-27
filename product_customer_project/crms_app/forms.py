@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, PasswordInput, CharField, HiddenInput, NumberInput
+from django.forms import ChoiceField, DateInput, ModelForm, Select, TextInput, PasswordInput, CharField, HiddenInput, NumberInput, TypedChoiceField
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import get_user_model
@@ -12,20 +12,24 @@ USER_TYPE_CHOICES = {
         (2, 'Customer')
     }
 
+SEX_CHOICES = {
+    (0, "Male"),
+    (1, "Female"),
+    (2, "Intersex")
+}
+
 class AuthUserCreationForm(UserCreationForm):
     attrs = { 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Password' , 'required': True, } 
     password1 =  CharField( widget=PasswordInput(attrs=attrs) )
     password2 =  CharField( widget=PasswordInput(attrs=attrs) )
     class Meta:
         model = AuthUser
-        fields = ['first_name', 'last_name', 'username', 'email', 'user_type', 'password1', 'password2']
+        fields = ['username', 'email', 'user_type', 'password1', 'password2']
         widgets = { 
             #insert bootstrap designs here
-            'first_name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter First Name', 'required': True, } ),
-            'last_name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Last Name', 'required': True, } ),
             'username': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput' , 'placeholder':'Enter Username', 'required': True, } ),
             'email': TextInput( attrs={ 'type':'email', 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Email Address', 'required': True, } ),
-            'sex' : forms.Select(choices=USER_TYPE_CHOICES),
+
         }
 
 class CustomerInformationUpdateForm(ModelForm):
@@ -40,13 +44,12 @@ class CustomerInformationUpdateForm(ModelForm):
         emailAttributes = TextInput( attrs={ 'type':'email', 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Email Address', 'required': False, } )
         addressAttributes = TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter Address', 'required': False, } ),
         widgets = { 
-            'username': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput' , 'placeholder':'Enter Username', 'required': True, } ),
             'name': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter name', 'required': False, } ),
             #'birthday':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter birthday', 'required': False, } ),
             'sex': TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter sex', 'required': False, } ),
             'nationality':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter nationality', 'required': False, } ), 
             'citizenship':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter citizenship', 'required': False, } ), 
-            #'picture':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter sex', 'required': False, } ), 
+           'picture': forms.FileInput( attrs={ 'class': 'd-none', 'id':'pictureField', 'accept':'image/*', 'required': False, } ),
             #'isSubscribed':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter sex', 'required': False, } ), 
             'presentAddress':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter presentAddress', 'required': False, } ), 
             'permanentAddress':TextInput( attrs={ 'class': 'form-control', 'id':'floatingInput', 'placeholder':'Enter permanentAddress', 'required': False, } ), 
@@ -69,8 +72,17 @@ class ProductComplaintForm(ModelForm):
     class Meta:
         model = ProductComplaint
         fields = "__all__"
+        widgets = { 
+            'complaint': TextInput( attrs={ 'class': 'form-control'} )
+        }
 
 class CustomerReviewForm(ModelForm):
     class Meta:
         model = CustomerReview
         fields = "__all__"
+        widgets = {
+            'productReview': TextInput( attrs={ 'class': 'form-control'} ),
+            'reviewDate': DateInput(),
+        }
+
+

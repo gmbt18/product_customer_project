@@ -3,7 +3,7 @@
 {% load static %}
 {% load mathfilters %}
 <link rel="stylesheet" href={% static 'css/catalogProduct.css' %}>
-<div class="modal fade" id="productComplaintModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productComplaintModalLabel" aria-hidden="true">
+<div class="modal product-complaint-modal fade" id="productComplaintModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productComplaintModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -11,11 +11,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <p class="complaint-product-name fw-bold"></p>
         <p class="text-center lead fw-bold mb-1">Reason for Complaint</p>
-        <select class="form-select">
-          <option value="1" selected>Product Condition</option>
-          <option value="2">Misleading Info</option>
-          <option value="3">Pornography</option>
+        <select class="form-select product-complaint-select">
+          <option value="productCondition" selected>Product Condition</option>
+          <option value="misleadingInfo">Misleading Info</option>
+          <option value="pornography">Pornography</option>
         </select>
         <div class="overflow-hidden mt-2">
           <label for="complaintComments" class="form-label">Complaint Comments</label>
@@ -35,9 +36,9 @@
       <div class="product-catalog-view-contents default-border container-fluid d-flex pt-2 pb-4">
         <div class="left-div col-lg-2 d-flex flex-column">
           <div class="customer-flag-info-div container-fluid position-relative d-flex justify-content-center">
-            <div class="top-left-details position-absolute d-flex flex-column align-items-center mt-3">
+            <div class="top-left-details position-absolute d-flex flex-column justify-content-center align-items-center mt-3">
               <p class="fs-3 fw-bold mt-3 mb-0">SellPoint</p>
-              <p class="fs-4">Audio</p>
+              <p class="curr-category fs-4 mb-0">Audio</p>
               <p class="fs-4">Category</p>
             </div>
             <img 
@@ -45,110 +46,176 @@
               class="left-flag"
             />
           </div>
+          <p class="text-center fs-4 fw-bold mt-2">SEARCH FILTER</p>
           <div class="search-filter sticky-top ms-3">
-            <p class="text-center fs-4 fw-bold mt-2">SEARCH FILTER</p>
             <p class="text-start fs-5 fw-bold mb-0">By Category</p>
             <div class="filter-categories d-flex flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" type="radio"  checked name="categoryRadio" id="audioRadio">
+                <input class="form-check-input" value="audio" type="radio"  name="categoryRadio" id="audioRadio" checked>
                 <label class="form-check-label" for="audioRadio">
                   Audio
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="categoryRadio" id="babiesAndKidsRadio">
-                <label class="form-check-label" for="babiesAndKidsRadio">
-                  Babies & Kids
+                <input class="form-check-input" value="clothes" type="radio" name="categoryRadio" id="clothesRadio">
+                <label class="form-check-label" for="clothesRadio">
+                  Clothes
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="categoryRadio" id="camerasRadio">
-                <label class="form-check-label" for="camerasRadio">
-                  Cameras
+                <input class="form-check-input" value="shoes" type="radio" name="categoryRadio" id="shoesRadio">
+                <label class="form-check-label" for="shoesRadio">
+                  Shoes
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="categoryRadio" id="digitalGoodsAndVouchersRadio">
-                <label class="form-check-label" for="digitalGoodsAndVouchersRadio">
-                  Digital Goods & Vouchers
+                <input class="form-check-input" value="tech" type="radio" name="categoryRadio" id="techRadio">
+                <label class="form-check-label" for="techRadio">
+                  Tech
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="categoryRadio" id="gamingRadio">
-                <label class="form-check-label" for="gamingRadio">
-                  Gaming
+                <input class="form-check-input" value="accessories" type="radio" name="categoryRadio" id="accessoriesRadio">
+                <label class="form-check-label" for="accessoriesRadio">
+                  Accessories
                 </label>
               </div>
-              <span id="showMoreCategories">Show More Categories</span>
-            
-              <!-- Define the text that would be 
-                  hidden by default and only shown 
-                  when clicked on the button -->
-              <span id="hiddenCategories"> 
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="categoryRadio" id="groceriesRadio">
-                  <label class="form-check-label" for="groceriesRadio">
-                    Groceries
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="categoryRadio" id="healthAndPersonalCareRadio">
-                  <label class="form-check-label" for="healthAndPersonalCareRadio">
-                    Health & Personal Care
-                  </label>
-                </div>
-              </span>
             </div>
             <p class="text-start fs-5 fw-bold mb-0">By Subcategory</p>
-            <div class="filter-subcategories d-flex flex-column ms-4">
+            <div class="audio-filter-subcategories d-flex flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" type="check" id="speakersCheck">
+                <input class="form-check-input" value="speakers" type="checkbox" id="speakersCheck">
                 <label class="form-check-label" for="speakersCheck">
                   Speakers
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="check" id="earphonesHeadphonesAndHeadSetsCheck">
-                <label class="form-check-label" for="earphonesHeadphonesAndHeadSetsCheck">
-                  Earphones, Headphones & Headsets
+                <input class="form-check-input" value="headsets" type="checkbox" id="headsetsCheck">
+                <label class="form-check-label" for="headsetsCheck">
+                  Headsets
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="check" id="microphonesCheck">
+                <input class="form-check-input" value="microphones" type="checkbox" id="microphonesCheck">
                 <label class="form-check-label" for="microphonesCheck">
                   Microphones
                 </label>
               </div>
+            </div>
+            <div class="clothes-filter-subcategories d-none flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" type="check" id="amplifiersAndMixersCheck">
-                <label class="form-check-label" for="amplifiersAndMixersCheck">
-                  Amplifiers & Mixers
+                <input class="form-check-input" value="menUpper" type="checkbox" id="menUpperCheck">
+                <label class="form-check-label" for="menUpperCheck">
+                  Men Upper
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="check" id="AVReceiversCheck">
-                <label class="form-check-label" for="AVReceiversCheck">
-                  AV Receivers
+                <input class="form-check-input" value="menLower" type="checkbox" id="menLowerCheck">
+                <label class="form-check-label" for="menLowerCheck">
+                  Men Lower
                 </label>
               </div>
-              <span id="showMoreSubcategories">Show More Subcategories</span>
-            
-              <!-- Define the text that would be 
-                  hidden by default and only shown 
-                  when clicked on the button -->
-              <span id="hiddenSubcategories"> 
-                <div class="form-check">
-                  <input class="form-check-input" type="check" id="homeTheatherSystemsCheck">
-                  <label class="form-check-label" for="homeTheatherSystemsCheck">
-                    Home Theather Systems
-                  </label>
-                </div>
-              </span>
+              <div class="form-check">
+                <input class="form-check-input" value="menUnderwear" type="checkbox" id="menUnderwearCheck">
+                <label class="form-check-label" for="menUnderwearCheck">
+                  Men Underwear
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="womenUpper" type="checkbox" id="womenUpperCheck">
+                <label class="form-check-label" for="womenUpperCheck">
+                  Women Upper
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="womenLower" type="checkbox" id="womenLowerCheck">
+                <label class="form-check-label" for="womenLowerCheck">
+                  Women Lower
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="womenUnderwear" type="checkbox" id="womenUnderwearCheck">
+                <label class="form-check-label" for="womenUnderwearCheck">
+                  Women Underwear
+                </label>
+              </div>
+            </div>
+            <div class="shoes-filter-subcategories d-none flex-column ms-4">
+              <div class="form-check">
+                <input class="form-check-input" value="menShoes" type="checkbox" id="menShoesCheck">
+                <label class="form-check-label" for="menShoesCheck">
+                  Men Shoes
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="womenShoes" type="checkbox" id="womenShoesCheck">
+                <label class="form-check-label" for="womenShoesCheck">
+                  Women Shoes
+                </label>
+              </div>
+            </div>
+            <div class="tech-filter-subcategories d-none flex-column ms-4">
+              <div class="form-check">
+                <input class="form-check-input" value="smartphones" type="checkbox" id="smartphonesCheck">
+                <label class="form-check-label" for="smartphonesCheck">
+                  Smartphones
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="desktops" type="checkbox" id="desktopsCheck">
+                <label class="form-check-label" for="desktopsCheck">
+                  Desktops
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="laptops" type="checkbox" id="laptopsCheck">
+                <label class="form-check-label" for="laptopsCheck">
+                  Laptops
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="cameras" type="checkbox" id="camerasCheck">
+                <label class="form-check-label" for="camerasCheck">
+                  Cameras
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="tvs" type="checkbox" id="tvsCheck">
+                <label class="form-check-label" for="tvsCheck">
+                  TVs
+                </label>
+              </div>
+            </div>
+            <div class="accessories-filter-subcategories d-none flex-column ms-4">
+              <div class="form-check">
+                <input class="form-check-input" value="watches" type="checkbox" id="watchesCheck">
+                <label class="form-check-label" for="watchesCheck">
+                  Watches
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="glasses" type="checkbox" id="glassesCheck">
+                <label class="form-check-label" for="glassesCheck">
+                  Glasses
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="bags" type="checkbox" id="bagsCheck">
+                <label class="form-check-label" for="bagsCheck">
+                  Bags
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="jewelry" type="checkbox" id="jewelryCheck">
+                <label class="form-check-label" for="jewelryCheck">
+                  Jewelry
+                </label>
+              </div>
             </div>
             <p class="text-start fs-5 fw-bold mb-0">By Ratings</p>
             <div class="filter-ratings d-flex flex-column ms-4">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="ratingsRadio" id="fiveStarsRadio">
+                <input class="form-check-input" type="radio" value="5" name="ratingsRadio" id="fiveStarsRadio">
                 <label class="form-check-label" for="fiveStarsRadio">
                   <div class="filter-rating d-flex justify-content-center">
                     <i class="fa fa-star"></i>
@@ -160,7 +227,7 @@
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="ratingsRadio" id="fourStarsRadio">
+                <input class="form-check-input" type="radio" value="4" name="ratingsRadio" id="fourStarsRadio">
                 <label class="form-check-label" for="fourStarsRadio">
                   <div class="filter-rating d-flex justify-content-center">
                     <i class="fa fa-star"></i>
@@ -172,7 +239,7 @@
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="ratingsRadio" id="threeStarsRadio">
+                <input class="form-check-input" type="radio" value="3" name="ratingsRadio" id="threeStarsRadio">
                 <label class="form-check-label" for="threeStarsRadio">
                   <div class="filter-rating d-flex justify-content-center">
                     <i class="fa fa-star"></i>
@@ -184,7 +251,7 @@
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="ratingsRadio" id="twoStarsRadio">
+                <input class="form-check-input" type="radio" value="2" name="ratingsRadio" id="twoStarsRadio">
                 <label class="form-check-label" for="twoStarsRadio">
                   <div class="filter-rating d-flex justify-content-center">
                     <i class="fa fa-star"></i>
@@ -196,7 +263,7 @@
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="ratingsRadio" id="oneStarRadio" checked>
+                <input class="form-check-input" type="radio" value="1" name="ratingsRadio" id="oneStarRadio">
                 <label class="form-check-label" for="oneStarRadio">
                   <div class="filter-rating d-flex justify-content-center">
                     <i class="fa fa-star"></i>
@@ -205,6 +272,41 @@
                     <i class="fa-regular fa-star"></i>
                     <i class="fa-regular fa-star"></i>
                   </div>
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" value="0" name="ratingsRadio" id="zeroStarsRadio" checked>
+                <label class="form-check-label" for="zeroStarsRadio">
+                  <div class="filter-rating d-flex justify-content-center">
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                  </div>
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" value="0-1" name="ratingsRadio" id="lowStarsRadio">
+                <label class="form-check-label" for="lowStarsRadio">0-1 Stars</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" value="no" name="ratingsRadio" id="noStarsRadio">
+                <label class="form-check-label" for="oneStarRadio">No Ratings</label>
+              </div>
+            </div>
+            <p class="text-start fs-5 fw-bold mb-0">By Complaints</p>
+            <div class="filter-price d-flex flex-column ms-4">
+              <div class="form-check">
+                <input class="form-check-input" value="noComplaints" type="checkbox" id="noComplaintsCheck" checked>
+                <label class="form-check-label" for="noComplaintsCheck">
+                  No Complaints
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value="hasComplaints" type="checkbox" id="hasComplaintsCheck" checked>
+                <label class="form-check-label" for="hasComplaintsCheck">
+                  Has Complaints
                 </label>
               </div>
             </div>
@@ -217,7 +319,7 @@
               <div>
                 <input type="number" class="form-control" id="maxPriceField" value="9999999">
               </div>
-              <button type="button" class="btn btn-dark mt-2">Apply Pricing Filter</button>
+              <button type="button" class="apply-pricing-filter-btn btn btn-dark mt-2">Apply Pricing Filter</button>
             </div>
           </div>
         </div>
@@ -232,64 +334,55 @@
           </div>
           <div class="right-div-contents col-lg-11 d-flex flex-column align-items-start">
             <div class="d-inline-flex mt-4 ms-0 ps-0">
-              <span class="fs-5 fw-bold">Sort By</span>
-              <div class="dropdown">
-                <button class="btn btn-dark dropdown-toggle ms-3" type="button" id="popularityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  Popularity
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="popularityDropdown">
-                  <li><a class="dropdown-item" onclick="">Descending</a></li>
-                  <li><a class="dropdown-item" onclick="">Ascending</a></li>
-                </ul>
+              <span class="fs-5 fw-bold me-3">Sort By</span>
+              <select id="sortSelect" class="form-select btn btn-dark dropdown-toggle text-start" style="width: auto;">
+                <option value="dateAddedDescending">Date Added - Latest to Oldest</option>
+                <option value="dateAddedAscending" selected>Date Added - Oldest to Latest</option>
+                <option value="popularityDescending">Popularity - Highest to Lowest</option>
+                <option value="popularityAscending">Popularity - Lowest to Highest</option>
+                <option value="discountDescending">Discount - Highest to Lowest</option>
+                <option value="discountAscending">Discount - Lowest to Highest</option>
+                <option value="ratingDescending">Rating - Highest to Lowest</option>
+                <option value="ratingAscending">Rating - Lowest to Highest</option>
+                <option value="priceDescending">Price - Highest to Lowest</option>
+                <option value="priceAscending">Price - Lowest to Highest</option>
+              </select>
+              <div class="d-flex ms-3">
+                <input type="text" id="searchProductsField" class="form-control me-2" placeholder="Search Products" aria-label="Search">
+                <button type="button" class="search-products-btn btn btn-dark">Search</button>
               </div>
-              <div class="dropdown">
-                <button class="btn btn-dark dropdown-toggle ms-3" type="button" id="salesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  Sales
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="salesDropdown">
-                  <li><a class="dropdown-item" onclick="">Descending</a></li>
-                  <li><a class="dropdown-item" onclick="">Ascending</a></li>
-                </ul>
-              </div>
-              <div class="dropdown">
-                <button class="btn btn-dark dropdown-toggle ms-3" type="button" id="ratingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  Rating
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="ratingsDropdown">
-                  <li><a class="dropdown-item" onclick="">Descending</a></li>
-                  <li><a class="dropdown-item" onclick="">Ascending</a></li>
-                </ul>
-              </div>
-              <form class="d-flex ms-3">
-                <input class="form-control me-2" type="search" placeholder="Search Products" aria-label="Search">
-                <button class="btn btn-dark" type="submit">Search</button>
-              </form>
             </div>
-            <div class="d-flex flex-wrap">
-              {% for product in products %}
-              <div class="product-card card mt-3 me-3" style="width: 20%;">
-                <img src="https://wallpaperaccess.com/full/1285952.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h6 class="card-title">{{ product.name }}</h6>
-                  <div class="price-complaints-div d-flex justify-content-between">
+            <div class="audio-cat-products speakers-sub-products products-group container-fluid d-flex flex-wrap">
+            {% for product in products %}
+              {% if product.category == "speakers" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
                     <div class="price-div d-flex">
                       {% if product.discount == 0 %}
-                      <p class="original-price card-text">₱{{ product.sellingprice }}</p>
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
                       {% else %}
-                      <p class="original-price card-text"><s>₱{{ product.sellingprice }}</s></p>
-                      <p class="discounted-price card-text ms-2" style="color: orange;">P{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
                       {% endif %}
                     </div>
                     <div class="dropdown">
                       <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="complaints-dropdown dropdown-menu">
                         <li class="text-center fw-bold">Report Product</li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
                       </ul>
                     </div>
                   </div>
@@ -302,7 +395,7 @@
                         <i class="fa-regular fa-star"></i>
                         <i class="fa-regular fa-star"></i>
                       </div>
-                      <div class="full-stars" style="width:70%">
+                      <div class="full-stars">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -311,24 +404,1187 @@
                       </div>
                     </div>
                   </div>
-                  <p class="address card-text text-center">Metro Manila</p>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
                 </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
               </div>
-              {% endfor %}
+              {% endif %}
+            {% endfor %}
             </div>
-            <div class="d-inline-flex mt-4 ms-0 ps-0">
+            <div class="audio-cat-products headsets-sub-products products-group container-fluid d-flex flex-wrap">
+            {% for product in products %}
+              {% if product.category == "headsets" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="audio-cat-products microphones-sub-products products-group container-fluid d-flex flex-wrap">
+            {% for product in products %}
+              {% if product.category == "microphones" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="clothes-cat-products men-upper-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "menUpper" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="clothes-cat-products men-lower-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "menLower" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="clothes-cat-products men-underwear-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "menUnderwear" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="clothes-cat-products women-upper-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "womenUpper" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="clothes-cat-products women-lower-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "womenLower" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="clothes-cat-products women-underwear-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "womenUnderwear" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="shoes-cat-products men-shoes-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "menShoes" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="shoes-cat-products women-shoes-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "womenShoes" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="tech-cat-products smartphones-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "smartphones" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="tech-cat-products desktops-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "desktops" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="tech-cat-products laptops-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "laptops" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="tech-cat-products cameras-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "cameras" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="tech-cat-products tvs-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "tvs" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="accessories-cat-products watches-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "watches" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="accessories-cat-products glasses-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "glasses" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="accessories-cat-products bags-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "bags" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <div class="accessories-cat-products jewelry-sub-products products-group container-fluid d-none flex-wrap">
+            {% for product in products %}
+              {% if product.category == "jewelry" %}
+              <div class="product-card position-relative d-flex flex-column card mt-3 me-3" style="width: 22%;">
+                {% if not product.discount == 0 %}
+                <p class="product-discount position-absolute bg-dark text-white end-0 px-3 mt-2" style="opacity: 0.8;">-{{product.discount|floatformat:0}}%</p>
+                {% endif %}
+                <img src="{{product.photo}}" class="card-img-top">
+                <div class="card-body d-flex flex-column justify-content-end">
+                  <a class="product-name text-decoration-none card-title text-dark fs-6" href="{% url 'detailedProduct' product.id %}">
+                    {{ product.name }}
+                  </a>
+                  <div class="price-complaints-div d-flex justify-content-between py-0">
+                    <div class="price-div d-flex">
+                      {% if product.discount == 0 %}
+                      <p class="original-price card-text mb-0">₱{{ product.sellingprice }}</p>
+                      {% else %}
+                      <p class="original-price card-text mb-0"><s>₱{{ product.sellingprice }}</s></p>
+                      <p class="discounted-price card-text ms-2 mb-0" style="color: orange;">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="dropdown">
+                      <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul class="complaints-dropdown dropdown-menu">
+                        <li class="text-center fw-bold">Report Product</li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="product-condition-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Product Condition</a></li>
+                        <li><a class="misleading-info-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Misleading Info</a></li>
+                        <li><a class="pornography-complaint dropdown-item" data-bs-toggle="modal" data-bs-target="#productComplaintModal">Pornography</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ratings-div d-flex justify-content-center">
+                    <div class="ratings">
+                      <div class="empty-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </div>
+                      <div class="full-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="product-category text-center fs-6 mb-0">{{product.category}}</p>
+                </div>
+                <span class="product-id d-none">{{product.id}}</span>
+                <span class="product-rating d-none">{{product.getRatings}}</span>
+                <span class="product-complaints-count d-none">{{product.complaintsCount}}</span>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+            <!-- <div class="d-inline-flex mt-4 ms-0 ps-0">
               <span class="fs-5 fw-bold me-3">Visit Page</span>
               <button type="button" class="btn btn-dark me-3">1</button>
               <button type="button" class="btn btn-outline-dark me-3">2</button>
               <button type="button" class="btn btn-outline-dark me-3">3</button>
               <button type="button" class="btn btn-outline-dark me-3">4</button>
               <button type="button" class="btn btn-outline-dark me-3">5</button>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<script type="text/javascript" src="{% static 'data/products.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/catalogProduct.js' %}"></script>
 {% endblock content %}

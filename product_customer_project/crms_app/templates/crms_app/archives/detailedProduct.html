@@ -1,0 +1,321 @@
+{% extends 'crms_app/main.html' %}
+{% block content %}
+{% load static %}
+{% load mathfilters %}
+<link rel="stylesheet" href={% static 'css/detailedProduct.css' %}>
+<div class="app container-fluid">
+  <div class="app-contents container">
+    <div class="detailed-product-view container-fluid py-2">
+      <div class="detailed-product-view-contents default-border container-fluid d-flex pt-2 pb-4">
+        <div class="row">
+          <div class="left-div col-lg-5 m-3 d-flex flex-column">
+            <div class="d-flex flex-wrap">
+              <div class="product-img mt-3 me-3 bg-secondary p-4 pb-0">
+                <div class="text-center"> 
+                  <img class="main-image mb-3" src="{{photos.0.filename}}" /> 
+                </div>
+                <div class="thumbnail text-center"> 
+                  <!-- JavaScript still not added -->
+                  <!-- <img onclick="change_image(this)" src="https://wallpaperaccess.com/full/1285952.jpg" width="20%">  
+                  <img onclick="change_image(this)" src="https://wallpaperaccess.com/full/1285952.jpg" width="20%">  -->
+                  <div id="smallImgsCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                      <div class="carousel-item active" data-bs-interval="10000">
+                        <div class="col-lg-3 m-0 p-0" style="height: 75px;">
+                          <img src="{{photos.0.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                        </div>
+                      </div>
+                      {% for photo in photos %}
+                        {% if not forloop.first %}
+                        <div class="carousel-item" data-bs-interval="10000">
+                          <div class="col-lg-3 m-0 p-0" style="height: 75px;">
+                          <img src="{{photo.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                          </div>
+                        </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#smallImgsCarousel" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#smallImgsCarousel" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="right-div col-lg position-relative d-flex justify-content-left">
+            <div class="mt-3 mb-3"> 
+              {% if not product.discount == 0 %}
+              <span class="text-uppercase text-muted">【Discounted】</span>
+              {% endif %}
+              <h5 class="text-uppercase">{{product.name}}</h5>                              <!-- NAME -->
+              <!-- <div class="rating d-flex m-2">
+                <u class="rating fw-bold" style="padding-right: 4px;">{{product.rating}}</u>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div> -->
+              <div class="ratings-div d-flex">
+                <div class="ratings me-2">
+                  <div class="empty-stars">
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                  </div>
+                  <div class="full-stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                </div>
+                <span class="product-rating fs-6">{{product.ratings}}</span>
+              </div>
+              <div class="price d-flex flex-row align-items-center">          
+                {% if product.discount == 0 %}
+                <p class="dis-price me-2">₱{{product.sellingprice}}</p> 
+                {% else %}
+                <del class="dis-price me-2 text-muted">₱{{product.sellingprice}}</del>
+                <span class="act-price fw-bold me-2">₱{{ product.discount|div:100|sub:1|abs|mul:product.sellingprice|floatformat:2 }}</span>
+                {% endif %}
+                <small class="discount bg-dark text-white" style="padding: 1px ; padding-left: 4px; padding-right: 4px;">{{product.discount}}% OFF</small> 
+              </div>
+              <div class="text-justify col-lg-10">
+                <p class="brief-description ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+              </div>
+                <h5 class="text-uppercase text-muted mt-2">Stocks Left: {{product.stocks}}</h5> 
+                <!-- <h5 class="text-uppercase text-muted mt-2">Options</h5>  -->
+                <!-- <div class="options text-uppercase">
+                  <label class="btn btn-dark radio active px-1"> <input type="radio" name="type" value="1" autocomplete="off" checked> <span>Bluetooth 2.0</span> </label> 
+                  <label class="btn btn-dark radio px-1"> <input type="radio" name="type" value="2" autocomplete="off"> <span>Bluetooth 3.0</span> </label> 
+                  <label class="btn btn-dark radio px-1"> <input type="radio" name="type" value="3" autocomplete="off">  <span>Bluetooth 4.0</span> </label> 
+                </div> -->
+                <h5 class="text-uppercase text-muted mt-3">Quantity</h5> 
+                <div class="quantity-div d-inline-flex col-lg-4">
+                  <div class="input-group">
+                    <span class="input-group-btn">
+                      <button id="quantityMinusBtn" class="quantity-left-minus btn btn-dark btn-number" type="button" data-type="minus" data-field="" style="border-radius: 5px 0 0 5px;">
+                        <span class="fa fa-minus"></span>
+                      </button>
+                    </span>
+                    <!-- JavaScript still not added -->
+                    <input id="quantityField" class="quantity form-control input-number text-center" type="text" value="1" min="1" max="100">
+                    <span class="input-group-btn">
+                      <button id="quantityAddBtn" class="quantity-right-plus btn btn-dark btn-number" type="button" data-type="plus" data-field="" style="border-radius: 0 5px 5px 0;">
+                        <span class="fa fa-plus"></span>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <!-- <div class="cart align-items-center mt-3"> 
+                  <button class="btn btn-dark text-uppercase"><span class="fa fa-shopping-cart px-1"></span>Add to cart</button> 
+                  <button class="btn btn-dark text-uppercase">buy now</button> 
+                </div>   -->
+              </div>
+            <!-- right div -->
+          </div>
+          <!-- row -->
+          <div class="row mt-3">
+            <div class="col-lg product-info">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active text-uppercase" href="#descriptionTab" id="descriptionNav" data-bs-toggle="tab" role="tab" aria-controls="descriptionTab" aria-selected="true">product description</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-uppercase" href="#reviewsTab" id="reviewsNav" data-bs-toggle="tab" role="tab" aria-controls="reviewsTab" aria-selected="false">product reviews</a>
+                </li>
+              </ul>
+              <div class="product-description tab-content" id="myTabContent">
+                <div class="tab-pane fade p-4 show active" id="descriptionTab" role="tabpanel" aria-labelledby="description-tab">
+                  <div class="tab-pane-contents d-flex flex-column p-4">
+                    <p class="fs-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor libero sit amet felis accumsan, nec auctor nulla fermentum. Praesent sem arcu, laoreet ac pharetra porta, laoreet quis nisl. Nam vitae nisi augue. Sed maximus nulla vel enim volutpat semper. Etiam turpis mi, gravida eu ullamcorper vitae, hendrerit sed massa. Vestibulum imperdiet, sapien in tincidunt dignissim, libero dolor congue quam, eget condimentum tortor lectus eget elit. Praesent finibus enim non mauris mollis, nec dictum nibh elementum. Praesent neque velit, viverra porttitor blandit sed, porta lobortis quam. Quisque et sem scelerisque, vehicula nisi in, vestibulum nibh. Sed egestas tellus sit amet volutpat dictum. Cras sollicitudin massa diam, accumsan rhoncus mi eleifend ut. Nullam in massa egestas, molestie ligula in, egestas arcu. Phasellus vel porta leo.</p>
+                    <h3>Product Features:</h3>
+                    <ul>
+                      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+                      <li>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</li>
+                      <li>Phasellus id purus posuere, cursus mi sed, ullamcorper libero</li>
+                    </ul>
+                    <h3 class="mb-3">Product Photos:</h3>
+                    <div id="largeImgsCarousel" class="carousel slide" data-bs-ride="carousel">
+                      <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                          <div class="col-lg-3 m-0 p-0" style="height: 250px;">
+                            <img src="{{photos.0.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                          </div>
+                        </div>
+                        {% for photo in photos %}
+                          {% if not forloop.first %}
+                          <div class="carousel-item" data-bs-interval="10000">
+                            <div class="col-lg-3 m-0 p-0" style="height: 250px;">
+                            <img src="{{photo.filename}}" class="img-fluid" style="object-fit: cover; width: 90%; height: 100%;">
+                            </div>
+                          </div>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#largeImgsCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#largeImgsCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade p-4" id="reviewsTab" role="tabpanel" aria-labelledby="reviews-tab">
+                  <div class="tab-pane-contents d-flex flex-column p-4">
+                    <form class="review-form container-fluid d-flex" action="" method="POST" onsubmit="return false;">
+                      <div class="review-customer-img-div col-lg-2 p-4 pt-0">  
+                      {% if not customerInformation.picture == None or customerInformation.picture|length == 0 %}
+                      <img
+                        src="{{customerInformation.picture.url}}"
+                        class="review-customer-img"
+                        style="width: 120px; height: 120px; object-fit: cover;" 
+                      />
+                      {% else %}
+                      <img
+                        src="{% static 'media/profile-placeholder.png' %}"
+                        class="review-customer-img"
+                        style="width: 120px; height: 120px; object-fit: cover;"
+                      >
+                      {% endif %}
+                      </div>
+                      <div class="review-right-div col-lg-10 d-flex flex-column">
+                        <div class="review-top-input d-flex">
+                          <span class="fs-6 fw-bold me-2 mb-2">{{customerInformation.name}}</span>
+                          <div class="ratings-div d-flex">
+                            <div class="ratings me-2">
+                              <div class="empty-stars input-empty-stars">
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                              </div>
+                              <div class="full-stars input-full-stars">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <span class="date-today fs-6 fw-bold"></span>
+                        </div>
+                        <input type="text" name="productReview" class="form-control mb-2" placeholder="Leave a comment here!">
+                        <div class="d-flex">
+                          <button type="button" class="submit-review-btn btn btn-dark">Submit Review</button>
+                        </div>
+                      </div>
+                      <input type="text" name="customer" value="{{customerInformation.name}}" id="customerField" class="d-none">
+                      <input type="text" name="product" value="{{product.name}}" id="productField" class="d-none">
+                      <input type="number" name="rating" value="0" id="ratingField" class="d-none">
+                    </form>
+                    <div class = "row">
+                      {% for message in messages %}
+                      {% if 'success' == message.tags %}
+                        <!-- Alert Box -->
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <strong>Success!</strong> {{message | striptags}}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                    <br><br><br>
+                    <div class="row">
+                      COMPLAINT HERE
+                      <a>Submit Complaint</a>
+                    </div>
+                    <br><br><br>
+                    <div class="row">
+                      REVIEW HERE
+                    </div>
+                    {% if isRegistered %}
+                    <!-- Insert Review HERE -->
+                    <div class="container">
+                      <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                          {{reviewForm.customer}}
+                          <label for="floatingInput">Enter customer: {{request.user}}</label>
+                        </div> 
+                        <br>
+                        <div class="form-floating mb-3">
+                          {{reviewForm.product}}
+                          <label for="floatingInput">Enter product {{product.name}}</label>
+                        </div> 
+                        <div class="form-floating mb-3">
+                          {{reviewForm.rating}}
+                          <label for="floatingInput">Enter rating</label>
+                        </div> 
+                        <div class="form-floating mb-3">
+                          {{reviewForm.reviewDate}}
+                          <label for="floatingInput">Enter reviewDate </label>
+                        </div> 
+                        <div class="form-floating mb-3">
+                          {{reviewForm.productReview}}
+                          <label for="floatingInput">Enter productReview</label>
+                        </div> 
+                        <center>
+                          <!-- DYNAMICALLY CHANGE URL -->
+                            <div class="d-grid gap-2">
+                              <button type="submit" class="btn btn-outline-success">
+                                <i class="fa-solid fa-arrow-right-long"></i>
+                                Submit Review
+                              </button>
+                            </div>
+                        </center>
+                      </form>
+                    </div>
+                    {% endif %}
+                    <br><br>
+                    <div>
+                      <h1>REVIEW PAGE </h1>
+                      <h2> There are {{reviewNum}} reviews</h2>
+                      <h2> Average rating is {{mean_rating}} stars</h2>
+                    </div>
+                    <br><br><br>
+                    <div>
+                      <!-- Review Section -->
+                      {% if reviewNum != 0 %}
+                        {% for review in reviews %}
+                          <div>{{review.user}}</div>
+                          <br>
+                          <div>{{review.rating}}</div>
+                          <br>
+                          <div>{{review.productReview}}</div>
+                          <br>
+                          {% if review.customer == request.user %}
+                          <div>
+                            <a href="{% url 'removeReview' review.id %}"> Remove Review</a>
+                          </div>
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+<div>
+<script type="text/javascript" src="{% static 'js/detailedProduct.js' %}"></script>
+{% endblock content %}

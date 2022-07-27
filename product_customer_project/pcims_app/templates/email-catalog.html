@@ -1,0 +1,49 @@
+<html>
+<body>
+    <h1>Hey there!</h1>
+    <h2>We have a new collection you might be interested in.</h2>
+    <div>
+        <h3>{{catalog.name}}</h3>
+        <hr>
+        <p>{{catalog.detail}}</p>
+        <br>
+
+        <h3>Products</h3>
+        
+        <table style="width:100%;border:0px;padding:3 3 3 3;">
+            <thead style="background-color:#EEEEEE">
+                <th style="width:35%">Name</th>
+                <th style="width:auto">Ratings</th>
+                <th style="width:auto">Category</th>
+                <th style="width:auto">Selling price</th>
+                <th style="width:40%">Reviews</th>
+            </thead>
+            {% for product in productArray %}
+            <tr style="margin-bottom:10px;">
+                <td>{{product.0.name}}</td>
+                <td>{{product.0.rating}}</td>
+                <td>{{product.0.category}}</td>
+                <td>P{{product.0.sellingprice}}</td>
+                <td>
+                    {% for review in product.1 %}
+                    <ul style="
+                        list-style-type:none;
+                        margin:0;
+                        padding:0;
+                    ">
+                        <li><b>{{review.reviewer}}</b></li>
+                        <li><i style="color:yellow">&#9733;</i>{{review.rating}}</li>
+                        <li><small>{{review.details}}</small></li>
+                    </ul>
+                    {% endfor %}
+                </td>
+            </tr>
+            <br>
+            {% endfor %}
+        </table>
+
+        <p>We'd love to hear back from you!</p>
+
+    </div>
+</body>
+</html>

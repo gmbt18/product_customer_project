@@ -30,6 +30,11 @@ a.dropdown-item:hover {
   height: 90px;
 }
 
+.card-img-top {
+  height: 116px;
+  object-fit: cover;
+}
+
 /*
   css adapted from and credits to
   https://stackoverflow.com/a/33858727
